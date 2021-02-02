@@ -102,7 +102,6 @@ okular
 openssh
 openvpn
 os-prober
-osync
 packettracer
 pacman
 par
@@ -130,6 +129,7 @@ spotify
 spotifywm-git
 sshfs
 sudo
+syncthing
 system-config-printer
 teamspeak3
 texinfo

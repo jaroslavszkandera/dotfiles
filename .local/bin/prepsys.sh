@@ -83,7 +83,7 @@ service_enable () {
            slock@jirik.service
 	root_exit=$?
 
-	systemctl --user enable psd.service mpd.service
+	systemctl --user enable psd.service mpd.service syncthing.service
 	user_exit=$?
 
 	return $((root_exit > user_exit ? root_exit : user_exit))
