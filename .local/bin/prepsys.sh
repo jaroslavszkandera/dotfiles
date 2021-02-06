@@ -73,6 +73,7 @@ service_enable () {
 	# Bluetooth
 	# Cron
 	# Firefox profile in memory
+	# Lock screen after suspend
 
 	sudo systemctl enable             \
 	     org.cups.cupsd.socket        \
@@ -83,7 +84,7 @@ service_enable () {
            slock@jirik.service
 	root_exit=$?
 
-	systemctl --user enable psd.service mpd.service syncthing.service
+	systemctl --user enable psd.service mpd.service syncthing.service geoclue-agent.service
 	user_exit=$?
 
 	return $((root_exit > user_exit ? root_exit : user_exit))
