@@ -3,14 +3,11 @@
 
 for file in "$@"; do
 	(
-	NEWDIR="$(basename "$file" | sed -E 's/\..+//')"
-	mkdir "$NEWDIR" || exit
-	cd "$NEWDIR" || exit
+	NEWDIR="$(basename "${file%.*}")"
+	mkdir "$NEWDIR" && cd "$NEWDIR" || exit
 
-	if ! archive-extract-here "$file"
-	then
-		cd ../ || exit
-		rm -rf "$NEWDIR" || exit
+	if ! archive-extract-here "$file"; then
+		cd ../ && rm -rf "$NEWDIR" || exit
 	fi
 	) || exit
 done

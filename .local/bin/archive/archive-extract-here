@@ -10,10 +10,7 @@ for file in "$@"; do
 		*.bz2) pbzip2 -d "$file" ;;
 		*.gz) unpigz "$file" ;;
 		*.xz) unxz --threads=0 "$file" ;;
-		*.rar) unrar "$file" ;;
 		*.zip) unzip "$file" ;;
-		*.Z) uncompress "$file" ;;
-		*.7z) 7z "$file" ;;
 		*)
 			echo "Don't know how to extract '$file'" >&2
 			return 1
