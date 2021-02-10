@@ -1,17 +1,6 @@
 #!/bin/bash
 
 
-cleanup () {
-	rm -rf "${archive_name}"
-	exit
-}
-
 suffix='zip'
 . lf-archive-setup "$@" || exit
-
-mkdir "$archive_name" || exit
-for file in "${files[@]}"; do
-	ln -s "$file" "${archive_name}/" || cleanup
-done
-zip -r "${archive_name}.${suffix}" "${archive_name}"
-cleanup
+zip-in-folder "${archive_name}.${suffix}" "${files[@]}"
