@@ -36,3 +36,6 @@ video/webm=mpv.desktop;
 application/x-ipynb+json=firefox.desktop;
 application/msword=libreoffice-writer.desktop;
 audio/mpeg=mpv.desktop;
+video/x-msvideo=mpv.desktop;
+video/mpeg=mpv.desktop;
+audio/x-wav=mpv.desktop;
