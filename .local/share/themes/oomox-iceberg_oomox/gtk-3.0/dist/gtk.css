@@ -81,7 +81,7 @@
   outline-style: dashed;
   outline-width: 1px;
   outline-offset: -1px;
-  outline-radius: 0px; }
+  outline-radius: 2px; }
 
 /*************
  ! Base states
@@ -145,7 +145,7 @@ NemoPathbarButton, column-header, .osd.button, .osd .button,
   padding: 3px 5px;
   border-width: 1px;
   border-style: solid;
-  border-radius: 0px;
+  border-radius: 2px;
   transition: 150ms ease;
   outline-color: transparent;
   -GtkWidget-focus-padding: 1;
@@ -170,7 +170,7 @@ NemoPathbarButton, column-header, .osd.button, .osd .button,
 
 .linked > GtkComboBox:first-child > .button, .selection-mode.header-bar .linked > GtkComboBox:first-child > .button.suggested-action, .selection-mode.toolbar .linked > GtkComboBox:first-child > .button.suggested-action, GtkComboBox.combobox-entry .entry:first-child, GtkComboBox.combobox-entry .button:first-child, GtkComboBox.combobox-entry .selection-mode.header-bar .button.suggested-action:first-child, .selection-mode.header-bar GtkComboBox.combobox-entry .button.suggested-action:first-child, GtkComboBox.combobox-entry .selection-mode.toolbar .button.suggested-action:first-child, .selection-mode.toolbar GtkComboBox.combobox-entry .button.suggested-action:first-child, .button.linked:first-child, .selection-mode.header-bar .linked.button.suggested-action:first-child, .selection-mode.toolbar .linked.button.suggested-action:first-child, .linked .button:first-child, .linked .selection-mode.header-bar .button.suggested-action:first-child, .selection-mode.header-bar .linked .button.suggested-action:first-child, .linked .selection-mode.toolbar .button.suggested-action:first-child, .selection-mode.toolbar .linked .button.suggested-action:first-child {
   border-width: 1px;
-  border-radius: 0px;
+  border-radius: 2px;
   border-left-style: solid;
   border-right-style: none;
   border-top-right-radius: 0;
@@ -181,7 +181,7 @@ NemoPathbarButton, column-header, .osd.button, .osd .button,
 
 .linked > GtkComboBox:last-child > .button, .selection-mode.header-bar .linked > GtkComboBox:last-child > .button.suggested-action, .selection-mode.toolbar .linked > GtkComboBox:last-child > .button.suggested-action, GtkComboBox.combobox-entry .entry:last-child, GtkComboBox.combobox-entry .button:last-child, GtkComboBox.combobox-entry .selection-mode.header-bar .button.suggested-action:last-child, .selection-mode.header-bar GtkComboBox.combobox-entry .button.suggested-action:last-child, GtkComboBox.combobox-entry .selection-mode.toolbar .button.suggested-action:last-child, .selection-mode.toolbar GtkComboBox.combobox-entry .button.suggested-action:last-child, .button.linked:last-child, .selection-mode.header-bar .linked.button.suggested-action:last-child, .selection-mode.toolbar .linked.button.suggested-action:last-child, .linked .button:last-child, .linked .selection-mode.header-bar .button.suggested-action:last-child, .selection-mode.header-bar .linked .button.suggested-action:last-child, .linked .selection-mode.toolbar .button.suggested-action:last-child, .selection-mode.toolbar .linked .button.suggested-action:last-child {
   border-width: 1px;
-  border-radius: 0px;
+  border-radius: 2px;
   border-left-style: none;
   border-right-style: solid;
   border-top-left-radius: 0;
@@ -193,7 +193,7 @@ NemoPathbarButton, column-header, .osd.button, .osd .button,
 .linked > GtkComboBox:only-child > .button, .selection-mode.header-bar .linked > GtkComboBox:only-child > .button.suggested-action, .selection-mode.toolbar .linked > GtkComboBox:only-child > .button.suggested-action, GtkComboBox.combobox-entry .entry:only-child, GtkComboBox.combobox-entry .button:only-child, GtkComboBox.combobox-entry .selection-mode.header-bar .button.suggested-action:only-child, .selection-mode.header-bar GtkComboBox.combobox-entry .button.suggested-action:only-child, GtkComboBox.combobox-entry .selection-mode.toolbar .button.suggested-action:only-child, .selection-mode.toolbar GtkComboBox.combobox-entry .button.suggested-action:only-child, .button.linked:only-child, .selection-mode.header-bar .linked.button.suggested-action:only-child, .selection-mode.toolbar .linked.button.suggested-action:only-child, .linked .button:only-child, .linked .selection-mode.header-bar .button.suggested-action:only-child, .selection-mode.header-bar .linked .button.suggested-action:only-child, .linked .selection-mode.toolbar .button.suggested-action:only-child, .selection-mode.toolbar .linked .button.suggested-action:only-child {
   border-width: 1px;
   border-style: solid;
-  border-radius: 0px; }
+  border-radius: 2px; }
 
 .header-bar .button.linked, .selection-mode.header-bar .linked.button.suggested-action, .header-bar .linked .button, .selection-mode.header-bar .linked .button.suggested-action, .toolbar .button.linked, .selection-mode.toolbar .linked.button.suggested-action, .toolbar .linked .button, .selection-mode.toolbar .linked .button.suggested-action, GtkComboBox.combobox-entry .entry, GtkComboBox.combobox-entry .button, GtkComboBox.combobox-entry .selection-mode.header-bar .button.suggested-action, .selection-mode.header-bar GtkComboBox.combobox-entry .button.suggested-action, GtkComboBox.combobox-entry .selection-mode.toolbar .button.suggested-action, .selection-mode.toolbar GtkComboBox.combobox-entry .button.suggested-action, .button.linked, .linked .button, .linked .selection-mode.header-bar .button.suggested-action, .linked .selection-mode.toolbar .button.suggested-action {
   border-width: 1px;
@@ -448,15 +448,15 @@ NemoPathbarButton, column-header, .osd.button, .osd .button,
     .spinbutton .button:active, .spinbutton .selection-mode.header-bar .button.suggested-action:active, .selection-mode.header-bar .spinbutton .button.suggested-action:active, .spinbutton .selection-mode.toolbar .button.suggested-action:active, .selection-mode.toolbar .spinbutton .button.suggested-action:active, .spinbutton .button:checked, .spinbutton .selection-mode.header-bar .button.suggested-action:checked, .selection-mode.header-bar .spinbutton .button.suggested-action:checked, .spinbutton .selection-mode.toolbar .button.suggested-action:checked, .selection-mode.toolbar .spinbutton .button.suggested-action:checked, .spinbutton .button:hover, .spinbutton .selection-mode.header-bar .button.suggested-action:hover, .selection-mode.header-bar .spinbutton .button.suggested-action:hover, .spinbutton .selection-mode.toolbar .button.suggested-action:hover, .selection-mode.toolbar .spinbutton .button.suggested-action:hover {
       color: #c6c8d1; }
     .spinbutton .button:first-child, .spinbutton .selection-mode.header-bar .button.suggested-action:first-child, .selection-mode.header-bar .spinbutton .button.suggested-action:first-child, .spinbutton .selection-mode.toolbar .button.suggested-action:first-child, .selection-mode.toolbar .spinbutton .button.suggested-action:first-child {
-      border-radius: 0px 0 0 0px;
+      border-radius: 2px 0 0 2px;
       box-shadow: none; }
     .spinbutton .button:last-child, .spinbutton .selection-mode.header-bar .button.suggested-action:last-child, .selection-mode.header-bar .spinbutton .button.suggested-action:last-child, .spinbutton .selection-mode.toolbar .button.suggested-action:last-child, .selection-mode.toolbar .spinbutton .button.suggested-action:last-child {
-      border-radius: 0 0px 0px 0; }
+      border-radius: 0 2px 2px 0; }
     .spinbutton .button:dir(rtl), .spinbutton .selection-mode.header-bar .button.suggested-action:dir(rtl), .selection-mode.header-bar .spinbutton .button.suggested-action:dir(rtl), .spinbutton .selection-mode.toolbar .button.suggested-action:dir(rtl), .selection-mode.toolbar .spinbutton .button.suggested-action:dir(rtl), .spinbutton .linked > GtkComboBox > .button:dir(rtl) {
       box-shadow: inset -1px 0 #0e0f15; }
   .spinbutton.vertical .button, .spinbutton.vertical .selection-mode.header-bar .button.suggested-action, .selection-mode.header-bar .spinbutton.vertical .button.suggested-action, .spinbutton.vertical .selection-mode.toolbar .button.suggested-action, .selection-mode.toolbar .spinbutton.vertical .button.suggested-action {
     border: 1px solid #12131a;
-    border-radius: 0px;
+    border-radius: 2px;
     background-color: #181a24;
     background-image: none;
     color: #c6c8d1;
@@ -520,25 +520,25 @@ GtkComboBox .separator {
   border-left-width: 0; }
   .entry.linked:first-child, .linked .entry:first-child {
     border-width: 1px;
-    border-radius: 0px;
+    border-radius: 2px;
     border-right-width: 0;
     border-bottom-right-radius: 0;
     border-top-right-radius: 0; }
   .entry.linked:last-child, .linked .entry:last-child {
     border-width: 1px;
-    border-radius: 0px;
+    border-radius: 2px;
     border-left-width: 0;
     border-bottom-left-radius: 0;
     border-top-left-radius: 0; }
   .entry.linked:only-child, .linked .entry:only-child {
     border-width: 1px;
-    border-radius: 0px; }
+    border-radius: 2px; }
 
 GtkPopover .entry, .menuitem .entry, .entry {
   padding: 2px 3px;
   border-width: 1px;
   border-style: solid;
-  border-radius: 0px;
+  border-radius: 2px;
   transition: border 150ms ease;
   box-shadow: inset 1px 1px rgba(36, 38, 45, 0.06), inset -1px 0 rgba(36, 38, 45, 0.06); }
   .entry:focus, .entry:hover, .entry:active {
@@ -552,7 +552,7 @@ GtkPopover .entry, .menuitem .entry, .entry {
     background-color: #272c42;
     background-image: none;
     border-width: 0;
-    border-radius: 0px;
+    border-radius: 2px;
     color: #c6c8d1; }
   .image.left.entry {
     padding-right: 3px; }
@@ -910,7 +910,7 @@ GtkPopover .entry, .menuitem .entry, .entry {
 .titlebar {
   background-color: #0f1117;
   background-image: none;
-  border-radius: 0px 0px 0 0;
+  border-radius: 2px 2px 0 0;
   color: #6b7089; }
   .titlebar:backdrop {
     background-color: #161821;
@@ -1460,7 +1460,7 @@ GtkCalendar {
 ****************/
 GtkColorSwatch, GtkColorSwatch:selected {
   border: 1px solid rgba(73, 76, 90, 0.1);
-  border-radius: 0px;
+  border-radius: 2px;
   background-color: transparent;
   background-clip: border-box; }
   GtkColorSwatch:hover, GtkColorSwatch:selected:hover {
@@ -1470,26 +1470,26 @@ GtkColorSwatch.color-light:selected:hover, GtkColorSwatch.color-dark:selected:ho
   background-image: none; }
 
 GtkColorSwatch.left, GtkColorSwatch:first-child {
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px; }
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px; }
 
 GtkColorSwatch.right, GtkColorSwatch:last-child {
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px; }
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px; }
 
 GtkColorSwatch:only-child {
-  border-radius: 0px; }
+  border-radius: 2px; }
 
 GtkColorSwatch.top {
-  border-top-left-radius: 0px;
-  border-top-right-radius: 0px; }
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px; }
 
 GtkColorSwatch.bottom {
-  border-bottom-left-radius: 0px;
-  border-bottom-right-radius: 0px; }
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px; }
 
 GtkColorEditor GtkColorSwatch {
-  border-radius: 0px; }
+  border-radius: 2px; }
   GtkColorEditor GtkColorSwatch.color-dark:hover, GtkColorEditor GtkColorSwatch.color-light:hover {
     background-image: none;
     border-color: rgba(73, 76, 90, 0.3); }
@@ -1571,7 +1571,7 @@ GtkFileChooser {
 
 .grid-child, GtkFlowBox .grid-child {
   padding: 3px;
-  border-radius: 0px; }
+  border-radius: 2px; }
   .grid-child:selected, GtkFlowBox .grid-child:selected {
     outline-offset: -2px; }
 
@@ -1993,25 +1993,25 @@ GtkInfoBar {
   border-left-width: 0; }
   .entry.linked:first-child, .linked .entry:first-child {
     border-width: 1px;
-    border-radius: 0px;
+    border-radius: 2px;
     border-right-width: 0;
     border-bottom-right-radius: 0;
     border-top-right-radius: 0; }
   .entry.linked:last-child, .linked .entry:last-child {
     border-width: 1px;
-    border-radius: 0px;
+    border-radius: 2px;
     border-left-width: 0;
     border-bottom-left-radius: 0;
     border-top-left-radius: 0; }
   .entry.linked:only-child, .linked .entry:only-child {
     border-width: 1px;
-    border-radius: 0px; }
+    border-radius: 2px; }
 
 GtkPopover .entry, .menuitem .entry, .entry {
   padding: 2px 3px;
   border-width: 1px;
   border-style: solid;
-  border-radius: 0px;
+  border-radius: 2px;
   transition: border 150ms ease;
   box-shadow: inset 1px 1px rgba(36, 38, 45, 0.06), inset -1px 0 rgba(36, 38, 45, 0.06); }
   .entry:focus, .entry:hover, .entry:active {
@@ -2025,7 +2025,7 @@ GtkPopover .entry, .menuitem .entry, .entry {
     background-color: #272c42;
     background-image: none;
     border-width: 0;
-    border-radius: 0px;
+    border-radius: 2px;
     color: #c6c8d1; }
   .image.left.entry {
     padding-right: 3px; }
@@ -2172,7 +2172,7 @@ GtkPopover {
   border-color: #0c0e12;
   margin: 10px;
   padding: 3px;
-  border-radius: 0px;
+  border-radius: 2px;
   border-width: 1px;
   border-style: solid;
   background-clip: border-box;
@@ -2219,7 +2219,7 @@ GtkPopover {
       color: #c6c8d1; }
   GtkPopover .frame {
     border-color: #0c0e12;
-    border-radius: 0px; }
+    border-radius: 2px; }
   GtkPopover .entry {
     background-color: #0f1117;
     background-image: none;
@@ -2458,7 +2458,7 @@ GtkModelButton.button, .selection-mode.header-bar GtkModelButton.button.suggeste
   background-color: #161821;
   background-image: none;
   border: 0;
-  border-radius: 0px;
+  border-radius: 2px;
   color: #c6c8d1; }
 
 .tooltip * {
@@ -2482,7 +2482,7 @@ GtkMessageDialog, .message-dialog, .prompt {
   border-style: solid;
   border-color: rgba(12, 14, 18, 0.8);
   border-width: 0 1px 1px;
-  border-radius: 0 0 0px 0px;
+  border-radius: 0 0 2px 2px;
   padding: 6px;
   background-color: rgba(15, 17, 23, 0.8);
   background-image: none;
@@ -2615,7 +2615,7 @@ GtkExpander {
   background-color: #161821;
   background-image: none;
   border: 1px solid #12131a;
-  border-radius: 0px;
+  border-radius: 2px;
   color: #c6c8d1; }
   .floating-bar.top {
     border-top-width: 0;
@@ -2644,7 +2644,7 @@ GtkExpander {
  ! Touch text selections *
 **************************/
 GtkBubbleWindow {
-  border-radius: 0px;
+  border-radius: 2px;
   background-clip: border-box; }
   GtkBubbleWindow.osd.background {
     background-color: rgba(15, 17, 23, 0.8); }
@@ -5440,7 +5440,7 @@ GtkOverlay.osd {
     -GtkToolbar-button-relief: normal;
     padding: 3px;
     border: 1px solid rgba(12, 14, 18, 0.8);
-    border-radius: 0px;
+    border-radius: 2px;
     background-color: rgba(15, 17, 23, 0.8);
     background-image: none;
     color: #6b7089; }
@@ -5526,7 +5526,7 @@ GtkOverlay.osd {
   #XfceNotifyWindow GtkIconView.cell:selected:focus {
     background-color: transparent;
     border: 3px solid mix(rgba(13, 15, 20, 0.8),#6b7089,0.21);
-    border-radius: 0px;
+    border-radius: 2px;
     outline-color: transparent; }
   .osd .page-thumbnail,
   #XfceNotifyWindow .page-thumbnail {
@@ -5668,7 +5668,7 @@ GtkOverlay.osd {
 ******************/
 GtkProgressBar {
   padding: 0;
-  border-radius: 0px;
+  border-radius: 2px;
   font-size: smaller;
   color: rgba(198, 200, 209, 0.6);
   -GtkProgressBar-min-horizontal-bar-height: 6;
@@ -5688,22 +5688,22 @@ GtkProgressBar {
   border-radius: 0;
   box-shadow: none; }
   .progressbar.left {
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px; }
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px; }
   .progressbar.right {
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px; }
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px; }
   .progressbar.left.right {
     box-shadow: none; }
   .progressbar.vertical {
     background-color: #272c42;
     background-image: none; }
     .progressbar.vertical.bottom {
-      border-bottom-left-radius: 0px;
-      border-bottom-right-radius: 0px; }
+      border-bottom-left-radius: 2px;
+      border-bottom-right-radius: 2px; }
     .progressbar.vertical.top {
-      border-top-left-radius: 0px;
-      border-top-right-radius: 0px; }
+      border-top-left-radius: 2px;
+      border-top-right-radius: 2px; }
 
 GtkLevelBar {
   -GtkLevelBar-min-block-width: 34;
@@ -5716,7 +5716,7 @@ GtkLevelBar {
   background-color: mix(#0f1117,#161821,0.08);
   background-image: none;
   border: 1px solid rgba(18, 19, 26, 0.5);
-  border-radius: 0px; }
+  border-radius: 2px; }
 
 .level-bar.fill-block {
   background-color: #272c42;
@@ -5744,7 +5744,7 @@ GtkLevelBar {
   -GtkScale-slider-length: 16;
   padding: 0;
   border-width: 1px;
-  border-radius: 0px;
+  border-radius: 2px;
   outline-offset: -1px; }
   .scale.slider {
     background-color: mix(#0f1117,#161821,0.08);
@@ -5776,7 +5776,7 @@ GtkLevelBar {
     background-image: none;
     margin: 7px 0;
     border: 1px solid rgba(18, 19, 26, 0.5);
-    border-radius: 0px; }
+    border-radius: 2px; }
     .scale.trough:insensitive {
       background-color: #14161e;
       background-image: none; }
@@ -5823,7 +5823,7 @@ GtkLevelBar {
     color: rgba(198, 200, 209, 0.5); }
   .scrollbar.slider, .scrollbar.slider.vertical {
     border: 0;
-    border-radius: 0px;
+    border-radius: 2px;
     background-color: mix(#161821,#c6c8d1,0.21); }
     .scrollbar.slider:hover, .scrollbar.slider.vertical:hover {
       background-color: mix(#161821,#c6c8d1,0.31); }
@@ -6074,7 +6074,7 @@ GtkPaned {
 *********/
 GtkSwitch {
   padding: 0;
-  border-radius: 0px;
+  border-radius: 2px;
   font: bold condensed;
   outline-offset: -4px; }
   GtkSwitch.slider {
@@ -6279,7 +6279,7 @@ column-header .button:last-child .button, column-header .selection-mode.header-b
 
 .window-frame {
   border: 0;
-  border-radius: 0px 0px 0 0;
+  border-radius: 2px 2px 0 0;
   background-color: mix(#0b0c10,#6b7089,0.21);
   /* this is used for the resize cursor area */
   margin: 9px; }
@@ -6293,10 +6293,10 @@ column-header .button:last-child .button, column-header .selection-mode.header-b
   .window-frame.csd.popup {
     border-radius: 0; }
   .window-frame.csd.tooltip {
-    border-radius: 0px;
+    border-radius: 2px;
     box-shadow: none; }
   .window-frame.csd.message-dialog {
-    border-radius: 0px; }
+    border-radius: 2px; }
   .window-frame.ssd {
     box-shadow: 0 0 0 1px #272c42; }
     .window-frame.ssd.maximized {
@@ -6430,7 +6430,7 @@ GeditWindow .pane-separator {
     padding: 3px; }
     .gedit-document-panel .list-row .button, .gedit-document-panel .list-row .selection-mode.header-bar .button.suggested-action, .selection-mode.header-bar .gedit-document-panel .list-row .button.suggested-action, .gedit-document-panel .list-row .selection-mode.toolbar .button.suggested-action, .selection-mode.toolbar .gedit-document-panel .list-row .button.suggested-action {
       padding: 1px;
-      border-radius: 0px;
+      border-radius: 2px;
       border-style: solid;
       border-color: transparent;
       border-width: 1px;
@@ -6485,7 +6485,7 @@ GeditStatusbar GeditSmallButton, GeditStatusMenuButton {
 
 GeditViewFrame .gedit-search-slider {
   padding: 3px;
-  border-radius: 0 0 0px 0px;
+  border-radius: 0 0 2px 2px;
   border-width: 0 1px 1px;
   border-style: solid;
   border-color: #0c0e12;
@@ -6577,7 +6577,7 @@ NemoPathbarButton {
   border-color: rgba(153, 157, 173, 0.32);
   color: #c6c8d1;
   box-shadow: 0 1px 2px -1px rgba(36, 38, 45, 0.22);
-  -NemoPathbarButton-border-radius: 0px; }
+  -NemoPathbarButton-border-radius: 2px; }
   NemoPathbarButton:focus, NemoPathbarButton:hover {
     border-color: mix(#272c42,rgba(198, 200, 209, 0.32),0.3); }
   NemoPathbarButton:active, NemoPathbarButton:active:hover, NemoPathbarButton:active:focus, NemoPathbarButton:active:hover:focus, NemoPathbarButton:checked, NemoPathbarButton:checked:hover, NemoPathbarButton:checked:focus, NemoPathbarButton:checked:hover:focus {
@@ -6848,7 +6848,7 @@ SheetStyleDialog.unity-force-quit {
 
 #login_window, #shutdown_dialog, #restart_dialog {
   border-style: none;
-  border-radius: 0px;
+  border-radius: 2px;
   background-color: #0f1117;
   color: #6b7089;
   /* draw border using box-shadow */
@@ -6856,7 +6856,7 @@ SheetStyleDialog.unity-force-quit {
   #login_window .button, #shutdown_dialog .button, #restart_dialog .button {
     padding: 3px 15px;
     border-width: 1px;
-    border-radius: 0px;
+    border-radius: 2px;
     border-style: solid;
     border-color: #0c0e12;
     background-color: #101219;
@@ -6886,7 +6886,7 @@ SheetStyleDialog.unity-force-quit {
   border-width: 1px;
   border-style: solid;
   border-color: #0c0e12;
-  border-radius: 0px;
+  border-radius: 2px;
   background-color: #0e0f15;
   background-image: none;
   color: #6b7089;
@@ -6906,12 +6906,12 @@ SheetStyleDialog.unity-force-quit {
 
 #user_image {
   padding: 3px;
-  border-radius: 0px;
+  border-radius: 2px;
   /* draw border using box-shadow */
   box-shadow: inset 1px 0 #0b0c10, inset -1px 0 #0b0c10, inset 0 1px #0b0c10, inset 0 -1px #0b0c10; }
 
 #user_image_border {
-  border-radius: 0px;
+  border-radius: 2px;
   background-color: #0e0f15;
   background-image: none;
   box-shadow: inset 1px 0 rgba(36, 38, 45, 0.07), inset 0 1px rgba(36, 38, 45, 0.08), inset -1px 0 rgba(36, 38, 45, 0.07), inset 0 -1px rgba(36, 38, 45, 0.05); }
@@ -6920,8 +6920,8 @@ SheetStyleDialog.unity-force-quit {
   padding-top: 10px;
   padding-bottom: 0;
   border-style: none;
-  border-bottom-left-radius: 0px;
-  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
   background-color: transparent;
   background-image: none;
   box-shadow: none; }
