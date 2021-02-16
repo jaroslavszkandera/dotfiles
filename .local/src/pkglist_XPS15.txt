@@ -26,10 +26,12 @@ cronie
 ctags
 cups
 dash
+dnsmasq
 docker
 doxygen
 dragon-drag-and-drop
 dunst
+dynamips
 efibootmgr
 entr
 eog
@@ -48,6 +50,8 @@ gettext
 gimp
 git
 gnome-shell-pomodoro
+gns3-gui
+gns3-server
 gpick
 grep
 groff
@@ -67,6 +71,7 @@ libnma
 libreoffice-still
 libtool
 libva-intel-driver
+libvirt
 libxft-bgra-git
 linux
 linux-firmware
@@ -116,8 +121,11 @@ pkgfile
 profile-sync-daemon
 pulseaudio
 pulseaudio-alsa
+python-aiohttp-cors-gns3
 python-pip
+python-yarl-gns3
 qbittorrent
+qemu
 qt5ct
 redshift
 rng-tools
@@ -167,6 +175,7 @@ ttf-ms-win10-sea
 ttf-ms-win10-thai
 ttf-ms-win10-zh_cn
 ttf-ms-win10-zh_tw
+ubridge
 udiskie
 unclutter
 unrar
@@ -174,6 +183,7 @@ unzip
 valgrind
 wget
 which
+wireshark-qt
 xclip
 xdotool
 xkblayout-state-git
