@@ -78,6 +78,7 @@ maim
 make
 man-db
 man-pages
+mathematica
 mesa-vdpau
 minicom
 miniconda3

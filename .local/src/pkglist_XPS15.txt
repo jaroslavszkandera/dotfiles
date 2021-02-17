@@ -81,6 +81,7 @@ maim
 make
 man-db
 man-pages
+mathematica
 minicom
 miniconda3
 mint-y-icons
