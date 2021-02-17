@@ -27,7 +27,6 @@ cd "$CURRENTFOLDER"/../src || {
 case "$1" in
 	-r)
 		find etc/ -type f -exec cp -v /"{}" "{}" \;
-		find usr/ -type f -exec cp -v /"{}" "{}" \;
 
 		# Firefox
 		for dir in ~/.mozilla/firefox/*-release; do
@@ -49,9 +48,6 @@ case "$1" in
 		find etc/ -type f -print0 | xargs -0 -I{} dirname {} | xargs -I{} sudo mkdir -p /"{}"
 		sudo find etc/ -type f -exec cp -v "{}" /"{}" \;
 
-		find usr/ -type f -print0 | xargs -0 -I{} dirname {} | xargs -I{} sudo mkdir -p /"{}"
-		sudo find usr/ -type f -exec cp -v "{}" /"{}" \;
-
 		# Firefox
 		for dir in ~/.mozilla/firefox/*-release; do
 			if [ -d "$dir" ]; then
@@ -65,9 +61,6 @@ case "$1" in
 				cp -v home/.thunderbird/release/* "$dir"
 			fi
 		done
-
-		# change sh shell to dash
-		sudo ln -sf /bin/dash /bin/sh
 		;;
 	*)
 		getHelp

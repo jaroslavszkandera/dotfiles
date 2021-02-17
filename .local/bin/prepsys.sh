@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 
 get_help () {
@@ -14,9 +14,9 @@ get_help () {
 
 yay_install () {
 	pacman -Qq | grep -q yay && return
-	sudo pacman -Syu --needed --noconfirm git openssh || return
+	sudo pacman -Syu --needed --noconfirm git openssh base-devel || return
 	(
-	cd "$CURRENTFOLDER"                           && \
+	cd "$CURRENT_FOLDER"                          && \
 	git clone https://aur.archlinux.org/yay.git   && \
 	cd yay                                        && \
 	makepkg -si --needed --noconfirm              && \
@@ -38,21 +38,22 @@ prompt_and_remove_path () {
 }
 
 check_rsa () {
-	[ -f "$RSAPATH" ] && return
-	ssh-keygen -t rsa -b 4096 -C 'jirik.sz@gmail.com' -P '' -f "$RSAPATH"
+	[ -f "$RSA_PATH" ] && return
+	ssh-keygen -t rsa -b 4096 -C 'jirik.sz@gmail.com' -P '' -f "$RSA_PATH"
 }
 
 github_key () {
-	cp "${RSAPATH}.pub" "${HOME}/add_to_github_rsa.pub"
-	[ -n "$NEWRSA" ] && printf '%s\n'                                                  \
-		"A copy of the rsa public key has been added to ${HOME}/add_to_github_rsa.pub" \
+	RSA_GITHUB="${HOME}/github_key.pub"
+	cp "${RSA_PATH}.pub" "${RSA_GITHUB}"
+	printf '%s\n'                                                       \
+		"A copy of an rsa public key has been added to ${RSA_GITHUB}" \
 		"Please add this key to github.com"
 }
 
 git_init () {
 	REPO_PATH="${HOME}/.dotfiles.git"
+	prompt_and_remove_path "$REPO_PATH" || return 0
 	sudo pacman -Syu --needed --noconfirm openssh git                                            && \
-	prompt_and_remove_path "$REPO_PATH"                                                          && \
 	git clone --bare --recurse-submodules https://github.com/Jirixek/dotfiles.git "$REPO_PATH"   && \
 	git --git-dir="$REPO_PATH" --work-tree="$HOME" checkout -f                                   && \
 	git --git-dir="$REPO_PATH" config --local status.showUntrackedFiles no                       && \
@@ -63,20 +64,27 @@ git_init () {
 
 borg_init () {
 	BACKUP_PATH='/home/backup'
-	prompt_and_remove_path "$BACKUP_PATH" || return
+	prompt_and_remove_path "$BACKUP_PATH" || return 0
 	sudo borg init --encryption=none "$BACKUP_PATH"
 }
 
+link_shell () {
+	# change sh shell to dash
+	sudo ln -sf /bin/dash /bin/sh
+}
+
+add_user_to_groups () {
+	sudo usermod -aG wireshark,rfkill,uucp,audio,geoclue,openvpn "$USER"
+}
+
 service_enable () {
-	# CUPS (printer)
-	# Suggestions in bash for unknown package
+	# Bash suggestions for unknown packages
 	# Bluetooth
 	# Cron
 	# Firefox profile in memory
 	# Lock screen after suspend
 
 	sudo systemctl enable             \
-	     org.cups.cupsd.socket        \
 	     pkgfile-update.timer         \
 	     bluetooth.service            \
 	     cronie.service               \
@@ -84,7 +92,11 @@ service_enable () {
            slock@jirik.service
 	root_exit=$?
 
-	systemctl --user enable psd.service mpd.service syncthing.service geoclue-agent.service
+	systemctl --user enable           \
+		psd.service                 \
+		mpd.service                 \
+		syncthing.service           \
+		geoclue-agent.service
 	user_exit=$?
 
 	return $((root_exit > user_exit ? root_exit : user_exit))
@@ -98,9 +110,9 @@ if [ "$(id -u)" -eq 0 ]; then
 	exit 1
 fi
 
-CURRENTFOLDER="$(dirname "$0")"
-RSAPATH="${HOME}/.ssh/id_rsa"
-INSTALLFILE=""
+CURRENT_FOLDER="$(dirname "$0")"
+RSA_PATH="${HOME}/.ssh/id_rsa"
+INSTALL_FILE=""
 
 while [ "$#" -gt 0 ]
 do
@@ -113,8 +125,8 @@ do
 			shift
 			;;
 		*)
-			if [ -z "$INSTALLFILE" ] && [ -f "$1" ]; then
-				INSTALLFILE="$1"
+			if [ -z "$INSTALL_FILE" ] && [ -f "$1" ]; then
+				INSTALL_FILE="$1"
 			else
 				get_help
 			fi
@@ -123,12 +135,14 @@ do
 	esac
 done
 
-[ -z "$INSTALLFILE" ] && get_help
+[ -z "$INSTALL_FILE" ] && get_help
 
-git_init                                                     && \
-yay_install                                                  && \
-"$HOME"/.local/bin/pkgupdate.sh "$INSTALLFILE" --noconfirm   && \
-service_enable                                               && \
-borg_init                                                    && \
-"$HOME"/.local/bin/linker.sh -w                              && \
-github_key                                                   || exit
+git_init                                          && \
+yay_install                                       && \
+"$HOME"/.local/bin/pkgupdate.sh "$INSTALL_FILE"   && \
+"$HOME"/.local/bin/linker.sh -w                   && \
+service_enable                                    && \
+borg_init                                         && \
+link_shell                                        && \
+add_user_to_groups                                && \
+github_key                                        || exit
