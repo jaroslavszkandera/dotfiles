@@ -73,6 +73,7 @@ libxft-bgra-git
 linux
 linux-firmware
 lxappearance
+lzop
 m4
 maim
 make
