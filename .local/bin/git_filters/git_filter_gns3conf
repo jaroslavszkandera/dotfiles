@@ -1,0 +1,6 @@
+#!/bin/sh
+
+
+grep -v                              \
+	-e '^[[:blank:]]*"geometry".*' \
+	-e '^[[:blank:]]*"state".*'

@@ -1,3 +1,3 @@
 .config/okularpartrc filter=okularpartrc
 .local/src/pkglist* filter=pkglist
-.config/GNS3/* filter=gns3config
+.config/GNS3/*/gns3_gui.conf filter=gns3conf

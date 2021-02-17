@@ -1,0 +1,6 @@
+#!/bin/sh
+
+
+grep -v                              \
+	-e '^BuiltinAnnotationTools.*' \
+	-e '^QuickAnnotationTools.*'
