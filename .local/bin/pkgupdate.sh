@@ -1,41 +1,47 @@
 #!/bin/bash
 
 
-hostnameFile="$(dirname "$0")/../src/pkglist_${HOSTNAME}.txt"
-ignoreFile="$(dirname "$0")/../src/pkglistignore.txt"
+HOSTNAME_FILE="$(dirname "$0")/../src/pkglist_${HOSTNAME}.txt"
+IGNORE_FILE="$(dirname "$0")/../src/pkglistignore.txt"
 
-getHelp() {
+get_help() {
 	echo "Usage: $(basename "$0") [OPTIONS] [FILES]"
 	echo "Auxiliary script to help manage ./src/pkglist.txt"
 	echo
 	echo "Options:"
 	echo "-g [INPUT] [OUTPUT]      Generate file without drivers and other machine specifis packages"
+	echo "-f|--filter              Apply filter defined in .local/src/pkglistignore.txt"
 	echo "[SOURCE]                 Install packages that are missing on local system acording to given file"
 	exit 127
 }
 
-yayInstall () {
+install_pkgs () {
 	[ -n "$1" ] && echo "$1" | yay -Syu --needed "${install_flags[@]}" -
 }
 
-yayUninstall () {
+uninstall_pkgs () {
 	[ -n "$1" ] && echo "$1" | sudo pacman -Rnus -
 }
 
-filterMatches () {
-	filter="$(sed 's/.*/\/&\/d;/' "$ignoreFile")"
-	sed -E "$filter" "$1"
+filter_pkgs () {
+	filter="$(sed 's/.*/\/&\/d;/' "$IGNORE_FILE")"
+	sed -E "$filter"
 }
 
-[ ! -d "$(dirname "$hostnameFile")" ] && getHelp
+[ ! -d "$(dirname "$HOSTNAME_FILE")" ] && get_help
 
 current_pkgs="$(pacman -Qqe | sort)"
 install_flags=()
+apply_filter='false'
 while [ "$#" -gt 0 ]; do
 	case "$1" in
-		-h)	getHelp ;;
+		-h)	get_help ;;
+		-f|--filter)
+			apply_filter='true'
+			shift
+			;;
 		-g)
-			echo "$current_pkgs" > "$hostnameFile"
+			echo "$current_pkgs" > "$HOSTNAME_FILE"
 			exit
 			;;
 		--noconfirm)
@@ -44,21 +50,25 @@ while [ "$#" -gt 0 ]; do
 			;;
 		*)
 			if [ -f "$1" ]; then
-				targetFile="$1"
+				target_file="$1"
 			else
-				getHelp
+				get_help
 			fi
 			shift
 			;;
 	esac
 done
 
-[ ! -f "$targetFile" ] && getHelp
+[ ! -f "$target_file" ] && get_help
 
-new_pkgs="$(comm -13 <(echo "$current_pkgs") <(filterMatches <(sort "$targetFile")))"
-yayInstall "$new_pkgs"
+filter_function="$([ "$apply_filter" = true ] && echo 'filter_pkgs' || echo 'cat')"
 
-# must regenerate it again (because of last command)
-current_pkgs="$(pacman -Qqe | sort)"
-old_pkgs="$(filterMatches <(comm -23 <(echo "$current_pkgs") <(sort "$targetFile")))"
-yayUninstall "$old_pkgs"
+new_pkgs="$(comm -13 <(sort <<<"$current_pkgs") <(sort "$target_file") | "$filter_function")"
+old_pkgs="$(comm -23 <(sort <<<"$current_pkgs") <(sort "$target_file") | "$filter_function")"
+
+install_pkgs "$new_pkgs"
+install_exit=$?
+uninstall_pkgs "$old_pkgs"
+uninstall_exit=$?
+
+exit $((install_exit > uninstall_exit ? install_exit : uninstall_exit))
