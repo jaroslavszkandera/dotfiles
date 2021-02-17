@@ -19,6 +19,7 @@ bluez-utils
 borg
 brightnessctl
 calibre
+ccls
 chromium
 cronie
 ctags

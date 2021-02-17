@@ -21,6 +21,7 @@ borg
 brightnessctl
 bumblebee
 calibre
+ccls
 chromium
 cronie
 ctags
