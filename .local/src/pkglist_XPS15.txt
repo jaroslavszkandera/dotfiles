@@ -106,7 +106,6 @@ okular
 openssh
 openvpn
 os-prober
-packettracer
 pacman
 par
 patch
