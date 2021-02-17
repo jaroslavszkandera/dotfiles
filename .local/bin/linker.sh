@@ -27,40 +27,10 @@ cd "$CURRENTFOLDER"/../src || {
 case "$1" in
 	-r)
 		find etc/ -type f -exec cp -v /"{}" "{}" \;
-
-		# Firefox
-		for dir in ~/.mozilla/firefox/*-release; do
-			if [ -d "$dir" ]; then
-				cp -v "$dir"/prefs.js home/.mozilla/firefox/release/
-				cp -rv "$dir"/chrome home/.mozilla/firefox/release/
-			fi
-		done
-
-		# Thunderbird
-		for dir in ~/.thunderbird/*-release; do
-			if [ -d "$dir" ]; then
-				cp -v "$dir"/prefs.js home/.thunderbird/release/
-			fi
-		done
-
 		;;
 	-w)
 		find etc/ -type f -print0 | xargs -0 -I{} dirname {} | xargs -I{} sudo mkdir -p /"{}"
 		sudo find etc/ -type f -exec cp -v "{}" /"{}" \;
-
-		# Firefox
-		for dir in ~/.mozilla/firefox/*-release; do
-			if [ -d "$dir" ]; then
-				cp -rv home/.mozilla/firefox/release/* "$dir"
-			fi
-		done
-
-		# Thunderbird
-		for dir in ~/.thunderbird/*-release; do
-			if [ -d "$dir" ]; then
-				cp -v home/.thunderbird/release/* "$dir"
-			fi
-		done
 		;;
 	*)
 		getHelp
