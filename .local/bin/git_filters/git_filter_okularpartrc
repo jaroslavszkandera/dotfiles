@@ -1,6 +1,8 @@
 #!/bin/sh
 
 
-grep -v                              \
-	-e '^BuiltinAnnotationTools.*' \
-	-e '^QuickAnnotationTools.*'
+sed                                     \
+	-e '/^\[Reviews\]$/,/^$/d'        \
+	-e '/^\[PageView\]$/,/^$/d'       \
+	-e '/^BuiltinAnnotationTools.*/d' \
+	-e '/^QuickAnnotationTools.*/d'
