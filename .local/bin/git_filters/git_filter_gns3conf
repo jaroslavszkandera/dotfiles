@@ -1,7 +1,9 @@
 #!/bin/sh
 
 
-grep -v                                           \
-	-e '^[[:blank:]]*"geometry".*'              \
-	-e '^[[:blank:]]*"last_check_for_update".*' \
-	-e '^[[:blank:]]*"state".*'
+sed                                                              \
+	-e '/^[[:blank:]]*"recent_files":.*/,/[[:blank:]]*],/d'    \
+	-e '/^[[:blank:]]*"recent_projects":.*/,/[[:blank:]]*],/d' \
+	-e '/^[[:blank:]]*"geometry".*/d'                          \
+	-e '/^[[:blank:]]*"last_check_for_update".*/d'             \
+	-e '/^[[:blank:]]*"state".*/d'
