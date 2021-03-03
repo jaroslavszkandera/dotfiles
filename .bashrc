@@ -9,9 +9,6 @@ PS1='\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \[\033[01;33m\]'"$PS1_GIT "
 # Searching repos for unnamed commands
 [ -e "/usr/share/doc/pkgfile/command-not-found.bash" ] && . /usr/share/doc/pkgfile/command-not-found.bash
 
-# Kitty autocompletion
-command -v kitty &>/dev/null && . <(kitty + complete setup bash)
-
 [ -f ~/.bash_aliases ]           && . "${HOME}/.bash_aliases"
 [ -f ~/.local/bin/shortcuts.sh ] && . "${HOME}/.local/bin/shortcuts.sh"
 [ -f /opt/miniconda3/etc/profile.d/conda.sh ] && . /opt/miniconda3/etc/profile.d/conda.sh
