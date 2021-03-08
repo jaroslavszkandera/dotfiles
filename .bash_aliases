@@ -41,7 +41,6 @@ alias gH='cd "/home/"'
 
 alias gm.='cd "/mnt/"'
 alias gmm='cd "/mnt/mrdky/"'
-alias gmM='cd "/mnt/mrdky/Movies/"'
 alias gmn='cd "/mnt/nas/"'
 alias gmw='cd "/mnt/windows/"'
 

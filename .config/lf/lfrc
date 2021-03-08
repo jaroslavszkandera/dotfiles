@@ -329,7 +329,6 @@ map gH  cd /home/
 
 map gm. cd /mnt/
 map gmm cd /mnt/mrdky/
-map gmM cd /mnt/mrdky/Movies/
 map gmn cd /mnt/nas/
 map gmw cd /mnt/windows/
 
