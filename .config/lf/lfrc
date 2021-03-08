@@ -104,6 +104,17 @@ cmd delete %{{
 	lf -remote "send $id sudoerr \"rm -rf\" $args"
 }}
 
+cmd toggle-execute &{{
+	for file in $fx; do
+		if [ -x $file ]; then
+			chmod -x $file
+		else
+			chmod u+x $file
+		fi
+	done
+	lf -remote "send $id reload"
+}}
+
 # ==========
 #  Renaming
 # ==========
@@ -264,6 +275,7 @@ map w
 map wf touch
 map wd mkdir
 map D delete
+map X toggle-execute
 
 # Renaming
 map r
