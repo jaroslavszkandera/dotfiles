@@ -73,7 +73,6 @@ libvirt
 libxft-bgra-git
 linux
 linux-firmware
-lxappearance
 lzop
 m4
 maim
@@ -128,7 +127,7 @@ python-pip
 python-yarl-gns3
 qbittorrent
 qemu
-qt5ct
+qt5-styleplugins
 redshift
 rng-tools
 sed
