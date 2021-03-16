@@ -63,7 +63,7 @@ ipython
 j4-dmenu-desktop
 jack2
 jre-openjdk
-lf-git
+lf
 libinput-multiplier
 libnma
 libreoffice-still
