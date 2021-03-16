@@ -130,6 +130,9 @@ qemu
 qt5-styleplugins
 redshift
 rng-tools
+sagemath
+sagemath-doc
+sagemath-jupyter
 sed
 shellcheck
 simple-mtpfs
