@@ -182,6 +182,8 @@ unclutter
 unrar
 unzip
 valgrind
+virtualbox
+virtualbox-guest-iso
 wget
 which
 wireshark-qt
