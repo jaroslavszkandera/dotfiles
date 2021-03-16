@@ -73,6 +73,7 @@ libvirt
 libxft-bgra-git
 linux
 linux-firmware
+linux-headers
 lzop
 m4
 maim
