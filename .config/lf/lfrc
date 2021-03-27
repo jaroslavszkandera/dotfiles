@@ -358,6 +358,6 @@ map gdw cd ~/Documents/workswell/
 map gD  cd ~/Downloads/
 map gM  cd ~/Music/
 map gp. cd ~/Pictures/
-map gps cd ~/Pictures/Screenshots/
-map gpm cd ~/Pictures/Memes/
+map gps cd ~/Pictures/screenshots/
+map gpm cd ~/Pictures/memes/
 map gv  cd ~/Videos/

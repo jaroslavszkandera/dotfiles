@@ -70,8 +70,8 @@ alias gdw='cd "$HOME/Documents/workswell/"'
 alias gD='cd "$HOME/Downloads/"'
 alias gM='cd "$HOME/Music/"'
 alias gp.='cd "$HOME/Pictures/"'
-alias gps='cd "$HOME/Pictures/Screenshots/"'
-alias gpm='cd "$HOME/Pictures/Memes/"'
+alias gps='cd "$HOME/Pictures/screenshots/"'
+alias gpm='cd "$HOME/Pictures/memes/"'
 alias gv='cd "$HOME/Videos/"'
 
 # ======================
@@ -117,6 +117,6 @@ alias fdw="fzf_mapping \"\$HOME/Documents/workswell/\""
 alias fD="fzf_mapping  \"\$HOME/Downloads/\""
 alias fM="fzf_mapping  \"\$HOME/Music/\""
 alias fp.="fzf_mapping \"\$HOME/Pictures/\""
-alias fps="fzf_mapping \"\$HOME/Pictures/Screenshots/\""
-alias fpm="fzf_mapping \"\$HOME/Pictures/Memes/\""
+alias fps="fzf_mapping \"\$HOME/Pictures/screenshots/\""
+alias fpm="fzf_mapping \"\$HOME/Pictures/memes/\""
 alias fv="fzf_mapping  \"\$HOME/Videos/\""
