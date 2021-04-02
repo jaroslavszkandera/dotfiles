@@ -29,7 +29,7 @@ cmd on-cd &{{
 	GIT_PS1_SHOWUPSTREAM="auto verbose"
 
 	git="$(__git_ps1 [%s])" || true
-	PS1="\033[01;32m%u@%h \033[01;34m%d\033[0m\033[1m%f \033[01;33m$git"
+	PS1="\033[01;34m%d\033[0m\033[1m%f \033[01;33m$git"
 	lf -remote "send $id set promptfmt \"$PS1\""
 }}
 on-cd # Ensure on-cd runs on startup
