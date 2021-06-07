@@ -1,0 +1,10 @@
+#!/bin/sh
+
+
+SESSION_NAME='gns3'
+
+if ! tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
+	tmux new-session -s "$SESSION_NAME" -d "$@"
+else
+	tmux new-window -t "$SESSION_NAME" "$@"
+fi

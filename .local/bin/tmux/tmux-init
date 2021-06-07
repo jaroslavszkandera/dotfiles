@@ -2,9 +2,8 @@
 
 
 CURRENTFOLDER="$(dirname "$0")"
+SESSIONS=('tmux-general' 'tmux-study')
 
-for tmux_file in "${CURRENTFOLDER}"/tmux-*; do
-	BASENAME="$(basename "$tmux_file")"
-	[ "$BASENAME" = 'tmux-init' ] && continue
-	"$tmux_file" -d
+for tmux_file in "${SESSIONS[@]}"; do
+	"${CURRENTFOLDER}/${tmux_file}" -d
 done
