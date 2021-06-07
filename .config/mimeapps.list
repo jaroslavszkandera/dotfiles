@@ -40,3 +40,6 @@ video/x-msvideo=mpv.desktop;
 video/mpeg=mpv.desktop;
 audio/x-wav=mpv.desktop;
 image/x-tga=gimp.desktop;
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet=libreoffice-calc.desktop;
+image/gif=org.gnome.eog.desktop;
+image/svg+xml=org.gnome.eog.desktop;
