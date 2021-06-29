@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-# Created by Jiri Szkandera
+# Created by Jiří Szkandera
 # Compile .c/.cpp program and execute unit tests accordingly
 
 prg="$(basename "$0")"
