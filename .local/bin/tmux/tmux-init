@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 
 CURRENTFOLDER="$(dirname "$0")"
