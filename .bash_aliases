@@ -30,6 +30,9 @@ alias dfl='/usr/bin/git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME'
 alias dpull="dfl pull --recurse-submodules origin master && dfl submodule foreach --recursive 'git checkout master && git pull'"
 alias dpush='dfl push origin master'
 
+# Other
+alias rsync='rsync-without-trailing-slash'
+
 
 # ===================
 #  Directory mapping
