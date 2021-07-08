@@ -21,17 +21,16 @@ alias watch='watch --color'
 alias youtube-dl='youtube-dl -f bestvideo+bestaudio'
 alias l='ls -lh'
 alias la='ls -lha'
-alias nvim='v'
-alias vim='v'
 alias df='df -h'
 
 # Dotfiles
 alias dfl='/usr/bin/git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME'
-alias dpull="dfl pull --recurse-submodules origin master && dfl submodule foreach --recursive 'git checkout master && git pull'"
-alias dpush='dfl push origin master'
 
-# Other
+# Shortcuts/scripts
 alias rsync='rsync-without-trailing-slash'
+alias vim='nvim_wrapper'
+alias v='nvim_wrapper'
+alias g='lf_wrapper'
 
 
 # ===================
@@ -81,45 +80,45 @@ alias gv='cd "$HOME/Videos/"'
 #  Fuzzy finder mapping
 # ======================
 # Current folder
-alias f="fzf_mapping  './'"
+alias f="fzf_and_open './'"
 
 # Root
-alias fR="fzf_mapping  '/'"
-alias fe="fzf_mapping  '/etc/'"
-alias fH="fzf_mapping  '/home/'"
+alias fR="fzf_and_open '/'"
+alias fe="fzf_and_open '/etc/'"
+alias fH="fzf_and_open '/home/'"
 
-alias fm.="fzf_mapping '/mnt/'"
-alias fmm="fzf_mapping '/mnt/mrdky/'"
-alias fmM="fzf_mapping '/mnt/mrdky/Movies/'"
-alias fmn="fzf_mapping '/mnt/nas/'"
-alias fmw="fzf_mapping '/mnt/windows/'"
+alias fm.="fzf_and_open '/mnt/'"
+alias fmm="fzf_and_open '/mnt/mrdky/'"
+alias fmM="fzf_and_open '/mnt/mrdky/Movies/'"
+alias fmn="fzf_and_open '/mnt/nas/'"
+alias fmw="fzf_and_open '/mnt/windows/'"
 
-alias fr="fzf_mapping  \"/run/media/\$USER/\""
+alias fr="fzf_and_open \"/run/media/\$USER/\""
 
-alias fv.="fzf_mapping '/var/'"
-alias fvl="fzf_mapping '/var/lib/lxc/'"
+alias fv.="fzf_and_open '/var/'"
+alias fvl="fzf_and_open '/var/lib/lxc/'"
 
 # Home
-alias fh="fzf_mapping  \"\$HOME/\""
-alias fc="fzf_mapping  \"\$HOME/.config/\""
+alias fh="fzf_and_open \"\$HOME/\""
+alias fc="fzf_and_open \"\$HOME/.config/\""
 
-alias fl.="fzf_mapping \"\$HOME/.local/\""
-alias flb="fzf_mapping \"\$HOME/.local/bin/\""
-alias flS="fzf_mapping \"\$HOME/.local/src/\""
-alias fls="fzf_mapping \"\$HOME/.local/suckless/\""
-alias fla="fzf_mapping \"\$HOME/.local/share/Anki2/Jiri Szkandera/collection.media/\""
+alias fl.="fzf_and_open \"\$HOME/.local/\""
+alias flb="fzf_and_open \"\$HOME/.local/bin/\""
+alias flS="fzf_and_open \"\$HOME/.local/src/\""
+alias fls="fzf_and_open \"\$HOME/.local/suckless/\""
+alias fla="fzf_and_open \"\$HOME/.local/share/Anki2/Jiri Szkandera/collection.media/\""
 
-alias fd.="fzf_mapping \"\$HOME/Documents/\""
-alias fdc="fzf_mapping \"\$HOME/Documents/cvut/\""
-alias fdf="fzf_mapping \"\$HOME/Documents/faktury/\""
-alias fdl="fzf_mapping \"\$HOME/Documents/latex/\""
-alias fdP="fzf_mapping \"\$HOME/Documents/private/\""
-alias fdp="fzf_mapping \"\$HOME/Documents/programming/\""
-alias fdw="fzf_mapping \"\$HOME/Documents/workswell/\""
+alias fd.="fzf_and_open \"\$HOME/Documents/\""
+alias fdc="fzf_and_open \"\$HOME/Documents/cvut/\""
+alias fdf="fzf_and_open \"\$HOME/Documents/faktury/\""
+alias fdl="fzf_and_open \"\$HOME/Documents/latex/\""
+alias fdP="fzf_and_open \"\$HOME/Documents/private/\""
+alias fdp="fzf_and_open \"\$HOME/Documents/programming/\""
+alias fdw="fzf_and_open \"\$HOME/Documents/workswell/\""
 
-alias fD="fzf_mapping  \"\$HOME/Downloads/\""
-alias fM="fzf_mapping  \"\$HOME/Music/\""
-alias fp.="fzf_mapping \"\$HOME/Pictures/\""
-alias fps="fzf_mapping \"\$HOME/Pictures/screenshots/\""
-alias fpm="fzf_mapping \"\$HOME/Pictures/memes/\""
-alias fv="fzf_mapping  \"\$HOME/Videos/\""
+alias fD="fzf_and_open \"\$HOME/Downloads/\""
+alias fM="fzf_and_open \"\$HOME/Music/\""
+alias fp.="fzf_and_open \"\$HOME/Pictures/\""
+alias fps="fzf_and_open \"\$HOME/Pictures/screenshots/\""
+alias fpm="fzf_and_open \"\$HOME/Pictures/memes/\""
+alias fv="fzf_and_open \"\$HOME/Videos/\""

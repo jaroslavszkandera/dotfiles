@@ -15,13 +15,13 @@ export HISTCONTROL=erasedups
 
 # Default programs
 export OPENER='mimeopen'
-export EDITOR='nvim'
-export VISUAL='nvim'
-export SUDO_EDITOR='nvim'
+export EDITOR='nvim_wrapper'
+export VISUAL='nvim_wrapper'
+export SUDO_EDITOR='nvim_wrapper'
 export TERMINAL='st'
 export BROWSER='firefox'
 export READER='evince'
-export FILE='g'
+export FILE='lf_wrapper'
 
 # ~/ Clean-up
 export GTK2_RC_FILES="${HOME}/.config/gtk-2.0/gtkrc-2.0"

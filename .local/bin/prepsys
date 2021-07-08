@@ -169,8 +169,8 @@ done
 
 git_init                                          && \
 yay_install                                       && \
-"$HOME"/.local/bin/pkgupdate.sh "$INSTALL_FILE"   && \
-"$HOME"/.local/bin/linker.sh -w                   && \
+"$HOME"/.local/bin/sync-pkgs "$INSTALL_FILE"      && \
+"$HOME"/.local/bin/sync-conf -w                   && \
 service_enable                                    && \
 borg_init                                         && \
 link_shell                                        && \

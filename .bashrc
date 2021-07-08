@@ -9,8 +9,8 @@ PS1='\[\033[01;34m\]\w \[\033[01;33m\]'"$PS1_GIT "
 # Searching repos for unnamed commands
 [ -e "/usr/share/doc/pkgfile/command-not-found.bash" ] && . /usr/share/doc/pkgfile/command-not-found.bash
 
-[ -f ~/.bash_aliases ]           && . "${HOME}/.bash_aliases"
-[ -f ~/.local/bin/shortcuts.sh ] && . "${HOME}/.local/bin/shortcuts.sh"
+[ -f ~/.bash_aliases ]   && . "${HOME}/.bash_aliases"
+[ -f ~/.bash_functions ] && . "${HOME}/.bash_functions"
 [ -f /opt/miniconda3/etc/profile.d/conda.sh ] && . /opt/miniconda3/etc/profile.d/conda.sh
 
 [ -z "$TMUX" ] && tmux attach -t general

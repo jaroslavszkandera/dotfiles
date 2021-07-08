@@ -1,0 +1,42 @@
+#!/bin/bash
+
+
+fzf_and_open () {
+	if [ -z "$1" ]; then
+		SELECTED_FOLDER='./'
+	else
+		SELECTED_FOLDER="$1"
+	fi
+
+	cd "$SELECTED_FOLDER" || exit
+	SELECTED="$(find "$SELECTED_FOLDER" -mindepth 1 -maxdepth 1 -printf '%f\n' | sort | fzf)" || exit
+	FILE_TYPE="$(mimetype -ab "$SELECTED")"
+	if grep -q 'text/plain' <<<"$FILE_TYPE"; then
+		"$EDITOR" "$SELECTED"
+	elif grep -qe 'inode' <<<"$FILE_TYPE"; then
+		"$FILE" "$SELECTED"
+	else
+		"$OPENER" "$SELECTED"
+	fi
+}
+
+nvim_wrapper () {
+	# disable <C-s> and <C-q> in $EDITOR
+	stty -ixon && nvim "$@" && stty ixon
+}
+
+lf_wrapper () {
+	# setup lf so it changes to the last directory when exited
+	tempfile="$(mktemp)" || {
+		echo "Can't create tmpfile" >&2
+			exit 1
+		}
+	lf -last-dir-path="$tempfile" "$@"
+	[ ! -f "$tempfile" ] && exit 1
+
+	dir="$(cat "$tempfile")"
+	rm -f "$tempfile"
+	[ -d "$dir" ] && [ "$dir" != "$PWD" ] && cd "$dir"
+}
+
+export -f fzf_and_open nvim_wrapper lf_wrapper

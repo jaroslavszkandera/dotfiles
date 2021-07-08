@@ -8,7 +8,7 @@ fi
 
 getHelp() {
 	echo "Usage: $(basename "$0") [OPTIONS]"
-	echo "Auxiliary script to update ./src files"
+	echo "Auxiliary script to move ./src files into right places"
 	echo
 	echo "Options:"
 	echo "-r        Read: copy SYSTEM files to .src"
