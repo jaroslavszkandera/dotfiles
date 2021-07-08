@@ -1,0 +1,99 @@
+#!/usr/bin/env python3
+
+# TODO: not finished
+
+
+def write_bash(mapping_root, mapping_home):
+    print('# ===================',
+          '#  Directory mapping',
+          '# ===================',
+          sep='\n')
+
+    print('alias gr=\'cd "/run/media/$USER/"\'')
+    for key, dest in mapping_root:
+        print(f'alias g{key}=\'cd "{dest}"\'')
+
+    for key, dest in mapping_home:
+        print(f'alias g{key}=\'cd "$HOME/{dest}"\'')
+
+    print('# ======================',
+          '#  Fuzzy finder mapping',
+          '# ======================',
+          sep='\n')
+
+    print('alias f="fzf-and-open"')
+    print('alias gr=\'cd "/run/media/$USER/"\'')
+    for key, dest in mapping_root:
+        print(f'alias f{key}=\'fzf-and-open "{dest}"\'')
+
+    for key, dest in mapping_home:
+        print(f'alias f{key}=\'fzf-and-open "$HOME/{dest}"\'')
+
+
+def write_lf(mapping_root, mapping_home):
+    for key, dest in mapping_root:
+        print(f"map g{key} cd '{dest}'")
+
+    for key, dest in mapping_home:
+        print(f"map g{key} cd '~/{dest}'")
+
+    print('gr %lf -remote "send $id cd /run/media/$USER/"')
+
+
+def check_duplicates(mapping):
+    mapping_dict = {key for key, _ in mapping}
+    if len(mapping_dict) != len(mapping):
+        print('Warning: there is duplicate mapping specified.')
+        return False
+    return True
+
+
+def main():
+    mapping_root = [
+        # Root
+        ('R', '/'),
+        ('e', '/etc/'),
+        ('H', '/home/'),
+
+        ('m.', '/mnt/'),
+        ('mm', '/mnt/mrdky/'),
+        ('mn', '/mnt/nas/'),
+        ('mw', '/mnt/windows/'),
+
+        ('V.', '/var/'),
+        ('Vl', '/var/lib/lxc/'),
+    ]
+
+    mapping_home = [
+        # Home
+        ('h', ''),
+        ('c', '.config/'),
+
+        ('l.', '.local/'),
+        ('lb', '.local/bin/'),
+        ('lS', '.local/src/'),
+        ('ls', '.local/suckless/'),
+        ('la', '.local/share/Anki2/Jiri Szkandera/collection.media/'),
+
+        ('d.', 'Documents/'),
+        ('dc', 'Documents/cvut/'),
+        ('df', 'Documents/faktury/'),
+        ('dl', 'Documents/latex/'),
+        ('dP', 'Documents/private/'),
+        ('dp', 'Documents/programming/'),
+        ('dw', 'Documents/workswell/'),
+
+        ('D', 'Downloads/'),
+        ('M',  'Music/'),
+        ('p.', 'Pictures/'),
+        ('ps', 'Pictures/screenshots/'),
+        ('pm', 'Pictures/memes/'),
+        ('v',  'Videos/'),
+    ]
+
+    if not check_duplicates(mapping_root) or not check_duplicates(mapping_home):
+        return
+
+
+if __name__ == '__main__':
+    main()
