@@ -126,6 +126,7 @@ pulseaudio-alsa
 python-aiohttp-cors-gns3
 python-pip
 python-pyserial
+python-unidecode
 python-yarl-gns3
 qbittorrent
 qemu
