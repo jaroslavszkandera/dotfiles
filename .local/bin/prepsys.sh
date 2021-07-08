@@ -1,6 +1,13 @@
 #!/bin/bash
 
 
+SUCKLESS_DIR="${HOME}/.local/suckless"
+NVIM_DIR="${HOME}/.config"
+
+CURRENT_FOLDER="$(dirname "$0")"
+RSA_PATH="${HOME}/.ssh/id_rsa"
+
+
 get_help () {
 	echo "Usage: $(basename "$0") [OPTIONS] FILE"
 	echo "Configure system for optimal use"
@@ -102,6 +109,33 @@ service_enable () {
 	return $((root_exit > user_exit ? root_exit : user_exit))
 }
 
+install_suckless_tools () {
+	(
+	cd "$SUCKLESS_DIR"
+	make checkout
+	make install
+	)
+}
+
+clone_git_repos () {
+	# suckless
+	TOOLS=('dmenu' 'dwm' 'dwmblocks' 'slock' 'st')
+	(
+	cd "$SUCKLESS_DIR"
+	for tool in "${TOOLS[@]}"; do
+		git clone "https://github.com/Jirixek/${tool}.git" "$tool"
+		git --git-dir="$tool" remote set-url origin "git@github.com:Jirixek/${tool}.git"
+	done
+	)
+
+	# nvim
+	(
+	cd "$NVIM_DIR"
+	git clone 'https://github.com/Jirixek/vim.git' 'nvim'
+	git --git-dir='nvim' remote set-url origin "git@github.com:Jirixek/vim.git"
+	)
+}
+
 # ---------------
 #  Init Section
 # ---------------
@@ -110,12 +144,8 @@ if [ "$(id -u)" -eq 0 ]; then
 	exit 1
 fi
 
-CURRENT_FOLDER="$(dirname "$0")"
-RSA_PATH="${HOME}/.ssh/id_rsa"
 INSTALL_FILE=""
-
-while [ "$#" -gt 0 ]
-do
+while [ "$#" -gt 0 ]; do
 	case "$1" in
 		-h|--help)	get_help ;;
 		-t|--tlp)

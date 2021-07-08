@@ -2,7 +2,7 @@ SUBDIRS = dmenu dwm dwmblocks slock st
 
 all: subdirs
 
-subdirs: checkout
+subdirs:
 	for n in $(SUBDIRS); do $(MAKE) -C $$n || exit 1; done
 
 install:
