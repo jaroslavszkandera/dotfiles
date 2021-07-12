@@ -4,18 +4,18 @@
 set shell bash # Interpreter for shell commands (needs to be POSIX compatible)
 
 set ratios 1:3:4 # Set ratios similar to ranger
-set drawbox on
+set drawbox
 set scrolloff 4
 set ifs "\n"
 set findlen 2 # 0 is to search until matched
-set ignoredia on
-set smartdia on
-set globsearch on
+set ignoredia
+set smartdia
+set globsearch
 set tabstop 6 # Tabwidth
-set preview true
+set preview
 set previewer ~/.config/lf/preview
 set period 1 # Periodic loading
-set incsearch on
+set incsearch
 
 # ===========
 #  Functions
@@ -39,21 +39,19 @@ on-cd # Ensure on-cd runs on startup
 # use either file extensions and/or mime types here. Below uses an editor for
 # text files and a file opener for the rest.
 cmd open ${{
-    case "$(file --mime-type "$f" -b)" in
-        text/*) "$EDITOR" $fx;;
-        *) for f in $fx; do setsid $OPENER "$f" &> /dev/null & done;;
-    esac
+	case "$(file --mime-type "$f" -b)" in
+		text/*) "$EDITOR" $fx;;
+		*) for f in $fx; do setsid "$OPENER" "$f" &>/dev/null & done;;
+	esac
 }}
 
 cmd sudoerr &{{
 	cmd="$1"
 	shift
 
-	IFS=" \n"
-	for arg in "$@"
-	do
+	for arg in "$@"; do
 		err="$(sudo $cmd "$arg" 2>&1)"
-		[ $? -ne 0 ] && lf -remote "send $id echoerr $err" && exit
+		[ $? -ne 0 ] && lf -remote "send $id echoerr \"$err\"" && exit
 	done
 
 	lf -remote "send $id reload"
@@ -87,8 +85,6 @@ cmd touch %{{
 }}
 
 cmd delete %{{
-	set -f
-
 	printf 'Delete? [y/N] '
 	read ans
 	[ "$ans" != 'y' ] && exit 0
@@ -99,17 +95,15 @@ cmd delete %{{
 	read ans
 	[ "$ans" != 'y' ] && exit 0
 
-	args="$(printf '%s\t' $fx)"
-	IFS="\t"
-	lf -remote "send $id sudoerr \"rm -rf\" $args"
+	lf -remote "send $id sudoerr \"rm -rf\" $fx"
 }}
 
 cmd toggle-execute &{{
 	for file in $fx; do
-		if [ -x $file ]; then
-			chmod -x $file
+		if [ -x "$file" ]; then
+			chmod -x "$file"
 		else
-			chmod u+x $file
+			chmod u+x "$file"
 		fi
 	done
 	lf -remote "send $id reload"
@@ -122,15 +116,14 @@ cmd rename-clear-all &lf -remote "send $id :rename; cmd-delete-home"
 
 cmd rename-clear &{{
 	# Multiple files - bulkrename
-	[ "$(echo "$fx" | grep -v '^$' | wc -l)" -gt 1 ] && {
+	[ "$(echo "$fx" | wc -l)" -gt 1 ] && {
 		lf -remote "send $id rename-bulk"
 		exit
 	}
 
 	# Single file
 	[ -n "$fs" ] && file="$fs" || file="$f"
-	if [ -f "$file" ]
-	then
+	if [ -f "$file" ]; then
 		# File
 		filename="${file##*/}"      # Get basename of the selection
 		extension="${filename##*.}" # Get extension only
@@ -150,15 +143,14 @@ cmd rename-clear &{{
 
 cmd rename-edit &{{
 	# Multiple files - bulkrename
-	[ "$(echo "$fx" | grep -v '^$' | wc -l)" -gt 1 ] && {
+	[ "$(echo "$fx" | wc -l)" -gt 1 ] && {
 		lf -remote "send $id rename-bulk"
 		exit
 	}
 
 	# Single file
 	[ -n "$fs" ] && file="$fs" || file="$f"
-	if [ -f "$file" ]
-	then
+	if [ -f "$file" ]; then
 		# File
 		filename="${file##*/}"      # Get basename of the selection
 		extension="${filename##*.}" # Get extension only
