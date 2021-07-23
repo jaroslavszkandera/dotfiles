@@ -51,6 +51,7 @@ git
 gnome-shell-pomodoro
 gns3-gui
 gns3-server
+gnu-netcat
 gpick
 grep
 groff
@@ -92,11 +93,13 @@ mpv
 ncmpcpp
 neofetch
 neovim
+net-tools
 networkmanager
 network-manager-applet
 networkmanager-openvpn
 nfs-utils
 nitrogen
+nmap
 nodejs
 noto-fonts
 noto-fonts-emoji
