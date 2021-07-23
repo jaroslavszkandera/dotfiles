@@ -74,7 +74,6 @@ libinput-multiplier
 libnma
 libreoffice-still
 libtool
-libva-mesa-driver
 libvirt
 libxft-bgra-git
 linux
@@ -87,7 +86,6 @@ make
 man-db
 man-pages
 mathematica
-mesa-vdpau
 minicom
 miniconda3
 mint-y-icons
@@ -114,6 +112,7 @@ numlockx
 nvidia
 nvidia-dkms
 nvidia-settings
+nvidia-utils
 okular
 openssh
 openvpn
