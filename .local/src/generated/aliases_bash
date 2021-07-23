@@ -1,0 +1,73 @@
+#!/bin/sh
+
+# ===================
+#  Directory mapping
+# ===================
+
+alias gr='lf_wrapper "/run/media/$USER/"'
+alias gR='lf_wrapper "/"'
+alias ge='lf_wrapper "/etc/"'
+alias gH='lf_wrapper "/home/"'
+alias gm.='lf_wrapper "/mnt/"'
+alias gmm='lf_wrapper "/mnt/mrdky/"'
+alias gmn='lf_wrapper "/mnt/nas/"'
+alias gmw='lf_wrapper "/mnt/windows/"'
+alias gV.='lf_wrapper "/var/"'
+alias gVl='lf_wrapper "/var/lib/lxc/"'
+alias gh='lf_wrapper "$HOME/"'
+alias gc='lf_wrapper "$HOME/.config/"'
+alias gl.='lf_wrapper "$HOME/.local/"'
+alias glb='lf_wrapper "$HOME/.local/bin/"'
+alias glS='lf_wrapper "$HOME/.local/src/"'
+alias gls='lf_wrapper "$HOME/.local/suckless/"'
+alias gla='lf_wrapper "$HOME/.local/share/Anki2/Jiri Szkandera/collection.media/"'
+alias gd.='lf_wrapper "$HOME/Documents/"'
+alias gdc='lf_wrapper "$HOME/Documents/cvut/"'
+alias gdf='lf_wrapper "$HOME/Documents/faktury/"'
+alias gdl='lf_wrapper "$HOME/Documents/latex/"'
+alias gdP='lf_wrapper "$HOME/Documents/private/"'
+alias gdp='lf_wrapper "$HOME/Documents/programming/"'
+alias gdw='lf_wrapper "$HOME/Documents/workswell/"'
+alias gD='lf_wrapper "$HOME/Downloads/"'
+alias gM='lf_wrapper "$HOME/Music/"'
+alias gp.='lf_wrapper "$HOME/Pictures/"'
+alias gps='lf_wrapper "$HOME/Pictures/screenshots/"'
+alias gpm='lf_wrapper "$HOME/Pictures/memes/"'
+alias gv='lf_wrapper "$HOME/Videos/"'
+
+
+# ======================
+#  Fuzzy finder mapping
+# ======================
+
+alias f="fzf-and-open"
+alias gr='fzf-and-open "/run/media/$USER/"'
+alias fR='fzf-and-open "/"'
+alias fe='fzf-and-open "/etc/"'
+alias fH='fzf-and-open "/home/"'
+alias fm.='fzf-and-open "/mnt/"'
+alias fmm='fzf-and-open "/mnt/mrdky/"'
+alias fmn='fzf-and-open "/mnt/nas/"'
+alias fmw='fzf-and-open "/mnt/windows/"'
+alias fV.='fzf-and-open "/var/"'
+alias fVl='fzf-and-open "/var/lib/lxc/"'
+alias fh='fzf-and-open "$HOME/"'
+alias fc='fzf-and-open "$HOME/.config/"'
+alias fl.='fzf-and-open "$HOME/.local/"'
+alias flb='fzf-and-open "$HOME/.local/bin/"'
+alias flS='fzf-and-open "$HOME/.local/src/"'
+alias fls='fzf-and-open "$HOME/.local/suckless/"'
+alias fla='fzf-and-open "$HOME/.local/share/Anki2/Jiri Szkandera/collection.media/"'
+alias fd.='fzf-and-open "$HOME/Documents/"'
+alias fdc='fzf-and-open "$HOME/Documents/cvut/"'
+alias fdf='fzf-and-open "$HOME/Documents/faktury/"'
+alias fdl='fzf-and-open "$HOME/Documents/latex/"'
+alias fdP='fzf-and-open "$HOME/Documents/private/"'
+alias fdp='fzf-and-open "$HOME/Documents/programming/"'
+alias fdw='fzf-and-open "$HOME/Documents/workswell/"'
+alias fD='fzf-and-open "$HOME/Downloads/"'
+alias fM='fzf-and-open "$HOME/Music/"'
+alias fp.='fzf-and-open "$HOME/Pictures/"'
+alias fps='fzf-and-open "$HOME/Pictures/screenshots/"'
+alias fpm='fzf-and-open "$HOME/Pictures/memes/"'
+alias fv='fzf-and-open "$HOME/Videos/"'
