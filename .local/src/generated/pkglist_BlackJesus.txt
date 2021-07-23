@@ -138,7 +138,6 @@ redshift
 rng-tools
 sagemath
 sagemath-doc
-sagemath-jupyter
 sed
 shellcheck
 simple-mtpfs
@@ -149,7 +148,6 @@ sshfs
 sudo
 syncthing
 system-config-printer
-teamspeak3
 texinfo
 texlab
 texlive-bibtexextra
