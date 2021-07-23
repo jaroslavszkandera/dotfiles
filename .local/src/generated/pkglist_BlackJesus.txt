@@ -56,6 +56,9 @@ gpick
 grep
 groff
 grub
+gst-plugins-bad
+gst-plugins-good
+gst-plugins-ugly
 gzip
 haveged
 highlight

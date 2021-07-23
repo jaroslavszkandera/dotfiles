@@ -1,5 +1,6 @@
 ^bbswitch$
 ^bumblebee$
+^gstreamer-vaapi$
 ^intel-ucode$
 ^intel.*
 ^libva.*

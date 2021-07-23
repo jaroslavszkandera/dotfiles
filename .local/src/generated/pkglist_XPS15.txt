@@ -58,6 +58,10 @@ gpick
 grep
 groff
 grub
+gst-plugins-bad
+gst-plugins-good
+gst-plugins-ugly
+gstreamer-vaapi
 gzip
 haveged
 highlight
