@@ -1,0 +1,122 @@
+#!/usr/bin/env python3
+
+from argparse import ArgumentParser
+from pathlib import Path
+import os
+
+mapping_root = [
+    ('R', '/'),
+    ('e', '/etc/'),
+    ('H', '/home/'),
+
+    ('m.', '/mnt/'),
+    ('mm', '/mnt/mrdky/'),
+    ('mn', '/mnt/nas/'),
+    ('mw', '/mnt/windows/'),
+
+    ('V.', '/var/'),
+    ('Vl', '/var/lib/lxc/'),
+]
+
+mapping_home = [
+    ('h', ''),
+    ('c', '.config/'),
+
+    ('l.', '.local/'),
+    ('lb', '.local/bin/'),
+    ('lS', '.local/src/'),
+    ('ls', '.local/suckless/'),
+    ('la', '.local/share/Anki2/Jiri Szkandera/collection.media/'),
+
+    ('d.', 'Documents/'),
+    ('dc', 'Documents/cvut/'),
+    ('df', 'Documents/faktury/'),
+    ('dl', 'Documents/latex/'),
+    ('dP', 'Documents/private/'),
+    ('dp', 'Documents/programming/'),
+    ('dw', 'Documents/workswell/'),
+
+    ('D', 'Downloads/'),
+    ('M',  'Music/'),
+    ('p.', 'Pictures/'),
+    ('ps', 'Pictures/screenshots/'),
+    ('pm', 'Pictures/memes/'),
+    ('v',  'Videos/'),
+]
+
+
+def write_bash(output_file, mapping_root, mapping_home):
+    with open(output_file, mode='w', encoding='utf-8') as f:
+        f.write('#!/bin/sh\n\n' +
+                '# ===================\n' +
+                '#  Directory mapping\n' +
+                '# ===================\n\n')
+
+        f.write('alias gr=\'cd "/run/media/$USER/"\'\n')
+        for key, dest in mapping_root:
+            f.write(f'alias g{key}=\'cd "{dest}"\'\n')
+
+        for key, dest in mapping_home:
+            f.write(f'alias g{key}=\'cd "$HOME/{dest}"\'\n')
+
+        f.write('\n\n# ======================\n' +
+                '#  Fuzzy finder mapping\n' +
+                '# ======================\n\n')
+
+        f.write('alias f="fzf-and-open"\n')
+        f.write('alias gr=\'cd "/run/media/$USER/"\'\n')
+        for key, dest in mapping_root:
+            f.write(f'alias f{key}=\'fzf-and-open "{dest}"\'\n')
+
+        for key, dest in mapping_home:
+            f.write(f'alias f{key}=\'fzf-and-open "$HOME/{dest}"\'\n')
+
+
+def write_lf(output_file, mapping_root, mapping_home):
+    with open(output_file, mode='w', encoding='utf-8') as f:
+        for key, dest in mapping_root:
+            f.write(f"map g{key} cd '{dest}'\n")
+
+        for key, dest in mapping_home:
+            f.write(f"map g{key} cd '~/{dest}'\n")
+
+        f.write('map gr %lf -remote "send $id cd /run/media/$USER/"\n')
+
+
+def check_duplicates(mapping):
+    mapping_dict = {key for key, _ in mapping}
+    if len(mapping_dict) != len(mapping):
+        print('Warning: there is duplicate mapping specified.')
+        return False
+    return True
+
+
+def main():
+    USER_HOME = Path(os.getenv('HOME', ''))
+    if USER_HOME == '':
+        print('Please set $HOME variable')
+        return
+
+    parser = ArgumentParser(description='Generate bash and lf folder aliases')
+
+    parser.add_argument('-b', '--bash',
+                        type=Path,
+                        default=USER_HOME / '.local/src/generated/aliases_bash',
+                        help='Output file for bash aliases')
+
+    parser.add_argument('-lf', '--lf',
+                        type=Path,
+                        default=USER_HOME / '.local/src/generated/aliases_lf',
+                        help='Output file for lf aliases')
+
+    args = parser.parse_args()
+
+    if not check_duplicates(mapping_root) or not check_duplicates(mapping_home):
+        return
+
+    write_bash(args.bash, mapping_root, mapping_home)
+    write_lf(args.lf, mapping_root, mapping_home)
+
+
+if __name__ == '__main__':
+    main()
