@@ -59,8 +59,10 @@ grub
 gst-plugins-bad
 gst-plugins-good
 gst-plugins-ugly
+gtest
 gzip
 haveged
+heroku-cli
 highlight
 htop
 ipython
@@ -129,7 +131,9 @@ pkgfile
 profile-sync-daemon
 pulseaudio
 pulseaudio-alsa
+pv
 python-aiohttp-cors-gns3
+python-pandas
 python-pip
 python-pyserial
 python-unidecode
@@ -143,11 +147,13 @@ sagemath
 sagemath-doc
 sed
 shellcheck
+shfmt
 simple-mtpfs
 smartmontools
 spotify
 spotifywm-git
 sshfs
+strace
 sudo
 syncthing
 system-config-printer
