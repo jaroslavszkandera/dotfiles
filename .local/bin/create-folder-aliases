@@ -63,13 +63,13 @@ def write_bash(output_file, mapping_root, mapping_home):
                 '#  Fuzzy finder mapping\n' +
                 '# ======================\n\n')
 
-        f.write('alias f="fzf-and-open"\n')
-        f.write('alias gr=\'cd "/run/media/$USER/"\'\n')
+        f.write('alias f="fzf_and_open"\n')
+        f.write('alias fr=\'fzf_and_open "/run/media/$USER/"\'\n')
         for key, dest in mapping_root:
-            f.write(f'alias f{key}=\'fzf-and-open "{dest}"\'\n')
+            f.write(f'alias f{key}=\'fzf_and_open "{dest}"\'\n')
 
         for key, dest in mapping_home:
-            f.write(f'alias f{key}=\'fzf-and-open "$HOME/{dest}"\'\n')
+            f.write(f'alias f{key}=\'fzf_and_open "$HOME/{dest}"\'\n')
 
 
 def write_lf(output_file, mapping_root, mapping_home):
