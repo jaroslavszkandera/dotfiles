@@ -6,8 +6,8 @@
 # =================
 
 # XDG Cleanup
-alias nvidia-settings='nvidia-settings --config="$XDG_CONFIG_HOME"/nvidia/settings'
-alias wget='wget --hsts-file="$XDG_CACHE_HOME/wget-hsts"'
+alias nvidia-settings='nvidia-settings --config="${XDG_CONFIG_HOME}/nvidia/settings"'
+alias wget='wget --hsts-file="${XDG_CACHE_HOME}/wget-hsts"'
 
 # Enable color
 alias ls='ls --color=auto'
@@ -24,7 +24,7 @@ alias la='ls -lha'
 alias df='df -h'
 
 # Dotfiles
-alias dfl='/usr/bin/git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME'
+alias dfl='git --git-dir="${HOME}/.dotfiles.git/" --work-tree="$HOME"'
 
 # Shortcuts/scripts
 alias rsync='rsync-without-trailing-slash'
