@@ -1,12 +1,12 @@
 #!/bin/bash
 
 
-HOSTNAME_FILE="$(dirname "$0")/../src/pkglist_${HOSTNAME}.txt"
+HOSTNAME_FILE="$(dirname "$0")/../src/generated/pkglist_${HOSTNAME}.txt"
 IGNORE_FILE="$(dirname "$0")/../src/pkglistignore.txt"
 
 get_help() {
 	echo "Usage: $(basename "$0") [OPTIONS] [FILES]"
-	echo "Auxiliary script to help manage ./src/pkglist.txt"
+	echo "Auxiliary script to help manage ./src/generated/pkglist_\${HOSTNAME}.txt"
 	echo
 	echo "Options:"
 	echo "-g [INPUT] [OUTPUT]      Generate file without drivers and other machine specifis packages"
