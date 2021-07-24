@@ -132,7 +132,6 @@ profile-sync-daemon
 pulseaudio
 pulseaudio-alsa
 pv
-python-aiohttp-cors-gns3
 python-pandas
 python-pip
 python-pyserial
