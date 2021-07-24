@@ -180,6 +180,7 @@ themix-full-git
 thunderbird
 time
 tmux
+traceroute
 ttf-font-awesome
 ttf-joypixels
 ttf-ms-win10

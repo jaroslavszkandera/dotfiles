@@ -183,6 +183,7 @@ time
 tlp
 tlp-rdw
 tmux
+traceroute
 ttf-font-awesome
 ttf-joypixels
 ttf-ms-win10
