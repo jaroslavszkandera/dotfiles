@@ -136,7 +136,8 @@ install_suckless_tools() {
 }
 
 move_gpg_folder() {
-	mv "${HOME}/.gnupg" "${HOME}/.local/share/gnupg"
+	cp -r "${HOME}/.gnupg/*" "${HOME}/.local/share/gnupg/"
+	rm -r "${HOME}/.gnupg"
 }
 
 main() {
