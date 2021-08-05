@@ -4,8 +4,10 @@ import unidecode
 import sys
 
 
-if len(sys.argv) == 1:
-    print(f'Usage: {sys.argv[0]} TEXT...', file=sys.stderr)
+if len(sys.argv) != 1:
+    print(f'Usage: {sys.argv[0]}',
+          '\tText is read from stdin.',
+          file=sys.stderr)
 
-for s in sys.argv[1:]:
-    print(unidecode.unidecode(s))
+for line in sys.stdin:
+    print(unidecode.unidecode(line), end='')
