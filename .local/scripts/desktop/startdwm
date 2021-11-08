@@ -2,5 +2,5 @@
 
 
 while :; do
-	dwm 2> ~/.dwm.log
+	dwm 2>"$XDG_CACHE_HOME"/dwm.log
 done
