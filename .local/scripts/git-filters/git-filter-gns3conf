@@ -1,9 +1,0 @@
-#!/bin/sh
-
-
-sed                                                              \
-	-e '/^[[:blank:]]*"recent_files":.*/,/[[:blank:]]*],/d'    \
-	-e '/^[[:blank:]]*"recent_projects":.*/,/[[:blank:]]*],/d' \
-	-e '/^[[:blank:]]*"geometry".*/d'                          \
-	-e '/^[[:blank:]]*"last_check_for_update".*/d'             \
-	-e '/^[[:blank:]]*"state".*/d'

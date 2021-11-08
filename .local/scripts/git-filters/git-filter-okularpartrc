@@ -1,8 +1,0 @@
-#!/bin/sh
-
-
-sed                                     \
-	-e '/^\[Reviews\]$/,/^$/d'        \
-	-e '/^\[PageView\]$/,/^$/d'       \
-	-e '/^BuiltinAnnotationTools.*/d' \
-	-e '/^QuickAnnotationTools.*/d'
