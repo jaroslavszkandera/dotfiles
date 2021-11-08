@@ -212,4 +212,4 @@ xorg-xinit
 xorg-xinput
 xorg-xsetroot
 yay
-youtube-dl
+yt-dlp

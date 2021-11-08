@@ -18,7 +18,7 @@ alias diff='diff --color=auto'
 alias watch='watch --color'
 
 # General
-alias youtube-dl='youtube-dl -f bestvideo+bestaudio'
+alias yt-dlp='yt-dlp -f bestvideo+bestaudio'
 alias l='ls -lh'
 alias la='ls -lha'
 alias df='df -h'
@@ -31,7 +31,6 @@ alias rsync='rsync-without-trailing-slash'
 alias vim='nvim_wrapper'
 alias v='nvim_wrapper'
 alias g='lf_wrapper'
-
 
 # ===================
 #  Directory mapping
