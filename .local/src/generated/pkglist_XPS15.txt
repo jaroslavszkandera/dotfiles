@@ -29,6 +29,7 @@ cups
 dash
 dnsmasq
 docker
+docker-compose
 doxygen
 dragon-drag-and-drop
 dunst
