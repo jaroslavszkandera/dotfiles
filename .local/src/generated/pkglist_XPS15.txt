@@ -129,6 +129,7 @@ patch
 pavucontrol
 pbzip2
 perl-file-mimeinfo
+perl-rename
 picom
 pigz
 pkgconf
