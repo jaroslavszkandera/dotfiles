@@ -60,7 +60,8 @@ export MAKEFLAGS="-j$(nproc)"
 export CPPUTEST_HOME="${HOME}/.local/cpputest"
 
 # Qt5 theme
-export QT_QPA_PLATFORMTHEME=gtk2
+export QT_QPA_PLATFORMTHEME='Matchama-Dark-Azul'
+export QT_STYLE_OVERRIDE='kvantum'
 
 # Conda
 export CONDARC="${HOME}/.config/conda/condarc"

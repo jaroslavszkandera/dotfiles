@@ -69,6 +69,7 @@ ipython
 j4-dmenu-desktop
 jack2
 jre-openjdk
+kvantum-qt5
 lf
 libinput-multiplier
 libnma
@@ -86,6 +87,7 @@ make
 man-db
 man-pages
 mathematica
+matcha-gtk-theme
 minicom
 miniconda3
 mint-y-icons
@@ -138,6 +140,7 @@ python-unidecode
 python-yarl-gns3
 qbittorrent
 qemu
+qogir-icon-theme
 qt5-styleplugins
 redshift
 rng-tools
@@ -175,7 +178,6 @@ texlive-pictures
 texlive-pstricks
 texlive-publishers
 texlive-science
-themix-full-git
 thunderbird
 time
 tmux
