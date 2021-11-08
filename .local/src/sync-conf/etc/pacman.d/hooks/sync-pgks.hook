@@ -6,4 +6,4 @@ Target = *
 
 [Action]
 When = PostTransaction
-Exec = /bin/bash -c '/home/jirik/.local/bin/sync-pkgs -g'
+Exec = /bin/bash -c '/home/jirik/.local/scripts/sync-pkgs -g'

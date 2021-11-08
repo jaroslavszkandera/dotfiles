@@ -23,9 +23,10 @@ mapping_home = [
     ('c', '.config/'),
 
     ('l.', '.local/'),
-    ('lb', '.local/bin/'),
-    ('lS', '.local/src/'),
-    ('ls', '.local/suckless/'),
+    ('lsc', '.local/scripts/'),
+    ('lsh', '.local/share/'),
+    ('lsr', '.local/src/'),
+    ('lsu', '.local/suckless/'),
     ('la', '.local/share/Anki2/Jiri Szkandera/collection.media/'),
 
     ('d.', 'Documents/'),

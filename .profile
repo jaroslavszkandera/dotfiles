@@ -2,8 +2,8 @@
 
 
 # Path and XDG
-echo "$PATH" | grep -qF "${HOME}/.local/bin/" || \
-export PATH="$(find "${HOME}/.local/bin/" -maxdepth 1 -type d -printf '%p:')$PATH"
+echo "$PATH" | grep -qF "${HOME}/.local/scripts/" || \
+export PATH="$(find "${HOME}/.local/scripts/" -maxdepth 1 -type d -printf '%p:')$PATH"
 export XDG_CONFIG_HOME="${HOME}/.config"
 export XDG_CACHE_HOME="${HOME}/.cache"
 export XDG_DATA_HOME="${HOME}/.local/share"
