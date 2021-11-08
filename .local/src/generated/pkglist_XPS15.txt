@@ -50,6 +50,7 @@ gcc
 gettext
 gimp
 git
+gnome-keyring
 gnome-shell-pomodoro
 gns3-gui
 gns3-server
