@@ -9,7 +9,7 @@ get_help() {
 	echo "Auxiliary script to help manage ./src/generated/pkglist_\${HOSTNAME}.txt"
 	echo
 	echo "Options:"
-	echo "-g [INPUT] [OUTPUT]      Generate file without drivers and other machine specifis packages"
+	echo "-g [INPUT] [OUTPUT]      Generate file without drivers and other machine specific packages"
 	echo "-f|--filter              Apply filter defined in .local/src/pkglistignore.txt"
 	echo "[SOURCE]                 Install packages that are missing on local system acording to given file"
 	exit 127
