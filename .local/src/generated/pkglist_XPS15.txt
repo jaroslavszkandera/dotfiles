@@ -76,6 +76,7 @@ jack2
 jre-openjdk
 kvantum-qt5
 lf
+libfido2
 libinput-multiplier
 libnma
 libreoffice-still
