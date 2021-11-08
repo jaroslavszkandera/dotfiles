@@ -74,6 +74,7 @@ ipython
 j4-dmenu-desktop
 jack2
 jre-openjdk
+jupyter_contrib_nbextensions
 kvantum-qt5
 lf
 libfido2
@@ -135,11 +136,20 @@ profile-sync-daemon
 pulseaudio
 pulseaudio-alsa
 pv
+pylon
+python-google-cloud-vision
+python-grpcio
+python-opencv
 python-pandas
 python-pip
+python-pylatexenc
+python-pypylon
 python-pyserial
+python-qiskit
+python-seaborn
 python-unidecode
 python-yarl-gns3
+python-yellowbrick
 qbittorrent
 qemu
 qogir-icon-theme
@@ -148,6 +158,7 @@ redshift
 rng-tools
 sagemath
 sagemath-doc
+seahorse
 sed
 shellcheck
 shfmt
