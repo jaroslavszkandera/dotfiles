@@ -93,7 +93,6 @@ maim
 make
 man-db
 man-pages
-mathematica
 matcha-gtk-theme
 minicom
 miniconda3
