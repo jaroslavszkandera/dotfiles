@@ -7,7 +7,7 @@ from anki.consts import NEW_CARDS_RANDOM
 from anki.lang import _, ngettext
 from anki.utils import *
 from aqt.qt import *
-
+import html
 
 
 def mappingOk(self):

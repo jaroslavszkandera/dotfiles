@@ -1,2 +1,2 @@
-rm ????.zip
+rm emptyFirst.zip
 zip -R emptyFirst.zip *py README.md LICENSE config* zipping ankiweb  --exclude \*~
