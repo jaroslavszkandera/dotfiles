@@ -69,12 +69,6 @@ init_dotfiles_repo() {
 		rm -f ~/.bash_login || return
 }
 
-init_borg() {
-	PATH_BACKUP='/home/backup'
-	prompt_and_remove_path "$PATH_BACKUP" || return 0
-	sudo borg init --encryption=none "$PATH_BACKUP"
-}
-
 init_services() {
 	# Bash suggestions for unknown packages
 	# Bluetooth
@@ -175,7 +169,6 @@ main() {
 		"$HOME"/.local/bin/sync-pkgs "$FILE_PACKAGES" &&
 		"$HOME"/.local/bin/sync-conf -w &&
 		init_services &&
-		init_borg &&
 		link_dash &&
 		add_user_to_groups &&
 		move_gpg_folder &&
