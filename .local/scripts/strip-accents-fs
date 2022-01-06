@@ -1,0 +1,20 @@
+#!/usr/bin/env python3
+
+from pathlib import Path
+import argparse
+import unidecode
+
+
+parser = argparse.ArgumentParser(description='Remove accents from file names')
+parser.add_argument('path', nargs='+',
+                    help='files to convert')
+parser.add_argument('--verbose', '-v', action='store_true')
+args = parser.parse_args()
+
+for path in args.path:
+    for file in Path(path).glob('**/*'):
+        path_old = str(file.relative_to('.'))
+        path_new = unidecode.unidecode(path_old)
+        if args.verbose:
+            print(f'{path_old} --> {path_new}')
+        file.rename(path_new)
