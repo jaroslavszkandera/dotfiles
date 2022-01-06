@@ -61,10 +61,14 @@ done
 
 [ ! -f "$FILE_PKGS_TARGET" ] && get_help
 
-filter_function="$([ "$do_apply_filter" = true ] && echo 'filter_pkgs' || echo 'cat')"
+if [ "$do_apply_filter" = true ]; then
+	NAME_FILTER_FUNCTION='filter_pkgs'
+else
+	NAME_FILTER_FUNCTION='cat'
+fi
 
-pkgs_to_install="$(comm -13 <(sort <<<"$PKGS_CURRENT") <(sort "$FILE_PKGS_TARGET") | "$filter_function")"
-pkgs_to_uninstall="$(comm -23 <(sort <<<"$PKGS_CURRENT") <(sort "$FILE_PKGS_TARGET") | "$filter_function")"
+pkgs_to_install="$(comm -13 <(sort <<<"$PKGS_CURRENT") <(sort "$FILE_PKGS_TARGET") | "$NAME_FILTER_FUNCTION")"
+pkgs_to_uninstall="$(comm -23 <(sort <<<"$PKGS_CURRENT") <(sort "$FILE_PKGS_TARGET") | "$NAME_FILTER_FUNCTION")"
 
 install_pkgs "$pkgs_to_install"
 exit_install=$?
