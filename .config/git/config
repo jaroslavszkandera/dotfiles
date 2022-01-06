@@ -17,3 +17,5 @@
 	ui = auto
 [pull]
 	rebase = false
+[submodule]
+	recurse = true
