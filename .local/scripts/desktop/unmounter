@@ -1,8 +1,8 @@
 #!/bin/sh
 
 
-MEDIADIR="/run/media/${USER}/"
-if [ -d "$MEDIADIR" ]; then
-	SELECTED="$(find "$MEDIADIR" -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | dmenu)"
-	[ -n "$SELECTED" ] && sync -f "${MEDIADIR}/$SELECTED" && umount "${MEDIADIR}/$SELECTED"
+DIR_MEDIA="/run/media/${USER}/"
+if [ -d "$DIR_MEDIA" ]; then
+	SELECTED="$(find "$DIR_MEDIA" -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | dmenu)"
+	[ -n "$SELECTED" ] && sync -f "${DIR_MEDIA}/$SELECTED" && umount "${DIR_MEDIA}/$SELECTED"
 fi

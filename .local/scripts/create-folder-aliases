@@ -4,7 +4,7 @@ from argparse import ArgumentParser
 from pathlib import Path
 import os
 
-mapping_root = [
+MAPPING_ROOT = [
     ('R', '/'),
     ('e', '/etc/'),
     ('H', '/home/'),
@@ -18,7 +18,7 @@ mapping_root = [
     ('Vl', '/var/lib/lxc/'),
 ]
 
-mapping_home = [
+MAPPING_HOME = [
     ('h', ''),
     ('c', '.config/'),
 
@@ -86,17 +86,14 @@ def write_lf(output_file, mapping_root, mapping_home):
 
 def check_duplicates(mapping):
     mapping_dict = {key for key, _ in mapping}
-    if len(mapping_dict) != len(mapping):
-        print('Warning: there is duplicate mapping specified.')
-        return False
-    return True
+    return len(mapping_dict) == len(mapping)
 
 
 def main():
     USER_HOME = Path(os.getenv('HOME', ''))
     if USER_HOME == '':
-        print('Please set $HOME variable')
-        return
+        print('Please set $HOME variable.')
+        return 1
 
     parser = ArgumentParser(description='Generate bash and lf folder aliases')
 
@@ -112,11 +109,12 @@ def main():
 
     args = parser.parse_args()
 
-    if not check_duplicates(mapping_root) or not check_duplicates(mapping_home):
-        return
+    if check_duplicates(MAPPING_ROOT) is False or check_duplicates(MAPPING_HOME) is False:
+        print('There is duplicate mapping specified.')
+        return 1
 
-    write_bash(args.bash, mapping_root, mapping_home)
-    write_lf(args.lf, mapping_root, mapping_home)
+    write_bash(args.bash, MAPPING_ROOT, MAPPING_HOME)
+    write_lf(args.lf, MAPPING_ROOT, MAPPING_HOME)
 
 
 if __name__ == '__main__':

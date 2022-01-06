@@ -1,14 +1,15 @@
 #!/bin/bash
 
 
-SUCKLESS_DIR="${HOME}/.local/suckless"
-NVIM_DIR="${HOME}/.config"
+DIR_SUCKLESS="${HOME}/.local/suckless"
+DIR_NVIM="${HOME}/.config"
 
-CURRENT_FOLDER="$(dirname "$0")"
-RSA_PATH="${HOME}/.ssh/id_rsa"
+DIR_SCRIPT="$(dirname "$0")"
+NAME_SCRIPT="$(basename "$0")"
+PATH_RSA_KEY="${HOME}/.ssh/id_rsa"
 
 print_help() {
-	echo "Usage: $(basename "$0") [OPTIONS] FILE"
+	echo "Usage: $NAME_SCRIPT [OPTIONS] FILE"
 	echo "Configure system for optimal use"
 	echo "Supply FILE as a list of packages that you want to install"
 	echo
@@ -34,7 +35,7 @@ install_yay() {
 	pacman -Qq | grep -q yay && return
 	sudo pacman -Syu --needed --noconfirm git openssh base-devel || return
 	(
-		cd "$CURRENT_FOLDER" &&
+		cd "$DIR_SCRIPT" &&
 			git clone https://aur.archlinux.org/yay.git &&
 			cd yay &&
 			makepkg -si --needed --noconfirm &&
@@ -44,34 +45,34 @@ install_yay() {
 }
 
 print_github_key() {
-	RSA_GITHUB="${HOME}/github_key.pub"
-	cp "${RSA_PATH}.pub" "${RSA_GITHUB}"
+	PATH_RSA_KEY_GITHUB="${HOME}/github_key.pub"
+	cp "${PATH_RSA_KEY}.pub" "${PATH_RSA_KEY_GITHUB}"
 	printf '%s\n' \
-		"A copy of an rsa public key has been added to ${RSA_GITHUB}" \
+		"A copy of an rsa public key has been added to ${PATH_RSA_KEY_GITHUB}" \
 		"Please add this key to github.com"
 }
 
 check_rsa() {
-	[ -f "$RSA_PATH" ] && return
-	ssh-keygen -t rsa -b 4096 -C 'jirik.sz@gmail.com' -P '' -f "$RSA_PATH"
+	[ -f "$PATH_RSA_KEY" ] && return
+	ssh-keygen -t rsa -b 4096 -C 'jirik.sz@gmail.com' -P '' -f "$PATH_RSA_KEY"
 }
 
 init_dotfiles_repo() {
-	REPO_PATH="${HOME}/.dotfiles.git"
-	prompt_and_remove_path "$REPO_PATH" || return 0
+	PATH_REPO="${HOME}/.dotfiles.git"
+	prompt_and_remove_path "$PATH_REPO" || return 0
 	sudo pacman -Syu --needed --noconfirm openssh git &&
-		git clone --bare --recurse-submodules https://github.com/Jirixek/dotfiles.git "$REPO_PATH" &&
-		git --git-dir="$REPO_PATH" --work-tree="$HOME" checkout -f &&
-		git --git-dir="$REPO_PATH" config --local status.showUntrackedFiles no &&
-		git --git-dir="$REPO_PATH" remote set-url origin git@github.com:Jirixek/dotfiles.git &&
+		git clone --bare --recurse-submodules https://github.com/Jirixek/dotfiles.git "$PATH_REPO" &&
+		git --git-dir="$PATH_REPO" --work-tree="$HOME" checkout -f &&
+		git --git-dir="$PATH_REPO" config --local status.showUntrackedFiles no &&
+		git --git-dir="$PATH_REPO" remote set-url origin git@github.com:Jirixek/dotfiles.git &&
 		check_rsa &&
 		rm -f ~/.bash_login || return
 }
 
 init_borg() {
-	BACKUP_PATH='/home/backup'
-	prompt_and_remove_path "$BACKUP_PATH" || return 0
-	sudo borg init --encryption=none "$BACKUP_PATH"
+	PATH_BACKUP='/home/backup'
+	prompt_and_remove_path "$PATH_BACKUP" || return 0
+	sudo borg init --encryption=none "$PATH_BACKUP"
 }
 
 init_services() {
@@ -87,32 +88,32 @@ init_services() {
 		cronie.service \
 		fstrim.timer \
 		slock@jirik.service
-	root_exit=$?
+	exit_root=$?
 
 	systemctl --user enable \
 		psd.service \
 		mpd.service \
 		syncthing.service \
 		geoclue-agent.service
-	user_exit=$?
+	exit_user=$?
 
-	return $((root_exit > user_exit ? root_exit : user_exit))
+	return $((exit_root > exit_user ? exit_root : exit_user))
 }
 
 init_git_repos() {
 	# Suckless
-	TOOLS=('dmenu' 'dwm' 'dwmblocks' 'slock' 'st')
+	REPOS_SUCKLESS=('dmenu' 'dwm' 'dwmblocks' 'slock' 'st')
 	(
-		cd "$SUCKLESS_DIR" || return
-		for tool in "${TOOLS[@]}"; do
-			git clone "https://github.com/Jirixek/${tool}.git" "$tool"
-			git --git-dir="$tool" remote set-url origin "git@github.com:Jirixek/${tool}.git"
+		cd "$DIR_SUCKLESS" || return
+		for repo in "${REPOS_SUCKLESS[@]}"; do
+			git clone "https://github.com/Jirixek/${repo}.git" "$repo"
+			git --git-dir="$repo" remote set-url origin "git@github.com:Jirixek/${repo}.git"
 		done
 	)
 
 	# Nvim
 	(
-		cd "$NVIM_DIR" || return
+		cd "$DIR_NVIM" || return
 		git clone 'https://github.com/Jirixek/vim.git' 'nvim'
 		git --git-dir='nvim' remote set-url origin "git@github.com:Jirixek/vim.git"
 	)
@@ -129,7 +130,7 @@ add_user_to_groups() {
 
 install_suckless_tools() {
 	(
-		cd "$SUCKLESS_DIR" || return
+		cd "$DIR_SUCKLESS" || return
 		make checkout
 		make install
 	)
@@ -146,7 +147,7 @@ main() {
 		exit 1
 	fi
 
-	INSTALL_FILE=""
+	FILE_PACKAGES=""
 	while [ "$#" -gt 0 ]; do
 		case "$1" in
 			-h | --help) print_help ;;
@@ -157,8 +158,8 @@ main() {
 				shift
 				;;
 			*)
-				if [ -z "$INSTALL_FILE" ] && [ -f "$1" ]; then
-					INSTALL_FILE="$1"
+				if [ -z "$FILE_PACKAGES" ] && [ -f "$1" ]; then
+					FILE_PACKAGES="$1"
 				else
 					print_help
 				fi
@@ -167,11 +168,11 @@ main() {
 		esac
 	done
 
-	[ -z "$INSTALL_FILE" ] && print_help
+	[ -z "$FILE_PACKAGES" ] && print_help
 
 	init_git_repos &&
 		install_yay &&
-		"$HOME"/.local/bin/sync-pkgs "$INSTALL_FILE" &&
+		"$HOME"/.local/bin/sync-pkgs "$FILE_PACKAGES" &&
 		"$HOME"/.local/bin/sync-conf -w &&
 		init_services &&
 		init_borg &&

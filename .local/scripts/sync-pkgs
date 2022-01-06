@@ -1,47 +1,47 @@
 #!/bin/bash
 
 
-HOSTNAME_FILE="$(dirname "$0")/../src/generated/pkglist_${HOSTNAME}.txt"
-IGNORE_FILE="$(dirname "$0")/../src/pkglistignore.txt"
+FILE_PKGS_OUTPUT="$(dirname "$0")/../src/generated/pkglist_${HOSTNAME}.txt"
+FILE_FILTER="$(dirname "$0")/../src/pkglistignore.txt"
 
 get_help() {
 	echo "Usage: $(basename "$0") [OPTIONS] [FILES]"
-	echo "Auxiliary script to help manage ./src/generated/pkglist_\${HOSTNAME}.txt"
+	echo "Auxiliary script to help manage $FILE_PKGS_OUTPUT"
 	echo
 	echo "Options:"
 	echo "-g [INPUT] [OUTPUT]      Generate file without drivers and other machine specific packages"
-	echo "-f|--filter              Apply filter defined in .local/src/pkglistignore.txt"
+	echo "-f|--filter              Apply filter defined in $FILE_FILTER"
 	echo "[SOURCE]                 Install packages that are missing on local system acording to given file"
 	exit 127
 }
 
-install_pkgs () {
+install_pkgs() {
 	[ -n "$1" ] && echo "$1" | yay -Syu --needed "${install_flags[@]}" -
 }
 
-uninstall_pkgs () {
+uninstall_pkgs() {
 	[ -n "$1" ] && echo "$1" | sudo pacman -Rnus -
 }
 
-filter_pkgs () {
-	filter="$(sed 's/.*/\/&\/d;/' "$IGNORE_FILE")"
+filter_pkgs() {
+	filter="$(sed 's/.*/\/&\/d;/' "$FILE_FILTER")"
 	sed -E "$filter"
 }
 
-[ ! -d "$(dirname "$HOSTNAME_FILE")" ] && get_help
+[ ! -d "$(dirname "$FILE_PKGS_OUTPUT")" ] && get_help
 
-current_pkgs="$(pacman -Qqe | sort)"
+PKGS_CURRENT="$(pacman -Qqe | sort)"
 install_flags=()
-apply_filter='false'
+do_apply_filter='false'
 while [ "$#" -gt 0 ]; do
 	case "$1" in
 		-h)	get_help ;;
 		-f|--filter)
-			apply_filter='true'
+			do_apply_filter='true'
 			shift
 			;;
 		-g)
-			echo "$current_pkgs" > "$HOSTNAME_FILE"
+			echo "$PKGS_CURRENT" > "$FILE_PKGS_OUTPUT"
 			exit
 			;;
 		--noconfirm)
@@ -50,7 +50,7 @@ while [ "$#" -gt 0 ]; do
 			;;
 		*)
 			if [ -f "$1" ]; then
-				target_file="$1"
+				FILE_PKGS_TARGET="$1"
 			else
 				get_help
 			fi
@@ -59,16 +59,16 @@ while [ "$#" -gt 0 ]; do
 	esac
 done
 
-[ ! -f "$target_file" ] && get_help
+[ ! -f "$FILE_PKGS_TARGET" ] && get_help
 
-filter_function="$([ "$apply_filter" = true ] && echo 'filter_pkgs' || echo 'cat')"
+filter_function="$([ "$do_apply_filter" = true ] && echo 'filter_pkgs' || echo 'cat')"
 
-new_pkgs="$(comm -13 <(sort <<<"$current_pkgs") <(sort "$target_file") | "$filter_function")"
-old_pkgs="$(comm -23 <(sort <<<"$current_pkgs") <(sort "$target_file") | "$filter_function")"
+pkgs_to_install="$(comm -13 <(sort <<<"$PKGS_CURRENT") <(sort "$FILE_PKGS_TARGET") | "$filter_function")"
+pkgs_to_uninstall="$(comm -23 <(sort <<<"$PKGS_CURRENT") <(sort "$FILE_PKGS_TARGET") | "$filter_function")"
 
-install_pkgs "$new_pkgs"
-install_exit=$?
-uninstall_pkgs "$old_pkgs"
-uninstall_exit=$?
+install_pkgs "$pkgs_to_install"
+exit_install=$?
+uninstall_pkgs "$pkgs_to_uninstall"
+exit_uninstall=$?
 
-exit $((install_exit > uninstall_exit ? install_exit : uninstall_exit))
+exit $((exit_install > exit_uninstall ? exit_install : exit_uninstall))

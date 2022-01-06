@@ -1,11 +1,11 @@
 #!/bin/sh
 
 
-IMGPATH="${HOME}/Pictures/screenshots/$(date '+%y%m%d_%H%M%S').png"
+PATH_SCREENSHOT="${HOME}/Pictures/screenshots/$(date '+%y%m%d_%H%M%S').png"
 case "$1" in
-	-w)  maim -u -i "$(xdotool getactivewindow)" "$IMGPATH" ;;
-	-s)  maim -u -s                              "$IMGPATH" ;;
-	 *)  maim -u                                 "$IMGPATH" ;;
+	-w)  maim -u -i "$(xdotool getactivewindow)" "$PATH_SCREENSHOT" ;;
+	-s)  maim -u -s                              "$PATH_SCREENSHOT" ;;
+	 *)  maim -u                                 "$PATH_SCREENSHOT" ;;
 esac
 
-cat "$IMGPATH" | xclip -selection clipboard -t image/png
+cat "$PATH_SCREENSHOT" | xclip -selection clipboard -t image/png

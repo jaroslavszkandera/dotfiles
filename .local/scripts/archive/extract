@@ -1,11 +1,11 @@
 #!/bin/bash
 
 
-parse_info () {
+parse_info() {
 	sed -E 's|([^/]*/?).*|\1|' <<<"$1" | uniq
 }
 
-list_top_dirs () {
+list_top_dirs() {
 	case "$1" in
 		*.tar.bz2 | *.tbz2) parse_info "$(tar -tjf "$file")" ;;
 		*.tar.gz | *.tgz) parse_info "$(tar -tzf "$file")" ;;
@@ -19,7 +19,7 @@ list_top_dirs () {
 	esac
 }
 
-extract_here () {
+extract_here() {
 	case "$1" in
 		*.tar.bz2 | *.tbz2) tar -xvjf "$file" ;;
 		*.tar.gz | *.tgz) tar -xvzf "$file" ;;
@@ -36,12 +36,12 @@ extract_here () {
 	esac
 }
 
-strip_suffix () {
+strip_suffix() {
 	shopt -s extglob
 	echo "${1%.@(tar.bz2|tbz2|tar.gz|tgz|tar.xz|tar|bz2|gz|xz|zip)}"
 }
 
-extract_to_dir () {
+extract_to_dir() {
 	(
 	NEWDIR="$(basename "$(strip_suffix "$1")")"
 	mkdir "$NEWDIR" && cd "$NEWDIR" || return
@@ -52,7 +52,7 @@ extract_to_dir () {
 	) || return
 }
 
-main () {
+main() {
 	flag=0
 	for file in "$@"; do
 		if [ "$(list_top_dirs "$file" | wc -l)" -le 1 ]; then

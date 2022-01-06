@@ -1,25 +1,25 @@
 #!/bin/sh
 
 
-prg="$(basename "$0")"
+NAME_SCRIPT="$(basename "$0")"
 
-getHelp() {
-	echo "Usage: $prg [.tex file]"
+get_help() {
+	echo "Usage: $NAME_SCRIPT [.tex file]"
 	echo "Compile .tex file"
 	exit 127
 }
 
-compileFile=''
+file_compile=''
 if [ -f "$1" ]; then
-	compileFile="$1"
+	file_compile="$1"
 else
-	getHelp
+	get_help
 fi
 
-lualatex "$compileFile"
-# luatex -fmt pdfcsplain "$compileFile"
-# musixflx "$compileFile"
-# luatex -fmt pdfcsplain "$compileFile"
+lualatex "$file_compile"
+# luatex -fmt pdfcsplain "$file_compile"
+# musixflx "$file_compile"
+# luatex -fmt pdfcsplain "$file_compile"
 
 # echo
-# texcount "$compileFile"
+# texcount "$file_compile"

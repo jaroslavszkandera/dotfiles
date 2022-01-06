@@ -4,16 +4,16 @@
 # Created by Jiří Szkandera
 # Compile .c/.cpp program and execute unit tests accordingly
 
-prg="$(basename "$0")"
-SRCFOLDER="$(dirname "$0")"/../src/
+NAME_SCRIPT="$(basename "$0")"
+DIR_SRC="$(dirname "$0")"/../src/
 
-getHelp() {
-	echo "Usage: $prg [OPTIONS] [FILE]"
+get_help() {
+	echo "Usage: $NAME_SCRIPT [OPTIONS] [FILE]"
 	echo "Compile .c/.cpp program and execute unit tests accordingly"
 	echo
 	echo "Options:"
 	echo "-h      Show this help"
-	echo "-d      Specify directory with unit tests (if not supplied, $prg will just execute given program)"
+	echo "-d      Specify directory with unit tests (if not supplied, $NAME_SCRIPT will just execute given program)"
 	echo "-c      Compile only (do not execute, just COMPILE a program)"
 	echo "-x      Execute only (do not compile, just EXECUTE a program)"
 	echo "-m      Disable memory debugger"
@@ -21,36 +21,36 @@ getHelp() {
 	exit 127
 }
 
-compile () {
-	readarray -t FLAGS <"$SRCFOLDER"/cpp_compilation_flags.txt
-	readarray -t LIBS <"$SRCFOLDER"/cpp_library_flags.txt
+compile() {
+	readarray -t FLAGS <"$DIR_SRC"/cpp_compilation_flags.txt
+	readarray -t LIBS <"$DIR_SRC"/cpp_library_flags.txt
 
 	if [ -f "$PWD/Makefile" ]; then
 		make
 	else
-		[ "$memdebug" = 'true' ]     && FLAGS=("${FLAGS[@]}" "-g" "-fsanitize=address")
-		[ "$optimization" = 'true' ] && FLAGS=("${FLAGS[@]}" "-O2")
-		g++ "${FLAGS[@]}" "$compileFile" -o "$executeFile" "${LIBS[@]}"
+		[ "$do_memdebug" = 'true' ]     && FLAGS=("${FLAGS[@]}" "-g" "-fsanitize=address")
+		[ "$do_optimization" = 'true' ] && FLAGS=("${FLAGS[@]}" "-O2")
+		g++ "${FLAGS[@]}" "$file_compile" -o "$file_exec" "${LIBS[@]}"
 	fi
 }
 
-compile='true'
-execute='true'
-memdebug='true'
-optimization='false'
+do_compile='true'
+do_execute='true'
+do_memdebug='true'
+do_optimization='false'
 
-compileFile=''
-executeFile=''
-testDir=''
+file_compile=''
+file_exec=''
+dir_tests=''
 
 while [ "$#" -gt 0 ]; do
 	case "$1" in
-		-h)	getHelp ;;
+		-h)	get_help ;;
 		-d)
-			# testdir
+			# dir_tests
 			shift
 			if [ -d "$1" ]; then
-				testDir="$1"
+				dir_tests="$1"
 			else
 				echo "$1 is not a directory." >&2
 				exit 1
@@ -59,35 +59,35 @@ while [ "$#" -gt 0 ]; do
 			;;
 		-c)
 			# compile only
-			compile='true'
-			execute='false'
+			do_compile='true'
+			do_execute='false'
 			shift
 			;;
 		-x)
 			# execute only
-			compile='false'
-			execute='true'
+			do_compile='false'
+			do_execute='true'
 			shift
 			;;
 		-m)
-			memdebug='false'
+			do_memdebug='false'
 			shift
 			;;
 		-O)
-			optimization='true'
+			do_optimization='true'
 			shift
 			;;
 		*)
 			if [ -f "$1" ]; then
-				if [ "$compile" = 'false' ]; then
-					executeFile="$1"
+				if [ "$do_compile" = 'false' ]; then
+					file_exec="$1"
 				else
-					compileFile="$1"
-					executeFile="${compileFile%.*}"
+					file_compile="$1"
+					file_exec="${file_compile%.*}"
 				fi
 			else
 				echo "Invalid option: '$1'" >&2
-				echo "Try '$prg -h' for more information." >&2
+				echo "Try '$NAME_SCRIPT -h' for more information." >&2
 				exit 1
 			fi
 			shift
@@ -96,31 +96,31 @@ while [ "$#" -gt 0 ]; do
 	esac
 done
 
-if [ "$compile" = 'true' ] && [ ! -f "$compileFile" ]; then
-	echo "'$compileFile' is not a file." >&2
+if [ "$do_compile" = 'true' ] && [ ! -f "$file_compile" ]; then
+	echo "'$file_compile' is not a file." >&2
 	exit 1
 fi
 
-if [ "$compile" = 'false' ] && [ ! -x "$executeFile" ]; then
-	echo "'$executeFile' not executable." >&2
+if [ "$do_compile" = 'false' ] && [ ! -x "$file_exec" ]; then
+	echo "'$file_exec' not executable." >&2
 	exit 1
 fi
 
-if [ "$execute" = 'false' ]; then
+if [ "$do_execute" = 'false' ]; then
 	compile
-elif [ "$compile" = 'false' ] || compile; then
-	if [ -d "$testDir" ]; then
+elif [ "$do_compile" = 'false' ] || compile; then
+	if [ -d "$dir_tests" ]; then
 		# unit tests
-		for i in "$testDir"/*_in.txt; do
-			outCMP="${i%_in.txt}_cmp.txt"
-			outREF="${i%_in.txt}_ref.txt"
+		for i in "$dir_tests"/*_in.txt; do
+			output_cmp="${i%_in.txt}_cmp.txt"
+			output_ref="${i%_in.txt}_ref.txt"
 
-			/usr/bin/time --quiet -f "$i\t\tuser: %U s\tmemory: %M kB" ./"$executeFile" "$@" < "$i" > "$outCMP"
-			diff --color="always" "$outCMP" "$outREF"
+			/usr/bin/time --quiet -f "$i\t\tuser: %U s\tmemory: %M kB" ./"$file_exec" "$@" < "$i" > "$output_cmp"
+			diff --color="always" "$output_cmp" "$output_ref"
 		done
 	else
 		# case without unit tests, just execute program
-		/usr/bin/time --quiet -f "user: %U s\tmemory: %M kB" ./"$executeFile" "$@"
+		/usr/bin/time --quiet -f "user: %U s\tmemory: %M kB" ./"$file_exec" "$@"
 	fi
 else
 	exit 2

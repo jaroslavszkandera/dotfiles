@@ -6,8 +6,11 @@ if [ "$(id -u)" -eq 0 ]; then
 	exit 2
 fi
 
-getHelp() {
-	echo "Usage: $(basename "$0") [OPTIONS]"
+NAME_SCRIPT="$(basename "$0")"
+DIR_SCRIPT="$(dirname "$0")"
+
+get_help() {
+	echo "Usage: $NAME_SCRIPT [OPTIONS]"
 	echo "Auxiliary script to move ./src files into right places"
 	echo
 	echo "Options:"
@@ -16,10 +19,8 @@ getHelp() {
 	exit 127
 }
 
-CURRENTFOLDER="$(dirname "$0")"
-
 (
-cd "$CURRENTFOLDER"/../src/sync-conf/ || {
+cd "$DIR_SCRIPT"/../src/sync-conf/ || {
 	echo "Can't enter ${HOME}/.local/src" >&2
 	exit 1
 }
@@ -33,7 +34,7 @@ case "$1" in
 		sudo find etc/ -type f -exec cp -v "{}" /"{}" \;
 		;;
 	*)
-		getHelp
+		get_help
 		;;
 esac
 )
