@@ -119,7 +119,7 @@ link_dash() {
 }
 
 add_user_to_groups() {
-	sudo usermod -aG wireshark,rfkill,uucp,audio,geoclue,openvpn "$USER"
+	sudo usermod -aG wireshark,rfkill,uucp,audio,geoclue,openvpn,docker "$USER"
 }
 
 install_suckless_tools() {
