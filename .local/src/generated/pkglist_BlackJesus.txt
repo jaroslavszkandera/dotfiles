@@ -140,7 +140,6 @@ pulseaudio
 pulseaudio-alsa
 pv
 pylon
-python-google-cloud-vision
 python-grpcio
 python-opencv
 python-pandas
@@ -151,7 +150,6 @@ python-pyserial
 python-qiskit
 python-seaborn
 python-unidecode
-python-yarl-gns3
 python-yellowbrick
 qbittorrent
 qemu
