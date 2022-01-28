@@ -12,6 +12,7 @@ autopep8
 autorandr
 base
 biber
+bind
 binutils
 bison
 blueberry

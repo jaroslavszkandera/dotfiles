@@ -13,6 +13,7 @@ autorandr
 base
 bbswitch
 biber
+bind
 binutils
 bison
 blueberry
