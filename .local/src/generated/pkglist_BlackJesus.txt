@@ -120,6 +120,7 @@ nvidia
 nvidia-dkms
 nvidia-settings
 nvidia-utils
+obs-studio
 okular
 openssh
 openvpn

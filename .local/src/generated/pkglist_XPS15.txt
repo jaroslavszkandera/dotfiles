@@ -121,6 +121,7 @@ noto-fonts-emoji
 npm
 ntfs-3g
 numlockx
+obs-studio
 okular
 openssh
 openvpn
