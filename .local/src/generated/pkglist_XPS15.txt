@@ -77,7 +77,7 @@ j4-dmenu-desktop
 jack2
 jre-openjdk
 jupyter_contrib_nbextensions
-kvantum-qt5
+kvantum
 lf
 libfido2
 libinput-multiplier
