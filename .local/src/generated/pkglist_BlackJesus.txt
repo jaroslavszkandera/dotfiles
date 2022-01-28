@@ -76,7 +76,7 @@ jupyter_contrib_nbextensions
 kvantum
 lf
 libfido2
-libinput-multiplier
+libinput
 libnma
 libreoffice-still
 libtool
