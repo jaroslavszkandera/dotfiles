@@ -28,8 +28,8 @@ alias dfl='git --git-dir="${HOME}/.dotfiles.git/" --work-tree="$HOME"'
 
 # Shortcuts/scripts
 alias rsync='rsync-without-trailing-slash'
-alias vim='nvim_wrapper'
-alias v='nvim_wrapper'
+alias vim='nvim'
+alias v='nvim'
 alias g='lf_wrapper'
 
 # ===================

@@ -20,11 +20,6 @@ fzf_and_open () {
 	fi
 }
 
-nvim_wrapper () {
-	# disable <C-s> and <C-q> in $EDITOR
-	stty -ixon && nvim "$@" && stty ixon
-}
-
 lf_wrapper () {
 	# setup lf so it changes to the last directory when exited
 	tempfile="$(mktemp)" || {
@@ -39,4 +34,4 @@ lf_wrapper () {
 	[ -d "$dir" ] && [ "$dir" != "$PWD" ] && cd "$dir"
 }
 
-export -f fzf_and_open nvim_wrapper lf_wrapper
+export -f fzf_and_open lf_wrapper

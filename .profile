@@ -15,9 +15,9 @@ export HISTCONTROL=erasedups
 
 # Default programs
 export OPENER='mimeopen'
-export EDITOR='nvim_wrapper'
-export VISUAL='nvim_wrapper'
-export SUDO_EDITOR='nvim_wrapper'
+export EDITOR='nvim'
+export VISUAL='nvim'
+export SUDO_EDITOR='nvim'
 export TERMINAL='st'
 export BROWSER='firefox'
 export READER='evince'
