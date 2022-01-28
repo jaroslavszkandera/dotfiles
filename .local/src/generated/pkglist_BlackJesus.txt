@@ -99,6 +99,7 @@ mlocate
 mpc
 mpd
 mpv
+musescore
 ncmpcpp
 neofetch
 neovim
