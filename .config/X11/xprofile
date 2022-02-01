@@ -14,7 +14,7 @@ background &
 
 # Peripherals
 numlockx on &
-xrdb -load "${HOME}/.Xresources" &
+xrdb -load "${XDG_CONFIG_HOME}/X11/Xresources" &
 
 # Other
 rfkill block bluetooth &
