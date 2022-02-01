@@ -8,6 +8,7 @@
 # XDG Cleanup
 alias nvidia-settings='nvidia-settings --config="${XDG_CONFIG_HOME}/nvidia/settings"'
 alias wget='wget --hsts-file="${XDG_CACHE_HOME}/wget-hsts"'
+alias flake8='flake8 --append-config="${XDG_CONFIG_HOME}/flake8"'
 
 # Enable color
 alias ls='ls --color=auto'
