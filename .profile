@@ -24,7 +24,7 @@ export READER='evince'
 export FILE='lf_wrapper'
 
 # ~/ Clean-up
-export GTK2_RC_FILES="${HOME}/.config/gtk-2.0/gtkrc-2.0"
+export GTK2_RC_FILES="${XDG_CONFIG_HOME}/gtk-2.0/gtkrc-2.0"
 export LESSHISTFILE='-'
 export GNUPGHOME="${XDG_DATA_HOME}/gnupg"
 export MATHEMATICA_USERBASE="${XDG_CONFIG_HOME}/mathematica"
@@ -64,4 +64,4 @@ export QT_QPA_PLATFORMTHEME='Matchama-Dark-Azul'
 export QT_STYLE_OVERRIDE='kvantum'
 
 # Conda
-export CONDARC="${HOME}/.config/conda/condarc"
+export CONDARC="${XDG_CONFIG_HOME}/conda/condarc"
