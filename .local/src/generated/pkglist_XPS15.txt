@@ -25,6 +25,7 @@ calibre
 ccls
 chromium
 cronie
+cscope
 ctags
 cups
 dash
