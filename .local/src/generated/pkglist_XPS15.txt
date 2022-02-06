@@ -78,6 +78,7 @@ j4-dmenu-desktop
 jack2
 jre-openjdk
 jupyter_contrib_nbextensions
+jupyterlab
 kvantum
 lf
 libfido2
