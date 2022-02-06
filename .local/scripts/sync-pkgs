@@ -70,9 +70,9 @@ fi
 pkgs_to_install="$(comm -13 <(sort <<<"$PKGS_CURRENT") <(sort "$FILE_PKGS_TARGET") | "$NAME_FILTER_FUNCTION")"
 pkgs_to_uninstall="$(comm -23 <(sort <<<"$PKGS_CURRENT") <(sort "$FILE_PKGS_TARGET") | "$NAME_FILTER_FUNCTION")"
 
-install_pkgs "$pkgs_to_install"
-exit_install=$?
 uninstall_pkgs "$pkgs_to_uninstall"
 exit_uninstall=$?
+install_pkgs "$pkgs_to_install"
+exit_install=$?
 
 exit $((exit_install > exit_uninstall ? exit_install : exit_uninstall))
