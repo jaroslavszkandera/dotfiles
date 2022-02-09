@@ -1,0 +1,7 @@
+#!/bin/bash
+
+
+dfl-pull
+sudo make -C "${HOME}/.local/suckless/" install
+sync-pkgs "${HOME}/.local/src/generated/pkglist_XPS15.txt"
+sync-conf -w

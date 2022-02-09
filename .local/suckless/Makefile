@@ -1,15 +1,19 @@
 SUBDIRS = dmenu dwm dwmblocks slock st
 
-all: subdirs
-
-subdirs:
-	for n in $(SUBDIRS); do $(MAKE) -C $$n || exit 1; done
-
-install:
-	for n in $(SUBDIRS); do $(MAKE) -C $$n install || exit 1; done
+all: compile
 
 checkout:
-	for n in $(SUBDIRS); do git -C $$n checkout config || exit 1; done
+	for n in $(SUBDIRS); do git -C "$$n" checkout config || exit; done
+
+compile: checkout
+	for n in $(SUBDIRS); do $(MAKE) -C "$$n" || exit; done
+
+install: compile
+	for n in $(SUBDIRS); do $(MAKE) -C "$$n" install || exit; done
+
+pull:
+	# TODO: test the -r option
+	for n in $(SUBDIRS); do git -C "$$n" pull -r || exit; done
 
 clean:
-	for n in $(SUBDIRS); do $(MAKE) -C $$n clean; done
+	for n in $(SUBDIRS); do $(MAKE) -C "$$n" clean; done
