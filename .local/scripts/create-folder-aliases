@@ -34,7 +34,7 @@ MAPPING_HOME = [
     ('df', 'Documents/faktury/'),
     ('dl', 'Documents/latex/'),
     ('dP', 'Documents/private/'),
-    ('dp', 'Documents/programming/'),
+    ('dp', 'Documents/projects/'),
     ('dw', 'Documents/workswell/'),
 
     ('D', 'Downloads/'),
