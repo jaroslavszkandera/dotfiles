@@ -66,6 +66,7 @@ gst-plugins-ugly
 gtest
 gzip
 haveged
+hdparm
 heroku-cli
 highlight
 htop
