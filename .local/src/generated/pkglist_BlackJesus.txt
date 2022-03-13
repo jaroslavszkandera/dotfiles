@@ -74,7 +74,6 @@ ipython
 j4-dmenu-desktop
 jack2
 jre-openjdk
-jupyter_contrib_nbextensions
 jupyterlab
 kvantum
 lf
@@ -96,7 +95,6 @@ man-db
 man-pages
 matcha-gtk-theme
 minicom
-miniconda3
 mint-y-icons
 mlocate
 mpc
@@ -149,12 +147,10 @@ python-pandas
 python-pip
 python-pylatexenc
 python-pyserial
-python-seaborn
 python-unidecode
 qbittorrent
 qemu
 qogir-icon-theme
-qt5-styleplugins
 redshift
 rng-tools
 sagemath
