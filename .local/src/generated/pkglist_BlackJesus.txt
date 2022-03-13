@@ -146,6 +146,7 @@ python-grpcio
 python-opencv
 python-pandas
 python-pip
+python-poetry
 python-pylatexenc
 python-pyserial
 python-unidecode
