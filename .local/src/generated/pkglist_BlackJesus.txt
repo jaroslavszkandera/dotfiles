@@ -149,6 +149,7 @@ python-pip
 python-poetry
 python-pylatexenc
 python-pyserial
+python-scikit-learn
 python-unidecode
 qbittorrent
 qemu
