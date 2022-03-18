@@ -21,14 +21,15 @@ fzf_and_open () {
 }
 
 lf_wrapper () {
-	# setup lf so it changes to the last directory when exited
+	# Make lf change folder on exit.
+	# This needs to be a bash function (as oppose to a script)
+	# as it needs to be executed in a current shell.
 	tempfile="$(mktemp)" || {
 		echo "Can't create tmpfile" >&2
-			return 1
-		}
-	lf -last-dir-path="$tempfile" "$@"
+		return 1
+	}
+	lf-ueberzug -last-dir-path="$tempfile" "$@"
 	[ ! -f "$tempfile" ] && return 1
-
 	dir="$(cat "$tempfile")"
 	rm -f "$tempfile"
 	[ -d "$dir" ] && [ "$dir" != "$PWD" ] && cd "$dir" || return

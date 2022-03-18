@@ -3,18 +3,21 @@
 # ===============
 set shell bash # Interpreter for shell commands (needs to be POSIX compatible)
 
-set ratios 1:3:4 # Set ratios similar to ranger
+set ratios 1:3:4
 set drawbox
 set scrolloff 4
 set ifs "\n"
+set tabstop 6 # tab width
+set preview
+set cleaner '~/.config/lf/cleaner'
+set previewer '~/.config/lf/preview'
+set period 1 # Periodic loading
+
+# Searching
 set findlen 2 # 0 is to search until matched
 set ignoredia
 set smartdia
 set globsearch
-set tabstop 6 # Tabwidth
-set preview
-set previewer ~/.config/lf/preview
-set period 1 # Periodic loading
 set incsearch
 
 # ===========

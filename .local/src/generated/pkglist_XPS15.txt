@@ -11,6 +11,7 @@ automake
 autopep8
 autorandr
 base
+bat
 bbswitch
 biber
 bind
@@ -41,6 +42,7 @@ entr
 eog
 ethtool
 fakeroot
+ffmpegthumbnailer
 file
 findutils
 firefox
@@ -54,6 +56,7 @@ gdb
 gettext
 gimp
 git
+gnome-epub-thumbnailer
 gnome-keyring
 gnome-shell-pomodoro
 gns3-gui
@@ -99,6 +102,7 @@ make
 man-db
 man-pages
 matcha-gtk-theme
+mediainfo
 minicom
 mint-y-icons
 mlocate
@@ -123,6 +127,7 @@ npm
 ntfs-3g
 numlockx
 obs-studio
+odt2txt
 okular
 openssh
 openvpn
@@ -210,6 +215,7 @@ ttf-ms-win10-zh_tw
 twine
 ubridge
 udiskie
+ueberzug
 unclutter
 unrar
 unzip
