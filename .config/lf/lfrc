@@ -48,57 +48,27 @@ cmd open ${{
 	esac
 }}
 
-cmd sudoerr &{{
-	cmd="$1"
-	shift
-
-	for arg in "$@"; do
-		err="$(sudo $cmd "$arg" 2>&1)"
-		[ $? -ne 0 ] && lf -remote "send $id echoerr \"$err\"" && exit
-	done
-
-	lf -remote "send $id reload"
-}}
-
 # ===================
 #  File Manipulation
 # ===================
+# TODO: listen to esc (when implemented: stty intr ^[)
 cmd mkdir %{{
 	printf 'Directory name: '
 	read dirname
-	mkdir "$dirname" && exit 0
-
-	printf "Creation failed. Create with sudo? [y/N] "
-	read -n1 ans
-	[ "$ans" != 'y' ] && exit 0
-
-	lf -remote "send $id sudoerr \"mkdir\" \"$dirname\""
+	mkdir -p "$dirname"
 }}
 
 cmd touch %{{
 	printf 'File name: '
 	read filename
-	touch "$filename" && exit 0
-
-	printf 'Creation failed. Create with sudo? [y/N] '
-	read -n1 ans
-	[ "$ans" != 'y' ] && exit 0
-
-	lf -remote "send $id sudoerr \"touch\" \"$filename\""
+	touch "$filename"
 }}
 
 cmd delete %{{
 	printf 'Delete? [y/N] '
 	read ans
 	[ "$ans" != 'y' ] && exit 0
-
-	rm -rf $fx && exit 0
-
-	printf 'Deletion failed. Delete with sudo? [y/N] '
-	read ans
-	[ "$ans" != 'y' ] && exit 0
-
-	lf -remote "send $id sudoerr \"rm -rf\" $fx"
+	rm -rf -- $fx
 }}
 
 cmd toggle-execute &{{
@@ -239,16 +209,9 @@ cmd dragon &{{
 	fi
 }}
 
-# =======
-#  Trash
-# =======
-# TODO
-# make sure trash folder exists
-# %mkdir -p ~/.trash
-
-# ==========
-#  Resizing
-# ==========
+# ====================
+#  Automatic resizing
+# ====================
 # TODO: hook
 # cmd recol &{{
 #     w=$(tput cols)
@@ -265,7 +228,6 @@ cmd dragon &{{
 #  Command mapping
 # =================
 # File manipulation
-# TODO: listen to esc
 map w
 map wf touch
 map wd mkdir
@@ -294,9 +256,6 @@ map at $lf-tar "$id" $fx
 map ag $lf-targz "$id" $fx
 map ab $lf-tarbz2 "$id" $fx
 map x  $extract $fx
-
-# TODO: Trash
-# map gtr cd ~/.local/share/Trash/files
 
 # Other
 map - dragon
