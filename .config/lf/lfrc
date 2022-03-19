@@ -95,10 +95,8 @@ cmd rename-clear &{{
 	}
 
 	# Single file
-	[ -n "$fs" ] && file="$fs" || file="$f"
-	if [ -f "$file" ]; then
-		# File
-		filename="${file##*/}"      # Get basename of the selection
+	if [ -f "$f" ]; then
+		filename="${f##*/}"      # Get basename of the selection
 		extension="${filename##*.}" # Get extension only
 
 		# If file doesn't have any extension, clear all
@@ -122,10 +120,8 @@ cmd rename-edit &{{
 	}
 
 	# Single file
-	[ -n "$fs" ] && file="$fs" || file="$f"
-	if [ -f "$file" ]; then
-		# File
-		filename="${file##*/}"      # Get basename of the selection
+	if [ -f "$f" ]; then
+		filename="${f##*/}"      # Get basename of the selection
 		extension="${filename##*.}" # Get extension only
 
 		# If file doesn't have any extension, handle normally
@@ -143,7 +139,6 @@ cmd rename-edit &{{
 cmd rename-bulk ${{
 	old="$(mktemp)"
 	new="$(mktemp)"
-	# [ -n $fs ] && fs=$(ls)
 	printf "$fs\n" > "$old"
 	printf "$fs\n" > "$new"
 	"$EDITOR" "$new"
