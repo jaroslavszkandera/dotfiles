@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# This is a wrapper script for lf that allows it to create image previews with
+# ueberzug. This works in concert with the lf configuration file and the
+# lf-cleaner script.
+
+set -e
+
+cleanup() {
+	echo '{"action": "remove", "identifier": "PREVIEW"}' > "$FIFO_UEBERZUG"
+	exec 3>&-
+	rm -f "$FIFO_UEBERZUG"
+	exit
+}
+trap cleanup HUP INT QUIT TERM PWR EXIT
+
+# Ueberzug environment
+if [ -z "$SSH_CLIENT" ] && [ -z "$SSH_TTY" ]; then
+	mkdir -p "$HOME/.cache/lf"
+	export FIFO_UEBERZUG="${XDG_CACHE_HOME:-$HOME/.cache}/lf/ueberzug-$$"
+	mkfifo "$FIFO_UEBERZUG"
+	ueberzug layer -s <"$FIFO_UEBERZUG" -p json &
+	exec 3>"$FIFO_UEBERZUG"
+fi
+lf "$@"
