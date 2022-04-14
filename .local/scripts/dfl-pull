@@ -1,6 +1,6 @@
 #!/bin/bash
 
 
-git --git-dir="${HOME}/.dotfiles.git/" --work-tree="$HOME" pull
-make -C "${HOME}/.local/suckless/" pull
+git --git-dir="${HOME}/.dotfiles.git/" --work-tree="$HOME" pull && \
+make -C "${HOME}/.local/suckless/" pull && \
 git --git-dir="${HOME}/.config/nvim/.git" pull

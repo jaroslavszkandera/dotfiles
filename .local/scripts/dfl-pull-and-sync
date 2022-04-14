@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-dfl-pull
-sudo make -C "${HOME}/.local/suckless/" install
-sync-pkgs "${HOME}/.local/src/generated/pkglist_$(hostname).txt"
+dfl-pull && \
+sudo make -C "${HOME}/.local/suckless/" install && \
+sync-pkgs "${HOME}/.local/src/generated/pkglist_$(hostname).txt" && \
 sync-conf -w
