@@ -40,5 +40,6 @@ __pycache__
 ehthumbs.db
 Thumbs.db
 
+# Other #
+#########
 .dotfiles.git
-.osync_workdir
