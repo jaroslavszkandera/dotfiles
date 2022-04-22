@@ -3,6 +3,7 @@
 # Image Occlusion Enhanced Add-on for Anki
 #
 # Copyright (C) 2016-2020  Aristotelis P. <https://glutanimate.com/>
+# Copyright (C) 2012-2015  Tiago Barroso <tmbb@campus.ul.pt>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
@@ -30,7 +31,13 @@
 # Any modifications to this file must keep this entire header intact.
 
 """
-Version information
+Handle translations. Currently uses stub implementations.
 """
 
-__version__ = "v1.4.0"
+
+def ngettext(single: str, plural: str, count: int) -> str:
+    return single if count == 1 else plural
+
+
+def _(text: str) -> str:
+    return text

@@ -1,16 +1,34 @@
 # -*- coding: utf-8 -*-
-####################################################
-##                                                ##
-##           Image Occlusion Enhanced             ##
-##                                                ##
-##      Copyright (c) Glutanimate 2016-2017       ##
-##       (https://github.com/Glutanimate)         ##
-##                                                ##
-##         Based on Image Occlusion 2.0           ##
-##         Copyright (c) 2012-2015 tmbb           ##
-##           (https://github.com/tmbb)            ##
-##                                                ##
-####################################################
+
+# Image Occlusion Enhanced Add-on for Anki
+#
+# Copyright (C) 2016-2020  Aristotelis P. <https://glutanimate.com/>
+# Copyright (C) 2012-2015  Tiago Barroso <tmbb@campus.ul.pt>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version, with the additions
+# listed at the end of the license file that accompanied this program.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# NOTE: This program is subject to certain additional terms pursuant to
+# Section 7 of the GNU Affero General Public License.  You should have
+# received a copy of these additional terms immediately following the
+# terms and conditions of the GNU Affero General Public License that
+# accompanied this program.
+#
+# If not, please request a copy through one of the means of contact
+# listed here: <https://glutanimate.com/contact/>.
+#
+# Any modifications to this file must keep this entire header intact.
 
 """
 Handles the IO note type and card template
@@ -44,17 +62,18 @@ if (mask === null || mask.complete) {
 }
 </script>
 {{/%(src_img)s}}
-""" % \
-    {'que': IO_FLDS['qm'],
-     'ans': IO_FLDS['am'],
-     'svg': IO_FLDS['om'],
-     'src_img': IO_FLDS['im'],
-     'header': IO_FLDS['hd'],
-     'footer': IO_FLDS['ft'],
-     'remarks': IO_FLDS['rk'],
-     'sources': IO_FLDS['sc'],
-     'extraone': IO_FLDS['e1'],
-     'extratwo': IO_FLDS['e2']}
+""" % {
+    "que": IO_FLDS["qm"],
+    "ans": IO_FLDS["am"],
+    "svg": IO_FLDS["om"],
+    "src_img": IO_FLDS["im"],
+    "header": IO_FLDS["hd"],
+    "footer": IO_FLDS["ft"],
+    "remarks": IO_FLDS["rk"],
+    "sources": IO_FLDS["sc"],
+    "extraone": IO_FLDS["e1"],
+    "extratwo": IO_FLDS["e2"],
+}
 
 iocard_back = """\
 {{#%(src_img)s}}
@@ -114,17 +133,18 @@ if (mask === null || mask.complete) {
 }
 </script>
 {{/%(src_img)s}}
-""" % \
-    {'que': IO_FLDS['qm'],
-     'ans': IO_FLDS['am'],
-     'svg': IO_FLDS['om'],
-     'src_img': IO_FLDS['im'],
-     'header': IO_FLDS['hd'],
-     'footer': IO_FLDS['ft'],
-     'remarks': IO_FLDS['rk'],
-     'sources': IO_FLDS['sc'],
-     'extraone': IO_FLDS['e1'],
-     'extratwo': IO_FLDS['e2']}
+""" % {
+    "que": IO_FLDS["qm"],
+    "ans": IO_FLDS["am"],
+    "svg": IO_FLDS["om"],
+    "src_img": IO_FLDS["im"],
+    "header": IO_FLDS["hd"],
+    "footer": IO_FLDS["ft"],
+    "remarks": IO_FLDS["rk"],
+    "sources": IO_FLDS["sc"],
+    "extraone": IO_FLDS["e1"],
+    "extratwo": IO_FLDS["e2"],
+}
 
 iocard_css = """\
 /* GENERAL CARD STYLE */
@@ -249,10 +269,7 @@ css_original_hide = """\
 # (<qfmt_addition>, <afmt_addition>, <css_addition>))
 # versions need to be ordered by semantic versioning
 additions_by_version = [
-    (
-        1.30,
-        (html_overlay_onload, html_overlay_onload, css_original_hide)
-    ),
+    (1.30, (html_overlay_onload, html_overlay_onload, css_original_hide)),
 ]
 
 
@@ -263,14 +280,14 @@ def add_io_model(col):
     for i in IO_FLDS_IDS:
         fld = models.newField(IO_FLDS[i])
         if i == "note_id":
-            fld['size'] = 0
+            fld["size"] = 0
         models.addField(io_model, fld)
     # Add template
     template = models.newTemplate(IO_CARD_NAME)
-    template['qfmt'] = iocard_front
-    template['afmt'] = iocard_back
-    io_model['css'] = iocard_css
-    io_model['sortf'] = 1  # set sortfield to header
+    template["qfmt"] = iocard_front
+    template["afmt"] = iocard_back
+    io_model["css"] = iocard_css
+    io_model["sortf"] = 1  # set sortfield to header
     models.addTemplate(io_model, template)
     models.add(io_model)
     return io_model
@@ -279,10 +296,10 @@ def add_io_model(col):
 def reset_template(col):
     print("Resetting IO Enhanced card template to defaults")
     io_model = col.models.byName(IO_MODEL_NAME)
-    template = io_model['tmpls'][0]
-    template['qfmt'] = iocard_front
-    template['afmt'] = iocard_back
-    io_model['css'] = iocard_css
+    template = io_model["tmpls"][0]
+    template["qfmt"] = iocard_front
+    template["afmt"] = iocard_back
+    io_model["css"] = iocard_css
     col.models.save()
     return io_model
 
@@ -303,9 +320,9 @@ def update_template(col, old_version):
     if not io_model:
         return add_io_model(col)
 
-    template = io_model['tmpls'][0]
-    template['qfmt'] += "\n".join(additions[0])
-    template['afmt'] += "\n".join(additions[1])
-    io_model['css'] += "\n".join(additions[2])
+    template = io_model["tmpls"][0]
+    template["qfmt"] += "\n".join(additions[0])
+    template["afmt"] += "\n".join(additions[1])
+    io_model["css"] += "\n".join(additions[2])
     col.models.save()
     return io_model
