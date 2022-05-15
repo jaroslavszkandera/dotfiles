@@ -41,6 +41,7 @@ efibootmgr
 entr
 eog
 ethtool
+evince
 fakeroot
 ffmpegthumbnailer
 file
@@ -128,7 +129,6 @@ ntfs-3g
 numlockx
 obs-studio
 odt2txt
-okular
 openssh
 openvpn
 os-prober

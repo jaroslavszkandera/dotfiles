@@ -39,6 +39,7 @@ efibootmgr
 entr
 eog
 ethtool
+evince
 fakeroot
 ffmpegthumbnailer
 file
@@ -127,7 +128,6 @@ nvidia-settings
 nvidia-utils
 obs-studio
 odt2txt
-okular
 openssh
 openvpn
 os-prober
