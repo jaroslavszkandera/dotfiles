@@ -157,7 +157,7 @@ python-pyserial
 python-scikit-learn
 python-unidecode
 qbittorrent
-qemu
+qemu-desktop
 qogir-icon-theme
 redshift
 rng-tools
