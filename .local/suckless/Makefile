@@ -1,16 +1,27 @@
-SUBDIRS = dmenu dwm dwmblocks slock st
+SUBDIRS := dmenu dwm dwmblocks slock st
+JOBS_CHECKOUT := $(addprefix checkout-,${SUBDIRS})
+JOBS_INSTALL := $(addprefix install-,${SUBDIRS})
+JOBS_PULL := $(addprefix pull-,${SUBDIRS})
+JOBS_CLEAN := $(addprefix clean-,${SUBDIRS})
+
+.PHONY: all checkout install pull clean \
+	${JOBS_CHECKOUT} ${JOBS_INSTALL} ${JOBS_PULL} ${JOBS_CLEAN}
 
 all: compile
 
-checkout:
-	for n in $(SUBDIRS); do git -C "$$n" checkout config || exit; done
+checkout: ${JOBS_CHECKOUT}
+${JOBS_CHECKOUT}: checkout-%:
+	git -C "$*" checkout config
 
-install:
-	for n in $(SUBDIRS); do sudo $(MAKE) -C "$$n" install || exit; done
+install: ${JOBS_INSTALL}
+${JOBS_INSTALL}: install-%:
+	sudo $(MAKE) -C "$*" install
 
-pull:
+pull: ${JOBS_PULL}
+${JOBS_PULL}: pull-%:
 	# TODO: test the -r option
-	for n in $(SUBDIRS); do git -C "$$n" pull -r || exit; done
+	git -C "$*" pull
 
-clean:
-	for n in $(SUBDIRS); do $(MAKE) -C "$$n" clean; done
+clean: ${JOBS_CLEAN}
+${JOBS_CLEAN}: clean-%:
+	make -C "$*" clean
