@@ -1,4 +1,7 @@
 #!/bin/bash
+# Initialization for interactive, non-login shells
+# This file is used for interactive shell init (no matter if it's login shell or not)
+# because it's sourced from .bash_profile
 
 
 . /usr/share/git/completion/git-prompt.sh

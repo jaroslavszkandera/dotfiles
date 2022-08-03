@@ -93,6 +93,9 @@ libtool
 libva-intel-driver
 libvirt
 libxft-bgra-git
+lightdm
+lightdm-slick-greeter
+light-locker
 linux
 linux-firmware
 linux-headers

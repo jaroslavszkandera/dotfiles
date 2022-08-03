@@ -1,4 +1,5 @@
 #!/bin/sh
+# This file is sourced by xinit/display managers before window manager is started
 
 
 # System bar

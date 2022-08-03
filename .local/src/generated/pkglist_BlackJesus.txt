@@ -89,6 +89,9 @@ libreoffice-still
 libtool
 libvirt
 libxft-bgra-git
+lightdm
+lightdm-slick-greeter
+light-locker
 linux
 linux-firmware
 linux-headers
