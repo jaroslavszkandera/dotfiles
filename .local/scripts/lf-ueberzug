@@ -6,16 +6,16 @@
 
 set -e
 
-cleanup() {
-	echo '{"action": "remove", "identifier": "PREVIEW"}' > "$FIFO_UEBERZUG"
-	exec 3>&-
-	rm -f "$FIFO_UEBERZUG"
-	exit
-}
-trap cleanup HUP INT QUIT TERM PWR EXIT
-
 # Ueberzug environment
 if [ -z "$SSH_CLIENT" ] && [ -z "$SSH_TTY" ]; then
+	cleanup() {
+		echo '{"action": "remove", "identifier": "PREVIEW"}' > "$FIFO_UEBERZUG"
+		exec 3>&-
+		rm -f "$FIFO_UEBERZUG"
+		exit
+	}
+	trap cleanup HUP INT QUIT TERM PWR EXIT
+
 	mkdir -p "$HOME/.cache/lf"
 	export FIFO_UEBERZUG="${XDG_CACHE_HOME:-$HOME/.cache}/lf/ueberzug-$$"
 	mkfifo "$FIFO_UEBERZUG"

@@ -225,6 +225,7 @@ virtualbox-guest-iso
 wget
 which
 wireshark-qt
+x11vnc
 xclip
 xdotool
 xkblayout-state-git
