@@ -1,12 +1,13 @@
 #!/bin/bash
 
 
-FILE_PKGS_OUTPUT="$(dirname "$0")/../src/generated/pkglist_${HOSTNAME}.txt"
+FILE_PKGS_COMMON="$(dirname "$0")/../src/generated/pkglist_common.txt"
+FILE_PKGS_HOST_SPECIFIC="$(dirname "$0")/../src/generated/pkglist_${HOSTNAME}.txt"
 FILE_FILTER="$(dirname "$0")/../src/pkglistignore.txt"
 
 get_help() {
 	echo "Usage: $(basename "$0") [OPTIONS] [FILES]"
-	echo "Auxiliary script to help manage $FILE_PKGS_OUTPUT"
+	echo "Auxiliary script to help manage pkglist."
 	echo
 	echo "Options:"
 	echo "-g [INPUT] [OUTPUT]      Generate file without drivers and other machine specific packages"
@@ -16,16 +17,11 @@ get_help() {
 }
 
 install_pkgs() {
-	[ -n "$1" ] && echo "$1" | yay -Syu --needed "${install_flags[@]}" -
+	[ -n "$*" ] && echo "$@" | yay -Syu --needed "${install_flags[@]}" -
 }
 
 uninstall_pkgs() {
-	[ -n "$1" ] && echo "$1" | sudo pacman -Rnus -
-}
-
-filter_pkgs() {
-	filter="$(sed 's/.*/\/&\/d;/' "$FILE_FILTER")"
-	sed -E "$filter"
+	[ -n "$*" ] && echo "$@" | sudo pacman -Rnus -
 }
 
 [ ! -d "$(dirname "$FILE_PKGS_OUTPUT")" ] && get_help
@@ -36,12 +32,8 @@ do_apply_filter='false'
 while [ "$#" -gt 0 ]; do
 	case "$1" in
 		-h)	get_help ;;
-		-f|--filter)
-			do_apply_filter='true'
-			shift
-			;;
 		-g)
-			echo "$PKGS_CURRENT" > "$FILE_PKGS_OUTPUT"
+			comm --check-order -23 <(echo "$PKGS_CURRENT") "$FILE_PKGS_COMMON" >"$FILE_PKGS_HOST_SPECIFIC"
 			exit
 			;;
 		--noconfirm)
@@ -50,7 +42,7 @@ while [ "$#" -gt 0 ]; do
 			;;
 		*)
 			if [ -f "$1" ]; then
-				FILE_PKGS_TARGET="$1"
+				FILE_PKGS_TARGET=("${FILE_PKGS_TARGET[@]}" "$1")
 			else
 				get_help
 			fi
@@ -59,16 +51,13 @@ while [ "$#" -gt 0 ]; do
 	esac
 done
 
-[ ! -f "$FILE_PKGS_TARGET" ] && get_help
+for file in "${FILE_PKGS_TARGET[@]}"; do
+	[ ! -f "$file" ] && get_help
+done
+PKGS_TARGET="$(cat ${FILE_PKGS_TARGET[@]})"
 
-if [ "$do_apply_filter" = true ]; then
-	NAME_FILTER_FUNCTION='filter_pkgs'
-else
-	NAME_FILTER_FUNCTION='cat'
-fi
-
-pkgs_to_install="$(comm -13 <(sort <<<"$PKGS_CURRENT") <(sort "$FILE_PKGS_TARGET") | "$NAME_FILTER_FUNCTION")"
-pkgs_to_uninstall="$(comm -23 <(sort <<<"$PKGS_CURRENT") <(sort "$FILE_PKGS_TARGET") | "$NAME_FILTER_FUNCTION")"
+pkgs_to_uninstall="$(comm --check-order -23 <(echo "$PKGS_CURRENT") <(sort <<<"$PKGS_TARGET"))"
+pkgs_to_install="$(comm --check-order -23 <(sort <<<"$PKGS_TARGET") <(echo "$PKGS_CURRENT"))"
 
 uninstall_pkgs "$pkgs_to_uninstall"
 exit_uninstall=$?
