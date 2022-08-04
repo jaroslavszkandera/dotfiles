@@ -103,7 +103,6 @@ man-pages
 matcha-gtk-theme
 mediainfo
 minicom
-mint-y-icons
 mlocate
 mpc
 mpd
