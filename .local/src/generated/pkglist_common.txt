@@ -167,7 +167,6 @@ shfmt
 simple-mtpfs
 smartmontools
 spotify
-spotifywm-git
 sshfs
 strace
 sudo
