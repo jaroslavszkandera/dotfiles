@@ -3,16 +3,14 @@
 
 FILE_PKGS_COMMON="$(dirname "$0")/../src/generated/pkglist_common.txt"
 FILE_PKGS_HOST_SPECIFIC="$(dirname "$0")/../src/generated/pkglist_${HOSTNAME}.txt"
-FILE_FILTER="$(dirname "$0")/../src/pkglistignore.txt"
 
 get_help() {
 	echo "Usage: $(basename "$0") [OPTIONS] [FILES]"
 	echo "Auxiliary script to help manage pkglist."
 	echo
 	echo "Options:"
-	echo "-g [INPUT] [OUTPUT]      Generate file without drivers and other machine specific packages"
-	echo "-f|--filter              Apply filter defined in $FILE_FILTER"
-	echo "[SOURCE]                 Install packages that are missing on local system acording to given file"
+	echo "[FILES]         Sync installed packages based on given files"
+	echo "-g [OUTPUT]     Generate file containing packages installed on the current machine minus pkglist_common.txt"
 	exit 127
 }
 
@@ -28,7 +26,6 @@ uninstall_pkgs() {
 
 PKGS_CURRENT="$(pacman -Qqe | sort)"
 install_flags=()
-do_apply_filter='false'
 while [ "$#" -gt 0 ]; do
 	case "$1" in
 		-h)	get_help ;;
@@ -54,7 +51,8 @@ done
 for file in "${FILE_PKGS_TARGET[@]}"; do
 	[ ! -f "$file" ] && get_help
 done
-PKGS_TARGET="$(cat ${FILE_PKGS_TARGET[@]})"
+[ "${#FILE_PKGS_TARGET[@]}" -le 0 ] && echo "Please specify file containing packages" && exit 1
+PKGS_TARGET="$(cat "${FILE_PKGS_TARGET[@]}")"
 
 pkgs_to_uninstall="$(comm --check-order -23 <(echo "$PKGS_CURRENT") <(sort <<<"$PKGS_TARGET"))"
 pkgs_to_install="$(comm --check-order -23 <(sort <<<"$PKGS_TARGET") <(echo "$PKGS_CURRENT"))"
