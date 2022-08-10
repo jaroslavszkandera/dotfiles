@@ -250,7 +250,7 @@ map az $lf-zip "$id" $fx
 map at $lf-tar "$id" $fx
 map ag $lf-targz "$id" $fx
 map ab $lf-tarbz2 "$id" $fx
-map x  $extract $fx
+map x  $atool -x $fx
 
 # Other
 map - dragon
