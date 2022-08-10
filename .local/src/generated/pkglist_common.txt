@@ -73,7 +73,7 @@ gtest
 gzip
 haveged
 hdparm
-heroku-cli
+heroku-cli-bin
 highlight
 htop
 ipython
