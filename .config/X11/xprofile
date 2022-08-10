@@ -23,6 +23,3 @@ xrdb -load "${XDG_CONFIG_HOME}/X11/Xresources" &
 rfkill block bluetooth &
 [ "$(hostname)" = 'XPS15' ] && \
 	picom -CGb --experimental-backends --config="${XDG_CONFIG_HOME}/picom/picom_$(hostname).conf" &
-
-# tmux
-tmux-init &

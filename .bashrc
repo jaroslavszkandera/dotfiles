@@ -15,4 +15,4 @@ PS1='\[\033[01;34m\]\w \[\033[01;33m\]'"$PS1_GIT "
 [ -f ~/.bash_aliases ]   && . "${HOME}/.bash_aliases"
 [ -f ~/.bash_functions ] && . "${HOME}/.bash_functions"
 
-[ -z "$TMUX" ] && [ -z "$SSH_CLIENT" ] && tmux attach -t general
+[ -z "$TMUX" ] && [ -z "$SSH_CLIENT" ] && tmux-init && tmux attach -t general
