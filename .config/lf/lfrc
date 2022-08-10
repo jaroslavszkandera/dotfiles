@@ -197,10 +197,10 @@ cmd low %{{
 cmd dragon &{{
 	if [ "$(echo "$fx" | wc -l)" -gt 1 ]; then
 		# Multiple files
-		dragon-drag-and-drop $fx
+		dragon-drop $fx
 	else
 		# Single file
-		dragon-drag-and-drop --and-exit $fx
+		dragon-drop --and-exit $fx
 	fi
 }}
 

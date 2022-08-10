@@ -32,7 +32,7 @@ dnsmasq
 docker
 docker-compose
 doxygen
-dragon-drag-and-drop
+dragon-drop
 dunst
 dynamips
 efibootmgr
