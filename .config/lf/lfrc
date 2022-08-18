@@ -227,6 +227,7 @@ map wf touch
 map wd mkdir
 map D delete
 map X toggle-execute
+map p :paste; clear
 
 # Renaming
 map r
