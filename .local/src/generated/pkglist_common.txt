@@ -94,9 +94,6 @@ libreoffice-still
 libtool
 libvirt
 libxft-git
-lightdm
-lightdm-slick-greeter
-light-locker
 linux
 linux-firmware
 lzop
