@@ -21,6 +21,7 @@ blueberry
 bluez-utils
 borg
 brightnessctl
+cage
 calibre
 ccls
 chromium
@@ -63,6 +64,8 @@ gns3-gui
 gns3-server
 gnu-netcat
 gpick
+greetd
+greetd-gtkgreet
 grep
 groff
 grub
@@ -70,6 +73,7 @@ gst-plugins-bad
 gst-plugins-good
 gst-plugins-ugly
 gtest
+gtklock
 gzip
 haveged
 hdparm
