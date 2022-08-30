@@ -14,17 +14,17 @@ clone: clone-dmenu clone-dwm clone-slock clone-st clone-dwmblocks
 clone-dmenu clone-dwm clone-slock clone-st: clone-%:
 	git clone https://gitlab.com/jirixek/"$*".git
 	git -C "$*" checkout config
-	git -C "$*" remote set-url origin git@gitlab.com:jirixek/"$*".git
 	git -C "$*" remote add suckless https://git.suckless.org/"$*"
 	git -C "$*" fetch --all
 	git -C "$*" branch --set-upstream-to=origin/master master
 	git -C "$*" branch --set-upstream-to=origin/config config
+	git -C "$*" remote set-url origin git@gitlab.com:jirixek/"$*".git
 clone-dwmblocks: clone-%:
 	git clone https://github.com/Jirixek/"$*".git
 	git -C "$*" checkout config
-	git -C "$*" remote set-url origin git@github.com:Jirixek/"$*".git
 	git -C "$*" branch --set-upstream-to=origin/master master
 	git -C "$*" branch --set-upstream-to=origin/config config
+	git -C "$*" remote set-url origin git@github.com:Jirixek/"$*".git
 
 checkout: ${JOBS_CHECKOUT}
 ${JOBS_CHECKOUT}: checkout-%:
