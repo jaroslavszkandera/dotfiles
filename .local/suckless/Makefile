@@ -40,8 +40,7 @@ ${JOBS_INSTALL}: install-%:
 
 pull: ${JOBS_PULL}
 ${JOBS_PULL}: pull-%:
-	# TODO: test the -r option
-	git -C "$*" pull
+	git -C "$*" pull -r
 
 clean: ${JOBS_CLEAN}
 ${JOBS_CLEAN}: clean-%:
