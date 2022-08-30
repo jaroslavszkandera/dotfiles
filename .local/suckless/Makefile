@@ -1,5 +1,6 @@
 SUBDIRS := dmenu dwm dwmblocks slock st
 JOBS_CHECKOUT := $(addprefix checkout-,${SUBDIRS})
+JOBS_COMPILE := $(addprefix compile-,${SUBDIRS})
 JOBS_INSTALL := $(addprefix install-,${SUBDIRS})
 JOBS_PULL := $(addprefix pull-,${SUBDIRS})
 JOBS_CLEAN := $(addprefix clean-,${SUBDIRS})
@@ -28,6 +29,10 @@ clone-dwmblocks: clone-%:
 checkout: ${JOBS_CHECKOUT}
 ${JOBS_CHECKOUT}: checkout-%:
 	git -C "$*" checkout config
+
+compile: ${JOBS_COMPILE}
+${JOBS_COMPILE}: compile-%:
+	make -C "$*"
 
 install: ${JOBS_INSTALL}
 ${JOBS_INSTALL}: install-%:
