@@ -19,11 +19,3 @@ This is a home of all the scripts.
 It's a wrapper around `g++`, but with progtest flags and memory debugger enabled.
 You can also provide folder with tests in format: *_in.txt* files as input and *_ref.txt* as reference.
 To compile file automatically when changed, use `watch-cpp` script.
-
-## Filters
-
-I use local git filters in order to exclude volatile or machine specific stuff in config files.
-
-```[bash]
-dfl config filter.pkglist.clean git-filter-pkglist
-```
