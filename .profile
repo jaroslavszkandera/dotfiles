@@ -31,6 +31,7 @@ export MATHEMATICA_USERBASE="${XDG_CONFIG_HOME}/mathematica"
 export NPM_CONFIG_USERCONFIG="${XDG_CONFIG_HOME}/npm/npmrc"
 export WGETRC="${XDG_CONFIG_HOME}/wgetrc"
 export XINITRC="${XDG_CONFIG_HOME}/X11/xinitrc"
+export GOPATH="${XDG_DATA_HOME}/go"
 
 # Other program settings
 export FZF_DEFAULT_OPTS='--layout=reverse --height 40%'
