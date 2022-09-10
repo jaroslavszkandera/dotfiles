@@ -34,14 +34,7 @@ export XINITRC="${XDG_CONFIG_HOME}/X11/xinitrc"
 
 # Other program settings
 export FZF_DEFAULT_OPTS='--layout=reverse --height 40%'
-export LESS='-R'
-export LESS_TERMCAP_mb='[1;31m'
-export LESS_TERMCAP_md='[1;34m'
-export LESS_TERMCAP_me='[0m'
-export LESS_TERMCAP_so='[01;44;33m'
-export LESS_TERMCAP_se='[0m'
-export LESS_TERMCAP_us='[1;32m'
-export LESS_TERMCAP_ue='[0m'
+export LESS='-R --use-color --color=d+B$Dug'
 
 # JAVA settings
 export _JAVA_AWT_WM_NONREPARENTING=1
