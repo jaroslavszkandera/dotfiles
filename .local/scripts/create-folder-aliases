@@ -31,6 +31,7 @@ MAPPING_HOME = [
     ('la', '.local/share/Anki2/Jiri Szkandera/collection.media/'),
 
     ('d.', 'Documents/'),
+    ('dB', 'Documents/books/'),
     ('dc', 'Documents/cvut/'),
     ('df', 'Documents/finance/'),
     ('dl', 'Documents/latex/'),
