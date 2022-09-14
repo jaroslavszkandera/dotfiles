@@ -14,6 +14,8 @@ get_help() {
 	exit 127
 }
 
+# TODO: mark installed as explicit/dependencies
+
 install_pkgs() {
 	[ -n "$*" ] && echo "$@" | yay -Syu --needed "${install_flags[@]}" -
 }
@@ -34,12 +36,12 @@ while [ "$#" -gt 0 ]; do
 			exit
 			;;
 		--noconfirm)
-			install_flags=("${install_flags[@]}" "$1")
+			install_flags+=("$1")
 			shift
 			;;
 		*)
 			if [ -f "$1" ]; then
-				FILE_PKGS_TARGET=("${FILE_PKGS_TARGET[@]}" "$1")
+				FILE_PKGS_TARGET+=("$1")
 			else
 				get_help
 			fi
@@ -48,10 +50,7 @@ while [ "$#" -gt 0 ]; do
 	esac
 done
 
-for file in "${FILE_PKGS_TARGET[@]}"; do
-	[ ! -f "$file" ] && get_help
-done
-[ "${#FILE_PKGS_TARGET[@]}" -le 0 ] && echo "Please specify file containing packages" && exit 1
+[ "${#FILE_PKGS_TARGET[@]}" -eq 0 ] && echo "Please specify file containing packages" && exit 1
 PKGS_TARGET="$(cat "${FILE_PKGS_TARGET[@]}")"
 
 pkgs_to_uninstall="$(comm --check-order -23 <(echo "$PKGS_CURRENT") <(sort <<<"$PKGS_TARGET"))"
