@@ -203,7 +203,6 @@ ttf-joypixels
 twine
 ubridge
 udiskie
-ueberzug
 unclutter
 unrar
 unzip

@@ -1,5 +1,0 @@
-#!/bin/sh
-
-
-[ -p "$FIFO_UEBERZUG" ] && \
-	echo '{"action": "remove", "identifier": "PREVIEW"}' > "$FIFO_UEBERZUG"

@@ -28,8 +28,9 @@ lf_wrapper () {
 		echo "Can't create tmpfile" >&2
 		return 1
 	}
-	lf-ueberzug -last-dir-path="$tempfile" "$@"
+	lf -last-dir-path="$tempfile" "$@"
 	[ ! -f "$tempfile" ] && return 1
+
 	dir="$(cat "$tempfile")"
 	rm -f "$tempfile"
 	[ -d "$dir" ] && [ "$dir" != "$PWD" ] && cd "$dir" || return
