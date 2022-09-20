@@ -15,12 +15,12 @@ MAPPING_ROOT = [
     ('mw', '/mnt/windows/'),
 
     ('V.', '/var/'),
-    ('Vl', '/var/lib/lxc/'),
 ]
 
 MAPPING_HOME = [
     ('h', ''),
     ('c.', '.config/'),
+    ('cl', '.config/lf/'),
     ('cn', '.config/nvim/'),
 
     ('l.', '.local/'),
@@ -33,17 +33,16 @@ MAPPING_HOME = [
     ('d.', 'Documents/'),
     ('dB', 'Documents/books/'),
     ('dc', 'Documents/cvut/'),
+    ('dC', 'Documents/cdn77/'),
     ('df', 'Documents/finance/'),
     ('dl', 'Documents/latex/'),
     ('dP', 'Documents/private/'),
     ('dp', 'Documents/projects/'),
-    ('dw', 'Documents/workswell/'),
 
     ('D', 'Downloads/'),
     ('M',  'Music/'),
     ('p.', 'Pictures/'),
     ('ps', 'Pictures/screenshots/'),
-    ('pm', 'Pictures/memes/'),
     ('v',  'Videos/'),
 ]
 
