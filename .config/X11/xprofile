@@ -12,7 +12,6 @@ unclutter &
 udiskie &
 dunst &
 background &
-x0vncserver -PAMService=login -PlainUsers=${USER} -SecurityTypes=TLSPlain &
 
 # Peripherals
 numlockx on &

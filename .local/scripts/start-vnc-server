@@ -1,0 +1,4 @@
+#!/bin/sh
+
+
+x0vncserver -PAMService=login -PlainUsers=${USER} -SecurityTypes=TLSPlain &

@@ -176,6 +176,3 @@ main() {
 }
 
 main "$@"
-
-# TODO
-# setup x11vncserver service
