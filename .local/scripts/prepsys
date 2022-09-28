@@ -237,7 +237,7 @@ main() {
 
 	init_git_repos &&
 	install_yay &&
-	sudo -iu "$new_user" -- "${new_home}/.local/scripts/sync-pkgs" --noconfirm "${file_packages[@]}" &&
+	sudo -iu "$new_user" -- "${new_home}/.local/scripts/sync-pkgs" --asexplicit --noconfirm "${file_packages[@]}" &&
 	sudo -iu "$new_user" -- "${new_home}/.local/scripts/sync-conf" -w &&
 	install_suckless &&
 	init_services &&
