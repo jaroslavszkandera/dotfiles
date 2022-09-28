@@ -1,0 +1,10 @@
+alacritty
+waybar
+wayland-protocols
+wdisplays
+wl-clipboard
+wlr-randr
+wlroots
+wofi
+xlockmore
+xorg-xwayland

@@ -1,9 +1,10 @@
 bbswitch
 bumblebee
+clipmenu
 gstreamer-vaapi
+intel-gpu-tools
+intel-media-driver
 intel-ucode
-libva-intel-driver
-linux-headers
 tlp
 tlp-rdw
 ttf-ms-win10

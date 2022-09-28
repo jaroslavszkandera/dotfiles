@@ -1,8 +1,8 @@
 #!/bin/bash
 
 
-FILE_PKGS_COMMON="$(dirname "$0")/../src/generated/pkglist_common.txt"
-FILE_PKGS_HOST_SPECIFIC="$(dirname "$0")/../src/generated/pkglist_${HOSTNAME}.txt"
+PATH_PKGS_FILES="$(dirname "$0")/../src/generated/"
+PATH_PKGS_HOST_SPECIFIC="$PATH_PKGS_FILES/pkglist_${HOSTNAME}.txt"
 
 get_help() {
 	echo "Usage: $(basename "$0") [OPTIONS] [FILES]"
@@ -10,7 +10,7 @@ get_help() {
 	echo
 	echo "Options:"
 	echo "[FILES]         Sync installed packages based on given files"
-	echo "-g [OUTPUT]     Generate file containing packages installed on the current machine minus pkglist_common.txt"
+	echo "-g [OUTPUT]     Generate file containing packages installed on the current machine minus pkglist_common*.txt"
 	exit 127
 }
 
@@ -46,7 +46,7 @@ while [ "$#" -gt 0 ]; do
 	case "$1" in
 		-h)	get_help ;;
 		-g)
-			comm --check-order -23 <(echo "$PKGS_CURRENT") "$FILE_PKGS_COMMON" >"$FILE_PKGS_HOST_SPECIFIC"
+			comm --check-order -23 <(echo "$PKGS_CURRENT") <(sort "$PATH_PKGS_FILES"/pkglist_common*.txt) >"$PATH_PKGS_HOST_SPECIFIC"
 			exit
 			;;
 		--noconfirm)
