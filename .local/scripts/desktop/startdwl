@@ -1,0 +1,20 @@
+#!/bin/sh
+
+
+export XDG_SESSION_TYPE=wayland
+export XDG_SESSION_DESKTOP=dwl
+export XDG_CURRENT_DESKTOP=dwl
+export GDK_BACKEND=wayland  # GTK
+export QT_QPA_PLATFORM=wayland # Qt
+export XCURSOR_SIZE=24  # Fix for Qt apps
+export CLUTTER_BACKEND=wayland
+export SDL_VIDEODRIVER=wayland
+export MOZ_ENABLE_WAYLAND=1 # Mozilla apps
+# Junk?
+export ECORE_EVAS_ENGINE=wayland-egl
+export ELM_ENGINE=wayland_egl
+export NO_AT_BRIDGE=1
+
+while :; do
+	systemd-cat --identifier=dwl dwl -s "wayinitrc <&-"
+done
