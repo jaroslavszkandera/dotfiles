@@ -91,6 +91,7 @@ jupyterlab
 jupyterlab-plotly
 kvantum
 lf
+libappindicator-gtk3
 libfido2
 libinput
 libnma

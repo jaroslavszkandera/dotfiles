@@ -1,0 +1,45 @@
+{
+	"layer": "bottom",
+	"height": 25,
+	"modules-right": ["memory", "temperature", "battery", "pulseaudio", "clock", "tray"],
+	"memory": {
+		"format": " {used:.1f}/{total:.0f}GiB",
+	},
+	"temperature": {
+		"format": "{icon} {temperatureC}°C",
+		"format-icons": ["", "", ""],
+		"hwmon-path": "/sys/class/thermal/thermal_zone10/temp",
+	},
+	"battery": {
+		"format": "{icon} {capacity}% {time}",
+		"format-full": "{icon} {capacity}%",
+		"format-charging": " {capacity}% {time}",
+		"format-icons": ["", "", "", "", ""],
+		"format-time": "{H:02}:{M:02}",
+	},
+	"pulseaudio": {
+		"format": "{icon} {volume}%",
+		"format-bluetooth": "{icon} {volume}%",
+		"format-muted": "",
+		"format-icons": {
+			"headphone": "",
+			"hands-free": "",
+			"headset": "",
+			"phone": "",
+			"portable": "",
+			"car": "",
+			"default": ["", ""]
+		},
+		"on-click": "pavucontrol",
+		/* TODO: scrolling with touchpad */
+	},
+	"clock": {
+		"interval": 20,
+		"format": " {:%d/%m/%Y %R}",
+	},
+	"tray": {
+		"icon-size": 24,
+		"spacing": 7,
+		"show-passive-items": true,
+	},
+}

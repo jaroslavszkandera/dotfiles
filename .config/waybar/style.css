@@ -1,0 +1,26 @@
+* {
+	font-family: monospace;
+	font-size: 16px;
+}
+
+window#waybar {
+	background-color: #14161b;
+	color: #ffffff;
+}
+
+#memory,
+#temperature,
+#battery,
+#pulseaudio {
+	padding: 0 14px;
+	border-right: 1px solid #ffffff;
+}
+#clock {
+	padding-left: 14px;
+	padding-right: 7px;
+}
+
+#tray * {
+	font-family: sans-serif;
+	font-size: 14px;
+}
