@@ -2,7 +2,7 @@
 
 
 case "$1" in
-	"up")   brightnessctl set 150+ ;;
-	"down") brightnessctl set 150- -n 1 ;;
+	"up")   brightnessctl --exponent=2.5 set 10%+ ;;
+	"down") brightnessctl --exponent=2.5 set 10%- ;;
 	*) ;;
 esac
