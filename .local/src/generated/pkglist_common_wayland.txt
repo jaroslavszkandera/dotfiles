@@ -1,4 +1,6 @@
 alacritty
+grim
+slurp
 waybar
 wayland-protocols
 wdisplays

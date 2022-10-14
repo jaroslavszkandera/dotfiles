@@ -3,9 +3,10 @@
 
 PATH_SCREENSHOT="${HOME}/Pictures/screenshots/$(date '+%y%m%d_%H%M%S').png"
 case "$1" in
-	-w)  maim -u -i "$(xdotool getactivewindow)" "$PATH_SCREENSHOT" ;;
-	-s)  maim -u -s                              "$PATH_SCREENSHOT" ;;
-	 *)  maim -u                                 "$PATH_SCREENSHOT" ;;
+	# TODO: we need sway ipc protocol
+	# -w)  maim -u -i "$(xdotool getactivewindow)" "$PATH_SCREENSHOT" ;;
+	-s)  grim -g "$(slurp)"                      "$PATH_SCREENSHOT" ;;
+	 *)  grim                                    "$PATH_SCREENSHOT" ;;
 esac
 
-cat "$PATH_SCREENSHOT" | xclip -selection clipboard -t image/png
+wl-copy <"$PATH_SCREENSHOT"

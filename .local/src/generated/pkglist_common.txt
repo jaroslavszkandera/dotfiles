@@ -70,6 +70,7 @@ greetd
 greetd-gtkgreet
 greetd-tuigreet
 grep
+grim
 groff
 grub
 gst-plugins-bad
@@ -103,7 +104,6 @@ linux
 linux-firmware
 lzop
 m4
-maim
 make
 man-db
 man-pages
@@ -233,6 +233,7 @@ wget
 which
 wireplumber
 wireshark-qt
+wl-clipboard
 x11vnc
 xclip
 xdotool
