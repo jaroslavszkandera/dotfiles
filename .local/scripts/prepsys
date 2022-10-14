@@ -93,6 +93,13 @@ install_yay() {
 	EOF
 }
 
+set_default_rust_version() {
+	if ! pacman -Qq | grep -q yay; then
+		pacman -Syu rustup
+	fi
+	sudo -u "$new_user" -- rustup default stable
+}
+
 init_services() {
 	# systemd-homed: Account management for greetd
 	# pkgfile-update: Bash suggestions for unknown packages
@@ -244,6 +251,7 @@ main() {
 
 	init_git_repos &&
 	install_yay &&
+	set_default_rust_version &&
 	sudo -iu "$new_user" -- "${new_home}/.local/scripts/sync-pkgs" --asexplicit --noconfirm "${file_packages[@]}" &&
 	sudo -iu "$new_user" -- "${new_home}/.local/scripts/sync-conf" -w &&
 	install_suckless &&
