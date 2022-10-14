@@ -5,14 +5,9 @@ case "$(mimetype --brief "$1")" in
 	text/troff)
 		man ./ "$1" | col -b
 		;;
-	text/* | */xml | application/json)
-		bat --terminal-width "$4" -f "$1"
-		;;
-	audio/* | application/octet-stream)
-		mediainfo "$1"
-		;;
 	*opendocument*)
-		odt2txt "$1"
+		odt2txt "$1" |
+			bat --terminal-width "$4" --file-name="$1" --force-colorization
 		;;
 	application/zip | \
 	application/x-bzip | \
@@ -23,12 +18,19 @@ case "$(mimetype --brief "$1")" in
 	application/vnd.rar | \
 	application/x-7z-compressed | \
 	application/x-compressed-tar)
-		atool --list -- "$1"
+		atool --list -- "$1" |
+			bat --terminal-width "$4" --file-name="$1" --force-colorization
 		;;
 	application/x-object)
-		nm "$1"
+		nm "$1" |
+			bat --terminal-width "$4" --file-name="$1" --force-colorization
 		;;
-	*)
-		bat --terminal-width "$4" -f "$1"
+	video/* | image/* | audio/* | application/octet-stream)
+		mediainfo "$1" |
+			sed -n '/General/,/^$/p' | head -n -1 | tail -n +2 |
+			bat --terminal-width "$4" --file-name="$1" --force-colorization
+		;;
+	text/* | */xml | application/*)
+		bat --terminal-width "$4" --force-colorization "$1"
 		;;
 esac
