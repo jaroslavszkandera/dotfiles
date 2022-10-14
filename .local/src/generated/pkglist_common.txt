@@ -238,6 +238,7 @@ wireshark-qt
 wl-clipboard
 x11vnc
 xclip
+xdg-desktop-portal-wlr
 xdotool
 xkblayout-state-git
 xorg-server
