@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# TODO
-# greeter home needs to be created (/var/lib/greeter) for greetd
-
 
 MAKEFLAGS="-j$(nproc)"
 export MAKEFLAGS
@@ -97,12 +94,15 @@ install_yay() {
 }
 
 init_services() {
+	# systemd-homed: Account management for greetd
 	# pkgfile-update: Bash suggestions for unknown packages
 	# fstrim: Trim blocks which are not in use by the filesystem
 	systemctl enable \
 		NetworkManager.service \
 		bluetooth.service \
 		cronie.service \
+		greetd.service \
+		systemd-homed.service \
 		docker.socket \
 		pkgfile-update.timer \
 		fstrim.timer
@@ -143,6 +143,12 @@ init_timezone() {
 init_sudoers() {
 	# Grant sudo access to wheel group
 	sed -i 's/^# %wheel ALL=(ALL) ALL$/%wheel ALL=(ALL) ALL/' /etc/sudoers
+}
+
+init_greetd_home() {
+	mkdir /var/lib/greeter
+	chown greeter:greeter /var/lib/greeter/
+	usermod greeter -d /var/lib/greeter
 }
 
 link_dash() {
@@ -247,6 +253,7 @@ main() {
 	init_hostname &&
 	# init_timezone &&
 	init_sudoers &&
+	init_greetd_home &&
 	link_dash &&
 	set_user_groups &&
 	move_gpg_folder &&
