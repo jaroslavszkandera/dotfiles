@@ -4,7 +4,7 @@
 # System bar
 waybar &
 nm-applet --indicator &
-# redshift-gtk &
+gammastep &
 
 # Daemons TODO: systemd
 # systemctl --user import-environment DISPLAY

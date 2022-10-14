@@ -53,6 +53,7 @@ flake8
 flex
 freerapid
 fzf
+gammastep
 gawk
 gcc
 gdb
