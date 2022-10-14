@@ -18,6 +18,5 @@ numlockx on &
 xrdb -load "${XDG_CONFIG_HOME}/X11/Xresources" &
 
 # Other
-rfkill block bluetooth &
 [ "$(hostname)" = 'XPS15' ] && \
 	picom -b --config="${XDG_CONFIG_HOME}/picom/picom_$(hostname).conf" &
