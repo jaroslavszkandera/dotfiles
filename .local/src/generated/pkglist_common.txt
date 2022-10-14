@@ -91,6 +91,7 @@ j4-dmenu-desktop
 jre-openjdk
 jupyterlab
 jupyterlab-plotly
+kanshi
 kvantum
 lf
 libappindicator-gtk3
