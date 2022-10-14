@@ -1,10 +1,9 @@
 #!/bin/sh
 
 
-ALSA_RAW_OUTPUT="$(amixer -D pulse sget Master | grep -E '[[:digit:]]+\%')"
-VOLUME_VALUE="$(echo "$ALSA_RAW_OUTPUT" | sed -E 's/.*\[([[:digit:]]+)\%].*/\1/; q')"
+VOLUME_VALUE="$(wpctl get-volume @DEFAULT_SINK@ | awk '{print $2 * 100}')"
 
-if [ "$VOLUME_VALUE" -eq 0 ] || echo "$ALSA_RAW_OUTPUT" | grep -Fq 'off'; then
+if [ "$VOLUME_VALUE" -eq 0 ]; then
 	VOLUME_ICON=''
 elif [ "$VOLUME_VALUE" -le 25 ]; then
 	VOLUME_ICON=''

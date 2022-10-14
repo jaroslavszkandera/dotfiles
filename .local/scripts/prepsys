@@ -112,6 +112,7 @@ init_services() {
 	sudo -u "$new_user" -- systemctl --user enable \
 		psd.service \
 		mpd.service \
+		wireplumber.service \
 		syncthing.service \
 		geoclue-agent.service
 	exit_user=$?

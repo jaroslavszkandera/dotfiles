@@ -77,12 +77,12 @@ gtklock
 gzip
 haveged
 hdparm
+helvum
 heroku-cli-bin
 highlight
 htop
 ipython
 j4-dmenu-desktop
-jack2
 jre-openjdk
 jupyterlab
 jupyterlab-plotly
@@ -141,11 +141,12 @@ perl-file-mimeinfo
 perl-rename
 picom
 pigz
+pipewire-alsa
+pipewire-enable-bluez5
+pipewire-pulse
 pkgconf
 pkgfile
 profile-sync-daemon
-pulseaudio
-pulseaudio-alsa
 pv
 python-grpcio
 python-opencv
@@ -161,6 +162,7 @@ python-unidecode
 qbittorrent
 qemu-desktop
 qogir-icon-theme
+qpwgraph
 qt5-wayland
 qt6-wayland
 redshift
@@ -222,6 +224,7 @@ virtualbox
 virtualbox-guest-iso
 wget
 which
+wireplumber
 wireshark-qt
 x11vnc
 xclip
