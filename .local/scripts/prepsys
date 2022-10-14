@@ -188,7 +188,8 @@ install_suckless() {
 
 config_as_notebook() {
 	pacman -Syu --needed --noconfirm tlp tlp-rdw &&
-	systemctl enable tlp.service NetworkManager-dispatcher.service
+	systemctl enable tlp.service NetworkManager-dispatcher.service &&
+	systemctl mask systemd-rfkill.service systemd-rfkill.socket
 }
 
 ################################################################################
