@@ -129,6 +129,7 @@ ntfs-3g
 numlockx
 obs-studio
 odt2txt
+oh-my-zsh-git
 openssh
 openvpn
 os-prober
@@ -238,3 +239,5 @@ xorg-xsetroot
 xsel
 yay
 yt-dlp
+zsh
+zsh-syntax-highlighting

@@ -20,7 +20,7 @@ fzf_and_open () {
 	fi
 }
 
-lf_wrapper () {
+lfcd () {
 	# Make lf change folder on exit.
 	# This needs to be a bash function (as oppose to a script)
 	# as it needs to be executed in a current shell.
@@ -36,4 +36,32 @@ lf_wrapper () {
 	[ -d "$dir" ] && [ "$dir" != "$PWD" ] && cd "$dir" || return
 }
 
-export -f fzf_and_open lf_wrapper
+nftlist(){
+	case $1 in
+		"nat")
+			nft list table ip6 nat
+			nft list table ip nat
+			;;
+		"mangle")
+			nft list table ip6 mangle
+			nft list table ip mangle
+			;;
+		"filter")
+			nft list chain inet filter output
+			nft list chain inet filter input
+			nft list chain inet filter forward
+			;;
+		"all")
+			nft list table ip6 nat
+			nft list table ip nat
+			nft list table ip6 mangle
+			nft list table ip mangle
+			nft list chain inet filter output
+			nft list chain inet filter input
+			nft list chain inet filter forward
+			;;
+		*)
+			nft list chain inet filter input
+			;;
+	esac
+}

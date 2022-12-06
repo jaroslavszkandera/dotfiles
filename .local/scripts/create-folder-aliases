@@ -54,12 +54,12 @@ def write_bash(output_file, mapping_root, mapping_home):
                 '#  Directory mapping\n' +
                 '# ===================\n\n')
 
-        f.write('alias gr=\'lf_wrapper "/run/media/$USER/"\'\n')
+        f.write('alias gr=\'lfcd "/run/media/$USER/"\'\n')
         for key, dest in mapping_root:
-            f.write(f'alias g{key}=\'lf_wrapper "{dest}"\'\n')
+            f.write(f'alias g{key}=\'lfcd "{dest}"\'\n')
 
         for key, dest in mapping_home:
-            f.write(f'alias g{key}=\'lf_wrapper "$HOME/{dest}"\'\n')
+            f.write(f'alias g{key}=\'lfcd "$HOME/{dest}"\'\n')
 
         f.write('\n\n# ======================\n' +
                 '#  Fuzzy finder mapping\n' +
