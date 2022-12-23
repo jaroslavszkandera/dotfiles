@@ -133,6 +133,7 @@ oh-my-zsh-git
 openssh
 openvpn
 os-prober
+otf-font-awesome
 pacman
 par
 patch
