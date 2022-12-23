@@ -2,6 +2,7 @@ acpi
 alsa-firmware
 alsa-utils
 anki
+ansible
 arandr
 arduino
 arduino-avr-core
@@ -43,6 +44,7 @@ eog
 ethtool
 evince
 fakeroot
+ffmpeg
 ffmpegthumbnailer
 file
 findutils
@@ -57,6 +59,7 @@ gdb
 gettext
 gimp
 git
+git-lfs
 gnome-epub-thumbnailer
 gnome-keyring
 gnome-shell-pomodoro
@@ -178,7 +181,7 @@ sed
 shellcheck
 shfmt
 simple-mtpfs
-slack-desktop
+slack-electron
 smartmontools
 spotify
 sshfs
@@ -224,6 +227,7 @@ unzip
 valgrind
 virtualbox
 virtualbox-guest-iso
+vnstat
 wget
 which
 wireplumber
@@ -240,5 +244,6 @@ xorg-xsetroot
 xsel
 yay
 yt-dlp
+zeal
 zsh
 zsh-syntax-highlighting
