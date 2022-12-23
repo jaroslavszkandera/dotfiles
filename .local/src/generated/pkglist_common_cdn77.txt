@@ -1,8 +1,5 @@
-bazelisk
-bear
 curl-http3-quiche
 ffmpeg-cdn
-nginx
+flamegraph-git
+flvmeta
 perf
-python-google-api-core
-python-googleapis-common-protos
