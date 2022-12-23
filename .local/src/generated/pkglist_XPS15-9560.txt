@@ -1,6 +1,5 @@
 bbswitch
 bumblebee
-clipmenu
 gstreamer-vaapi
 intel-gpu-tools
 intel-media-driver
