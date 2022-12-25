@@ -2,8 +2,6 @@
 # xinit/startx initialization file
 
 
-[ -f "${XDG_CONFIG_HOME}/X11/xprofile" ] && . "${XDG_CONFIG_HOME}/X11/xprofile"
-
 # Run all system xinitrc shell scripts
 xinitdir="/etc/X11/xinit/xinitrc.d"
 if [ -d "$xinitdir" ]; then
@@ -14,5 +12,8 @@ if [ -d "$xinitdir" ]; then
 		fi
 	done
 fi
+
+[ -f "${HOME}/.zshenv" ] && . "${HOME}/.zshenv"
+[ -f "${XDG_CONFIG_HOME}/X11/xprofile" ] && . "${XDG_CONFIG_HOME}/X11/xprofile"
 
 exec startdwm
