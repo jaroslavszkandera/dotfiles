@@ -1,7 +1,7 @@
-linux-headers
-nvidia-dkms
+nvidia
 nvidia-settings
 nvidia-utils
+python-tensorflow-cuda
 ttf-ms-win10
 ttf-ms-win10-japanese
 ttf-ms-win10-korean
