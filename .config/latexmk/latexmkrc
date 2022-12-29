@@ -1,3 +1,2 @@
-$pdflatex = 'lualatex';
-$pdf_mode = 1;
+$pdf_mode = 4;  # lualatex
 $pdf_previewer = 'start evince';
