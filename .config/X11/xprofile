@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # This file is sourced by xinit/display managers before window manager is started
 
 
@@ -18,5 +18,6 @@ numlockx on &
 xrdb -load "${XDG_CONFIG_HOME}/X11/Xresources" &
 
 # Other
-[ "$(hostname)" = 'XPS15' ] && \
-	picom -b --config="${XDG_CONFIG_HOME}/picom/picom_$(hostname).conf" &
+systemctl --user import-environment DISPLAY & # Used by netword-clipboard
+PICOM_PROFILE="${XDG_CONFIG_HOME}/picom/picom_$(hostname).conf"
+[ -f "$PICOM_PROFILE" ] && picom -b --config="$PICOM_PROFILE" &
