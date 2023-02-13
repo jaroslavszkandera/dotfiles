@@ -35,6 +35,7 @@ MAPPING_HOME = [
     ('dc', 'Documents/cvut/'),
     ('dC', 'Documents/cdn77/'),
     ('df', 'Documents/finance/'),
+    ('dg', 'Documents/gigs/'),
     ('dl', 'Documents/latex/'),
     ('dP', 'Documents/private/'),
     ('dp', 'Documents/projects/'),
