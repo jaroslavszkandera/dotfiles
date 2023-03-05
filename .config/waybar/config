@@ -1,21 +1,51 @@
 {
 	"layer": "bottom",
-	"height": 25,
-	"modules-right": ["memory", "temperature", "battery", "pulseaudio", "clock", "tray"],
+	"height": 26,
+	"modules-left": ["sway/workspaces", "sway/mode", "sway/window"],
+	"modules-right": ["memory", "temperature", "battery", "pulseaudio", "sway/language", "clock", "tray"],
+	"sway/workspaces": {
+		"disable-scroll": true,
+		"all-outputs": true,
+		"format": "{icon}",
+		"format-icons": {
+			"1": "",
+			"2": "",
+			"3": "",
+			"4": "",
+			"5": "",
+			"6": "",
+		},
+		"persistent_workspaces": {
+			"1": [],
+			"2": [],
+			"3": [],
+			"4": [],
+			"5": [],
+			"6": []
+		}
+	},
+	"sway/mode": {
+		"format": " {}",
+		"max-length": 50
+	},
+	"sway/window": {
+		"format": "{title}",
+		"max-length": 150
+	},
 	"memory": {
-		"format": " {used:.1f}/{total:.0f}GiB",
+		"format": " {used:.1f}/{total:.0f}GiB"
 	},
 	"temperature": {
 		"format": "{icon} {temperatureC}°C",
 		"format-icons": ["", "", ""],
-		"hwmon-path": "/sys/class/thermal/thermal_zone10/temp",
+		"hwmon-path": "/sys/class/thermal/thermal_zone10/temp"
 	},
 	"battery": {
 		"format": "{icon} {capacity}% {time}",
 		"format-full": "{icon} {capacity}%",
 		"format-charging": " {capacity}% {time}",
 		"format-icons": ["", "", "", "", ""],
-		"format-time": "{H:02}:{M:02}",
+		"format-time": "{H:02}:{M:02}"
 	},
 	"pulseaudio": {
 		"format": "{icon} {volume}%",
@@ -30,16 +60,20 @@
 			"car": "",
 			"default": ["", ""]
 		},
-		"on-click": "pavucontrol",
+		"on-click": "pavucontrol"
 		/* TODO: scrolling with touchpad */
+	},
+	"sway/language": {
+		"format": " {}",
+		"on-click": "swaymsg input type:keyboard xkb_switch_layout next"
 	},
 	"clock": {
 		"interval": 20,
-		"format": " {:%d/%m/%Y %R}",
+		"format": " {:%d/%m/%Y %R}"
 	},
 	"tray": {
 		"icon-size": 24,
 		"spacing": 7,
-		"show-passive-items": true,
-	},
+		"show-passive-items": true
+	}
 }

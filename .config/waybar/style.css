@@ -1,6 +1,8 @@
 * {
 	font-family: monospace;
 	font-size: 16px;
+	border: none;
+	border-radius: 0;
 }
 
 window#waybar {
@@ -8,16 +10,50 @@ window#waybar {
 	color: #ffffff;
 }
 
+/* Left */
+
+#workspaces button {
+	color: #ffffff;
+	background: transparent; /* remove hover effect */
+	padding: 0 10px;
+	border-top: 2px solid transparent;
+}
+
+#workspaces button.focused {
+	color: #ffffff;
+	background-color: #3498db;
+}
+
+#workspaces button.urgent {
+	color: #14161b;
+	background-color: #cc575d;
+	border-top-color: #cc575d;
+}
+
+#workspaces button.current_output {
+	border-top: 2px solid #3498db;
+}
+
+#mode {
+       margin-left: 5px;
+       margin-right: 15px;
+}
+
+#window {
+	padding: 0 10px;
+}
+
+/* Right */
+
 #memory,
 #temperature,
 #battery,
-#pulseaudio {
-	padding: 0 14px;
-	border-right: 1px solid #ffffff;
-}
+#pulseaudio,
+#language,
 #clock {
-	padding-left: 14px;
-	padding-right: 7px;
+	border-top: 1px solid transparent;
+	border-bottom: 1px solid transparent;
+	padding: 0 8px;
 }
 
 #tray * {
