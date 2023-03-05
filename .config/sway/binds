@@ -262,6 +262,8 @@ bindsym $mod+Ctrl+m mode $mode_pull_mark
 # System
 #
 bindsym {
+	$mod+bracketleft exec audio prev
+	$mod+bracketright exec audio next
 	XF86AudioPrev exec audio prev
 	XF86AudioNext exec audio next
 	XF86AudioPause exec audio pause
