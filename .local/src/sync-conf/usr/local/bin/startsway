@@ -1,0 +1,17 @@
+#!/bin/sh
+
+
+export XDG_SESSION_TYPE=wayland
+export XDG_SESSION_DESKTOP=sway
+export XDG_CURRENT_DESKTOP=sway
+export GDK_BACKEND=wayland  # GTK
+export QT_QPA_PLATFORM=wayland # Qt
+export XCURSOR_SIZE=24  # Fix for Qt apps
+export CLUTTER_BACKEND=wayland
+export SDL_VIDEODRIVER=wayland
+export MOZ_ENABLE_WAYLAND=1 # Mozilla apps
+export ECORE_EVAS_ENGINE=wayland-egl
+export ELM_ENGINE=wayland_egl
+export NO_AT_BRIDGE=1
+
+exec systemd-cat --identifier=sway sway --unsupported-gpu "$@"
