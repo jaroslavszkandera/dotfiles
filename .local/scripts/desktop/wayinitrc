@@ -4,19 +4,6 @@
 # System bar
 waybar &
 nm-applet --indicator &
-gammastep &
-
-# systemd
-systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-if command -v dbus-update-activation-environment >/dev/null 2>&1; then
-	dbus-update-activation-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-fi
 
 # Daemons
-udiskie &
-dunst &
 # background &
-kanshi &
-
-# Peripherals
-numlockx on &
