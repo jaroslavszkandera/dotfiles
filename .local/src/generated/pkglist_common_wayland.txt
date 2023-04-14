@@ -1,8 +1,14 @@
-alacritty
+alacritty-git
 grim
+maim
+rofi-lbonn-wayland
 slurp
+sway
+sway-systemd-git
+swaybg
 waybar
 wayland-protocols
+wayvnc
 wdisplays
 wl-clipboard
 wlr-randr
