@@ -1,0 +1,14 @@
+profile {
+	output eDP-1 enable scale 2
+}
+
+profile HDMI {
+	output eDP-1 enable scale 2 position 0,1440
+	output DP-2 enable position 0,0
+}
+
+profile CDN77 {
+	output eDP-1 enable scale 2 position 0,1360
+	output "BNQ BenQ PD2705Q V3N01609019" enable transform 90 position 1920,0
+	output "BNQ BenQ PD2705Q V3N03339019" enable position 3360,560
+}
