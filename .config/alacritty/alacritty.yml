@@ -748,7 +748,18 @@ colors:
 #
 # If the same trigger is assigned to multiple actions, all of them are executed
 # in the order they were defined in.
-#key_bindings:
+key_bindings:
+  - { key: Key1, mods: Control, chars: "\e[27;5;49~" }
+  - { key: Key2, mods: Control, chars: "\e[27;5;50~" }
+  - { key: Key3, mods: Control, chars: "\e[27;5;51~" }
+  - { key: Key4, mods: Control, chars: "\e[27;5;52~" }
+  - { key: Key5, mods: Control, chars: "\e[27;5;53~" }
+  - { key: Key6, mods: Control, chars: "\e[27;5;54~" }
+  - { key: Key7, mods: Control, chars: "\e[27;5;55~" }
+  - { key: Key8, mods: Control, chars: "\e[27;5;56~" }
+  - { key: Key9, mods: Control, chars: "\e[27;5;57~" }
+  - { key: Key0, mods: Control, chars: "\e[27;5;48~" }
+
   #- { key: Paste,                                       action: Paste          }
   #- { key: Copy,                                        action: Copy           }
   #- { key: L,         mods: Control,                    action: ClearLogNotice }
