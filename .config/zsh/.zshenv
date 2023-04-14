@@ -42,6 +42,12 @@ export MAKEFLAGS="-j$(nproc)"
 export QT_QPA_PLATFORMTHEME='Matchama-Dark-Azul'
 export QT_STYLE_OVERRIDE='kvantum'
 
+# Ruby
+if command -v ruby &>/dev/null; then
+	export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
+	export PATH="$PATH:$GEM_HOME/bin"
+fi
+
 # Other
 export FZF_DEFAULT_OPTS='--layout=reverse --height 40%'
 export LESS='-R --use-color --color=d+B$Dug'
