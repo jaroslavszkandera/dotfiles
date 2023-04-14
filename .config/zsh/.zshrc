@@ -75,6 +75,9 @@ HISTSIZE=10000
 HISTFILE="${ZSH_CACHE_DIR}/history"
 HISTFILESIZE=10000
 
+# Ctrl-u doesn't delete whole line
+bindkey \^U backward-kill-line
+
 # Other
 eval "$(dircolors)"
 
