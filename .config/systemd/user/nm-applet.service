@@ -1,0 +1,9 @@
+[Unit]
+BindsTo=sway-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/nm-applet --indicator
+
+[Install]
+WantedBy=sway-session.target
