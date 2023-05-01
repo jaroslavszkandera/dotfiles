@@ -27,11 +27,12 @@ cd "$DIR_SCRIPT"/../src/sync-conf/ || {
 
 case "$1" in
 	-r)
-		find etc/ -type f -exec cp -v /"{}" "{}" \;
+		find . -type f -exec sh -c 'cp -v $(realpath /"$1") "$1"' shell {} \;
 		;;
 	-w)
-		find etc/ -type f -print0 | xargs -0 -I{} dirname {} | xargs -I{} sudo mkdir -p /"{}"
-		sudo find etc/ -type f -exec cp -v "{}" /"{}" \;
+
+		find . -type f -printf '%P\0' | xargs -0 -I{} dirname {} | sort | uniq | xargs -I{} sudo mkdir -p /"{}"
+		sudo find . -type f -exec sh -c 'cp -v "$1" $(realpath /"$1")' shell {} \;
 		;;
 	*)
 		get_help
