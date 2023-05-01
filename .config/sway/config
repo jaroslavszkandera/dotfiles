@@ -13,9 +13,7 @@ for_window {
 	[app_id="firefox"] move container to workspace 2
 	[class="Chromium"] move container to workspace 2
 	[app_id="anki"] move container to workspace 4
-	[class="Spotify"] move container to workspace 5
-	# TODO
-	[app_id="Spotify"] move container to workspace 5
+	[title="Spotify"] move container to workspace 5
 	[app_id="thunderbird"] move container to workspace 6
 	[app_id="Slack"] move container to workspace 6
 	[app_id="dragon-drop"] move scratchpad, scratchpad show
