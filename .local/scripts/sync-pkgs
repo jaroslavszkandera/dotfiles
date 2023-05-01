@@ -46,6 +46,10 @@ while [ "$#" -gt 0 ]; do
 	case "$1" in
 		-h)	get_help ;;
 		-g)
+			for common in "$PATH_PKGS_FILES"/pkglist_common*.txt; do
+				PKGS_COMMON="$(sort "$common")"
+				comm --check-order -12 <(echo "$PKGS_CURRENT") <(echo "$PKGS_COMMON") >"$common"
+			done
 			comm --check-order -23 <(echo "$PKGS_CURRENT") <(sort "$PATH_PKGS_FILES"/pkglist_common*.txt) >"$PATH_PKGS_HOST_SPECIFIC"
 			exit
 			;;
