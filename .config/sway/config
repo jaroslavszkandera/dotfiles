@@ -18,10 +18,9 @@ for_window {
 	[app_id="Spotify"] move container to workspace 5
 	[app_id="thunderbird"] move container to workspace 6
 	[app_id="Slack"] move container to workspace 6
-	[app_id="dragon"] sticky enable floating enable
+	[app_id="dragon-drop"] move scratchpad, scratchpad show
+	[shell="xwayland"] title_format "[XWayland] %title"
 }
-
-for_window [shell="xwayland"] title_format "[XWayland] %title"
 
 # TODO: theme
 # client.focused
