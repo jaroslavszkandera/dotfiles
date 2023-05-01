@@ -14,4 +14,14 @@ export ECORE_EVAS_ENGINE=wayland-egl
 export ELM_ENGINE=wayland_egl
 export NO_AT_BRIDGE=1
 
+# Nvidia settings
+if [ "$(uname -n)" = 'BlackJesus' ]; then
+	export __GL_GSYNC_ALLOWED=0
+	export __GL_VRR_ALLOWED=0
+	export GBM_BACKEND=nvidia-drm
+	export __GLX_VENDOR_LIBRARY_NAME=nvidia
+	export WLR_NO_HARDWARE_CURSORS=1
+	export WLR_RENDERER=vulkan
+fi
+
 exec systemd-cat --identifier=sway sway --unsupported-gpu "$@"
