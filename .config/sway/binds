@@ -167,7 +167,7 @@ bindsym {
 #
 # Sway has a "scratchpad", which is a bag of holding for windows.
 # You can send windows there and get them back later.
-bindsym {
+bindsym --to-code {
 	# Show the next scratchpad window or hide the focused scratchpad window.
 	# If there are multiple scratchpad windows, this command cycles through them.
 	$mod+minus scratchpad show
@@ -261,7 +261,7 @@ bindsym $mod+Ctrl+m mode $mode_pull_mark
 #
 # System
 #
-bindsym {
+bindsym --to-code {
 	$mod+bracketleft exec audio prev
 	$mod+bracketright exec audio next
 	XF86AudioPrev exec audio prev
