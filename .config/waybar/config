@@ -1,0 +1,75 @@
+{
+	"layer": "bottom",
+	"height": 20,
+	"modules-left": ["sway/window"],
+	"modules-center": ["sway/workspaces"],
+	"modules-right": ["memory", "temperature", "battery", "network", "pulseaudio", "sway/language", "clock", "tray"],
+	"sway/window": {
+		"format": "{}",
+		"max-length": 50
+	},
+	/* TODO: persistent workspaces
+	"sway/workspaces": {
+		"persistent_workspaces", {
+			"1": [],
+			"2": [],
+			"3": [],
+			"4": [],
+			"5": [],
+			"6": []
+		}
+	},
+	*/
+	"memory": {
+		"format": " {used:.1f}/{total:.0f}GiB",
+	},
+	"temperature": {
+		"format": "{icon} {temperatureC}°C",
+		"format-icons": ["", "", ""],
+		"hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+	},
+	"battery": {
+		"format": "{icon} {capacity}% {time}",
+		"format-full": "{icon} {capacity}%",
+		"format-charging": " {capacity}% {time}",
+		"format-icons": ["", "", "", "", ""],
+		"format-time": "{H:02}:{M:02}",
+	},
+	"network": {
+		// "interface": "wlp2*", // (Optional) To force the use of this interface
+        	"format-wifi": " {essid} ({signalStrength}%)",
+        	"format-ethernet": " {ipaddr}/{cidr}",
+        	"tooltip-format": " {ifname} via {gwaddr}",
+        	"format-linked": " {ifname} (No IP)",
+        	"format-disconnected": " Disconnected",
+        	"format-alt": "{ifname}: {ipaddr}/{cidr}"
+	},
+	"pulseaudio": {
+		"format": "{icon} {volume}%",
+		"format-bluetooth": "{icon} {volume}%",
+		"format-muted": "",
+		"format-icons": {
+			"headphone": "",
+			"hands-free": "",
+			"headset": "",
+			"phone": "",
+			"portable": "",
+			"car": "",
+			"default": ["", ""]
+		},
+		"on-click": "pavucontrol",
+		/* TODO: scrolling with touchpad */
+	},
+	"sway/language": {
+		"format": " {}",
+	},
+	"clock": {
+		"interval": 20,
+		"format": " {:%d/%m/%Y %R}",
+	},
+	"tray": {
+		"icon-size": 24,
+		"spacing": 7,
+		"show-passive-items": true,
+	},
+}

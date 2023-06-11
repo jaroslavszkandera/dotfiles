@@ -1,0 +1,36 @@
+#!/bin/zsh
+
+
+case "$(mimetype --brief "$1")" in
+	text/troff)
+		man ./ "$1" | col -b
+		;;
+	*opendocument*)
+		odt2txt "$1" |
+			bat --terminal-width "$4" --file-name="$1" --force-colorization
+		;;
+	application/zip | \
+	application/x-bzip | \
+	application/x-bzip2 | \
+	application/tar | \
+	application/gzip | \
+	application/java-archive | \
+	application/vnd.rar | \
+	application/x-7z-compressed | \
+	application/x-compressed-tar)
+		atool --list -- "$1" |
+			bat --terminal-width "$4" --file-name="$1" --force-colorization
+		;;
+	application/x-object)
+		nm "$1" |
+			bat --terminal-width "$4" --file-name="$1" --force-colorization
+		;;
+	video/* | image/* | audio/* | application/octet-stream)
+		mediainfo "$1" |
+			sed -n '/General/,/^$/p' | head -n -1 | tail -n +2 |
+			bat --terminal-width "$4" --file-name="$1" --force-colorization
+		;;
+	text/* | */xml | application/*)
+		bat --terminal-width "$4" --force-colorization "$1"
+		;;
+esac

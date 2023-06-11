@@ -1,0 +1,48 @@
+#!/bin/sh
+
+
+# =================
+#  Command mapping
+# =================
+
+# XDG Cleanup
+alias nvidia-settings='nvidia-settings --config="${XDG_CONFIG_HOME}/nvidia/settings"'
+alias wget='wget --hsts-file="${XDG_CACHE_HOME}/wget-hsts"'
+alias flake8='flake8 --append-config="${XDG_CONFIG_HOME}/flake8"'
+
+# Enable color
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias diff='diff --color=auto'
+alias watch='watch --color'
+alias dmesg='dmesg --color --ctime'
+alias ip='ip --color=auto'
+
+# General
+alias yt-dlp-best='yt-dlp -f bestvideo+bestaudio'
+alias l='ls -lh'
+alias la='ls -lha'
+alias df='df -h'
+alias ipsa='ip -stats -human a s'
+alias ipba='ip -brief a s'
+
+# Dotfiles
+alias dfl='git --git-dir="${HOME}/.dotfiles.git/" --work-tree="$HOME"'
+
+# Shortcuts/scripts
+alias rsync='rsync-without-trailing-slash'
+alias vim='nvim'
+alias v='nvim'
+alias g='lfcd'
+alias lsblkz='lsblk --output NAME,FSTYPE,UUID,SERIAL,MODEL,STATE,TYPE,SIZE,MOUNTPOINT'
+alias psz='ps faxo user:15,pid,pcpu,pmem,vsz,rss,tty,stat,start,time,command'
+alias dstatz='dstat -c -m -p -r -d -n -y --fs --time'
+#alias chafa='chafa -s 1920x1080'
+
+# ===================
+#  Directory mapping
+# ===================
+
+. "$HOME"/.local/src/generated/aliases_bash
