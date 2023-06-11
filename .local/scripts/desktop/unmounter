@@ -1,0 +1,8 @@
+#!/bin/sh
+
+
+DIR_MEDIA="/run/media/${USER}/"
+if [ -d "$DIR_MEDIA" ]; then
+	SELECTED="$(find "$DIR_MEDIA" -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | rofi -dmenu)"
+	[ -n "$SELECTED" ] && sync -f "${DIR_MEDIA}/$SELECTED" && umount "${DIR_MEDIA}/$SELECTED"
+fi

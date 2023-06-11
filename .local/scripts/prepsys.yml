@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  prepsys:
+    image: archlinux:latest
+    volumes:
+      - ./prepsys:/tmp/prepsys/prepsys:ro
+      - ./prepsys-test-files/pkglist_common.txt:/tmp/prepsys/pkglist_common.txt:ro
+      - ./prepsys-test-files/pkglist_XPS15.txt:/tmp/prepsys/pkglist_XPS15.txt:ro
+    command: ['/tmp/prepsys/prepsys', '-u', 'jirik', '-p', 'qwerty', '-H', 'test', '--notebook', '/tmp/prepsys/pkglist_common.txt', '/tmp/prepsys/pkglist_XPS15.txt']

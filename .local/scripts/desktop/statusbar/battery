@@ -1,0 +1,42 @@
+#!/bin/sh
+
+
+[ ! -d /sys/class/power_supply/BAT0 ] && exit 0
+
+BATTERY_CAPACITY="$(cat /sys/class/power_supply/BAT0/capacity)"
+BATTER_STATUS="$(cat /sys/class/power_supply/BAT0/status)"
+
+case "$BATTER_STATUS" in
+	Full)
+		BATTERY_STATUS_ICON=''
+		;;
+	Charging)
+		BATTERY_STATUS_ICON=''
+		;;
+	Discharging)
+		if [ "$BATTERY_CAPACITY" -le 20 ]; then
+			BATTERY_STATUS_ICON=''
+		elif [ "$BATTERY_CAPACITY" -le 40 ]; then
+			BATTERY_STATUS_ICON=''
+		elif [ "$BATTERY_CAPACITY" -le 60 ]; then
+			BATTERY_STATUS_ICON=''
+		elif [ "$BATTERY_CAPACITY" -le 80 ]; then
+			BATTERY_STATUS_ICON=''
+		else
+			BATTERY_STATUS_ICON=''
+		fi
+		;;
+	*)
+		BATTERY_STATUS_ICON=''
+		;;
+esac
+
+# Filter second battery with 0% (why is acpi displaying that?)
+time_remaining="$(acpi | grep -wvF '0%' | cut -d' ' -f5-)"
+
+printf '%s' "$BATTERY_STATUS_ICON ${BATTERY_CAPACITY}%"
+if [ -n "$time_remaining" ]; then
+	time_remaining="$(echo "$time_remaining" | sed -E 's/([[:digit:]]+):([[:digit:]]+):([[:digit:]]+).*/\1:\2/')"
+	printf ' %s' "$time_remaining"
+fi
+echo

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+
+DIR_SCRIPT="$(dirname "$0")"
+SESSIONS_TO_START=('tmux-general' 'tmux-study')
+
+for session in "${SESSIONS_TO_START[@]}"; do
+	"${DIR_SCRIPT}/${session}" -d
+done

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# https://wiki.archlinux.org/index.php/rsync
+# This script removes trailing slashes in the arguments
+# as the rsync treats them in BSD style (folder/ == folder/.)
+
+new_args=()
+for i in "$@"; do
+	case "$i" in
+		/) i=/       ;;
+		*/) i=${i%/} ;;
+	esac
+	new_args[${#new_args[@]}]="$i"
+done
+exec "rsync" "${new_args[@]}"

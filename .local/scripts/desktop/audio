@@ -1,0 +1,25 @@
+#!/bin/sh
+
+
+case "$1" in
+	"pause")
+		dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause \
+			|| mpc toggle
+		;;
+	"play")
+		dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause \
+			|| mpc toggle
+		;;
+	"prev")
+		dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous \
+			|| mpc prev
+		;;
+	"next")
+		dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next \
+			|| mpc next
+		;;
+	"mute")  wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle                                           ;;
+	"raise") wpctl set-mute @DEFAULT_AUDIO_SINK@ 0 && wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+   ;;
+	"lower") wpctl set-mute @DEFAULT_AUDIO_SINK@ 0 && wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-   ;;
+	*)       ncmpcpp  ;;
+esac

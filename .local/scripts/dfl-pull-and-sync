@@ -1,0 +1,8 @@
+#!/bin/bash
+
+
+dfl-pull && \
+make -C "${HOME}/.local/suckless/" checkout && \
+make -C "${HOME}/.local/suckless/" install && \
+sync-conf -w && \
+sync-pkgs "${HOME}"/.local/src/generated/pkglist_{common,"$(hostname)"}.txt

@@ -1,0 +1,22 @@
+#!/usr/bin/env python3
+
+import unidecode
+import sys
+import argparse
+
+
+parser = argparse.ArgumentParser(
+    description='Strip supplied arguments of any non-ASCII accents.\n'
+    'Standard input is used if no arguments are given.',
+    formatter_class=argparse.RawTextHelpFormatter
+)
+parser.add_argument('string', nargs='*',
+                    help='an input string')
+args = parser.parse_args()
+
+if args.string:
+    for string in args.string:
+        print(unidecode.unidecode(string))
+else:
+    for string in sys.stdin:
+        print(unidecode.unidecode(string), end='')

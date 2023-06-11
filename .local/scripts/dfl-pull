@@ -1,0 +1,11 @@
+#!/bin/bash
+
+
+echo 'Pulling dotfiles repo'
+git --git-dir="${HOME}/.dotfiles.git/" --work-tree="$HOME" pull
+
+echo 'Pulling suckless repos'
+make -C "${HOME}/.local/suckless/" pull
+
+echo 'Pulling nvim repo'
+git -C "${HOME}/.config/nvim" pull
