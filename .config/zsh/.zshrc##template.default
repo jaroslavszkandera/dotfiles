@@ -1,9 +1,16 @@
 # Read when interactive
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
+# Path to your oh-my-zsh installation.
+{% if yadm.class == "work" %}
+ZSH='/opt/oh-my-zsh'
+{% else %}
+ZSH='/usr/share/oh-my-zsh/'
+{% endif %}
+
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="robbyrussell"
 
 # Uncomment the following line to use case-sensitive completion.
@@ -42,15 +49,20 @@ HIST_STAMPS="yyyy-mm-dd"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+{% if yadm.class == "work" %}
+plugins=(git go golang cp colorize zsh-syntax-highlighting)
+{% else %}
 plugins=(archlinux command-not-found git golang cp colorize)
+{% endif %}
 
 ZSH_CACHE_DIR="${XDG_CACHE_HOME}/zsh"
 [ ! -d "$ZSH_CACHE_DIR" ] && mkdir -p "$ZSH_CACHE_DIR"
-source /usr/share/oh-my-zsh/oh-my-zsh.sh
+source "${ZSH}/oh-my-zsh.sh"
 
 # User configuration
+{% if yadm.class != "work" %}
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
+{% endif %}
 [ -f "${XDG_CONFIG_HOME}/zsh/.aliases" ]   && source "${XDG_CONFIG_HOME}/zsh/.aliases"
 [ -f "${XDG_CONFIG_HOME}/zsh/.functions" ] && source "${XDG_CONFIG_HOME}/zsh/.functions"
 
