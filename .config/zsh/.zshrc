@@ -70,7 +70,6 @@ fi
 # History
 setopt histignoredups
 setopt inc_append_history
-setopt share_history
 HISTSIZE=10000
 HISTFILE="${ZSH_CACHE_DIR}/history"
 HISTFILESIZE=10000
