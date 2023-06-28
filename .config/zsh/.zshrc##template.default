@@ -60,7 +60,8 @@ ZSH_CACHE_DIR="${XDG_CACHE_HOME}/zsh"
 source "${ZSH}/oh-my-zsh.sh"
 
 # User configuration
-{% if yadm.class != "work" %}
+{% if yadm.class == "work" %}
+{% else %}
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 {% endif %}
 [ -f "${XDG_CONFIG_HOME}/zsh/.aliases" ]   && source "${XDG_CONFIG_HOME}/zsh/.aliases"
