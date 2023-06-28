@@ -8,7 +8,8 @@
 [push]
 	default = simple
 [alias]
-	ll = log --oneline --graph --all --decorate
+	l = log --oneline --graph --decorate
+	ll = log --oneline --graph --decorate --all
 	st = status
 	ci = commit
 	co = checkout
