@@ -141,19 +141,18 @@ class AdvancedFields:
 
         # Overdue interval
         def cOverdueIvl(c, n, t):
-            val = self.valueForOverdue(c.odid, c.queue, c.type, c.due)
+            val = self.valueForOverdue(c.queue, c.type, c.due, c.odue)
             if val:
                 return mw.col.format_timespan(val * 24 * 60 * 60, context=FormatTimeSpanContext.INTERVALS)
-
 
         srt = (f"""
         (select
           (case
-             when odid then null
              when queue = {QUEUE_TYPE_LRN} then null
              when queue = {QUEUE_TYPE_NEW} then null
              when type = {CARD_TYPE_NEW} then null
              when {mw.col.sched.today} - due <= 0 then null
+             when odid then ({mw.col.sched.today} - odue)
              when (queue = {QUEUE_TYPE_REV} or queue = {QUEUE_TYPE_DAY_LEARN_RELEARN} or (type = {CARD_TYPE_REV} and queue < 0)) then ({mw.col.sched.today} - due)
            end
           )
@@ -163,6 +162,35 @@ class AdvancedFields:
             type='coverdueivl',
             name="Overdue Interval",
             onData=cOverdueIvl,
+            onSort=getOnSort(srt)
+        )
+        self.customColumns.append(cc)
+        # ------------------------------- #
+
+        # Percentage of scheduled interval
+        def cPercentageSchedIvl(c, n, t):
+            val = self.reviewCardPercentageDue(c.odid, c.odue, c.queue, c.type, c.due, c.ivl)
+            if val:
+                return "{0:.2f}".format(val) + " %"
+
+        srt = (f"""
+        (select
+          (case
+             when odue and (type = {CARD_TYPE_REV} or type = {CARD_TYPE_RELEARNING}) then (
+                (({mw.col.sched.today} - odue + ivl) * 1.0) / (ivl * 1.0)
+                )
+             when (type = {CARD_TYPE_REV} or type = {CARD_TYPE_RELEARNING}) then (
+                (({mw.col.sched.today} - due + ivl) * 1.0) / (ivl * 1.0)
+                )
+             else null
+           end
+          )
+        from cards where id = c.id) asc nulls last""")
+
+        cc = advBrowser.newCustomColumn(
+            type='cpercentageschedivl',
+            name="% of Ivl",
+            onData=cPercentageSchedIvl,
             onSort=getOnSort(srt)
         )
         self.customColumns.append(cc)
@@ -190,6 +218,21 @@ class AdvancedFields:
             name="Previous Interval",
             onData=cPrevIvl,
             onSort=getOnSort(srt)
+        )
+        self.customColumns.append(cc)
+        # ------------------------------- #
+
+        # Total Number of 1/Again (also on new and learning cards)
+        def cAgainCount(c, n, t):
+            val = mw.col.db.scalar(f"select count() from revlog where cid={c.id} and ease=1")
+            if val:
+                return val
+
+        cc = advBrowser.newCustomColumn(
+            type='cAgainCount',
+            name="Again Count",
+            onData=cAgainCount,
+            onSort=lambda: "(select count() from revlog where cid = c.id and ease=1)"
         )
         self.customColumns.append(cc)
         # ------------------------------- #
@@ -351,13 +394,14 @@ class AdvancedFields:
         for column in self.customColumns:
             group.addItem(column)
 
-    def valueForOverdue(self, odid, queue, type, due):
-        if odid or queue == QUEUE_TYPE_LRN:
+    def valueForOverdue(self, queue, type, due, odue):
+        if queue == QUEUE_TYPE_LRN:
             return
         elif queue == QUEUE_TYPE_NEW or type == CARD_TYPE_NEW:
             return
         else:
-            diff = mw.col.sched.today - due
+            card_due = odue if odue else due
+            diff = mw.col.sched.today - card_due
             if diff <= 0:
                 return
             if queue in (QUEUE_TYPE_REV, QUEUE_TYPE_DAY_LEARN_RELEARN) or (type == CARD_TYPE_REV and queue < 0):
@@ -365,6 +409,22 @@ class AdvancedFields:
             else:
                 return
 
+    def reviewCardPercentageDue(self, odid, odue, queue, type, due, ivl):
+        if odid:
+            due = odue
+        if queue == QUEUE_TYPE_LRN:
+            return 0.0
+        elif queue == QUEUE_TYPE_NEW or type == CARD_TYPE_NEW:
+            return 0.0
+        elif queue in (QUEUE_TYPE_REV, QUEUE_TYPE_DAY_LEARN_RELEARN) or (type == CARD_TYPE_REV and queue < 0):
+            try:
+                last_rev = due - ivl
+                elapsed = mw.col.sched.today - last_rev
+                p = elapsed/float(ivl) * 100
+                return p
+            except ZeroDivisionError:
+                return 0.0
+        return 0.0
 
 af = AdvancedFields()
 addHook("advBrowserLoaded", af.onAdvBrowserLoad)
