@@ -84,8 +84,6 @@ cmd toggle-execute &{{
 # ==========
 #  Renaming
 # ==========
-cmd rename-clear-all &lf -remote "send $id :rename; cmd-delete-home"
-
 cmd rename-clear &{{
 	# Multiple files - bulkrename
 	[ "$(echo "$fx" | wc -l)" -gt 1 ] && {
@@ -94,21 +92,7 @@ cmd rename-clear &{{
 	}
 
 	# Single file
-	if [ -f "$f" ]; then
-		filename="${f##*/}"      # Get basename of the selection
-		extension="${filename##*.}" # Get extension only
-
-		# If file doesn't have any extension, clear all
-		[ "$extension" = "$filename" ] && \
-			lf -remote "send $id rename-clear-all" && exit
-
-		extension="$(printf '%q' "$extension")" # Escape bash sequences
-		extension="${extension//\\ /<space>}"
-		lf -remote "send $id :rename; cmd-delete-home"$'\n'"send $id push .$extension<home>"
-	else
-		# Other
-		lf -remote "send $id rename-clear-all"
-	fi
+	lf -remote "send $id :rename; cmd-delete-home"$'\n'
 }}
 
 cmd rename-edit &{{
@@ -119,20 +103,7 @@ cmd rename-edit &{{
 	}
 
 	# Single file
-	if [ -f "$f" ]; then
-		filename="${f##*/}"      # Get basename of the selection
-		extension="${filename##*.}" # Get extension only
-
-		# If file doesn't have any extension, handle normally
-		[ "$extension" = "$filename" ] && \
-			lf -remote "send $id rename" && exit
-
-		lefts="$(printf '%0.scmd-left; ' $(seq 0 "${#extension}"))"
-		lf -remote "send $id :rename; $lefts"
-	else
-		# Other
-		lf -remote "send $id rename"
-	fi
+	lf -remote "send $id rename"
 }}
 
 cmd rename-bulk ${{
@@ -154,6 +125,7 @@ cmd rename-bulk ${{
 }}
 
 cmd rename-front :rename; cmd-home
+cmd rename-back :rename; cmd-end
 
 # ===============
 #  Fuzzy finding
@@ -234,7 +206,7 @@ map r
 map re rename-edit
 map rc rename-clear
 map I  rename-front
-map A  rename
+map A  rename-back
 
 # Fuzzy finding
 map / fzf-locate
