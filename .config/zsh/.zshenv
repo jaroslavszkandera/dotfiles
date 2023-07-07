@@ -39,8 +39,8 @@ export _JAVA_OPTIONS="-Djava.util.prefs.userRoot=${XDG_CONFIG_HOME}/java -Dawt.u
 export MAKEFLAGS="-j$(nproc)"
 
 # Qt5 theme
-export QT_QPA_PLATFORMTHEME='Matchama-Dark-Azul'
-export QT_STYLE_OVERRIDE='kvantum'
+#export QT_QPA_PLATFORMTHEME='Matchama-Dark-Azul'
+#export QT_STYLE_OVERRIDE='kvantum'
 
 # Ruby
 if command -v ruby &>/dev/null; then
@@ -55,3 +55,4 @@ export LF_BAT_OPTS='-f'
 # Other
 export FZF_DEFAULT_OPTS='--layout=reverse --height 40%'
 export LESS='-R --use-color --color=d+B$Dug'
+export WLR_NO_HARDWARE_CURSORS=1
