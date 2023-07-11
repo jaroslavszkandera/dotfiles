@@ -1,0 +1,12 @@
+---
+- name: Move /etc
+  ansible.builtin.copy:
+    src: etc/
+    dest: /etc/
+    mode: preserve
+
+- name: Move /usr
+  ansible.builtin.copy:
+    src: usr/
+    dest: /usr/
+    mode: preserve

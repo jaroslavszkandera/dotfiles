@@ -1,0 +1,73 @@
+---
+- name: Set a hostname
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Set a hostname
+      ansible.builtin.hostname:
+        name: XPS15-9520
+        use: systemd
+
+- name: Install packages
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Install packages
+      block:
+        - name: Install essential packages
+          community.general.pacman:
+            name: "{{ item }}"
+            state: present
+            update_cache: true
+          loop:
+            - sudo
+            - base-devel
+
+        - name: Create the `aur_builder` user
+          ansible.builtin.user:
+            name: aur_builder
+            create_home: true
+            group: wheel
+
+        - name: Allow the `aur_builder` user to run `sudo pacman` without a password
+          ansible.builtin.lineinfile:
+            path: /etc/sudoers.d/11-install-aur_builder
+            line: 'aur_builder ALL=(ALL) NOPASSWD: /usr/bin/pacman'
+            create: true
+            mode: '644'
+            validate: 'visudo -cf %s'
+
+        - name: Install yay
+          become_user: aur_builder
+          kewlfft.aur.aur:
+            name: yay
+            use: makepkg
+            state: present
+
+        - name: Install packages
+          ansible.builtin.include_role:
+            name: packages
+
+      always:
+        - name: Delete the `aur_builder` user
+          ansible.builtin.user:
+            name: aur_builder
+            state: absent
+            remove: true
+
+        - name: Cleanup sudoers
+          ansible.builtin.file:
+            path: /etc/sudoers.d/11-install-aur_builder
+            state: absent
+
+- name: Setup the system
+  hosts: localhost
+  become: true
+  roles:
+    - system
+
+- name: Copy system files
+  hosts: localhost
+  become: true
+  roles:
+    - system_files

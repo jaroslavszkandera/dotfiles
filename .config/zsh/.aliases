@@ -44,4 +44,4 @@ alias dstatz='dstat -c -m -p -r -d -n -y --fs --time'
 #  Directory mapping
 # ===================
 
-. "$HOME"/.local/src/generated/aliases_bash
+. "$HOME"/.local/src/aliases_bash

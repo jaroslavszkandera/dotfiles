@@ -1,0 +1,89 @@
+---
+- name: Install essential packages
+  become: true
+  community.general.pacman:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  loop:
+    - git
+    - make
+    - openssh
+    - base-devel
+
+- name: Create a user
+  become: true
+  ansible.builtin.user:
+    name: jirik
+    shell: /bin/zsh
+    group: wheel
+    groups:
+      - wireshark
+      - rfkill
+      - uucp
+      - audio
+      - geoclue
+      - openvpn
+      - docker
+    password: "{{ user_password }}"
+    append: true
+    generate_ssh_key: true
+
+- name: Setup a user
+  become: true
+  become_user: jirik
+  block:
+    - name: Install collections and roles together
+      community.general.ansible_galaxy_install:
+        type: both
+        requirements_file: requirements.yml
+
+    - name: Initialize yadm repository
+      ansible.builtin.command:
+        cmd: yadm clone git@gitlab.com:jirixek/dotfiles.git
+        creates: "{{ ansible_env.HOME }}/.local/share/yadm/repo.git"
+
+    - name: Initialize nvim repository
+      ansible.builtin.git:
+        repo: git@gitlab.com:jirixek/vim.git
+        dest: "{{ ansible_env.HOME }}/.config/nvim/"
+        version: master
+
+    - name: Setup user systemd services
+      ansible.builtin.systemd:
+        name: "{{ item }}"
+        state: started
+        enabled: true
+        scope: user
+      loop:
+        - psd.service
+        - mpd.service
+        - wireplumber.service
+        - syncthing.service
+        - geoclue-agent.service
+
+    - name: Check if `${HOME}/.gnupg/` exists
+      ansible.builtin.stat:
+        path: "{{ ansible_env.HOME }}/.gnupg/"
+      register: gnupg
+
+    - name: Move GPG directory to `.local/share`
+      ansible.builtin.copy:
+        src: "{{ ansible_env.HOME }}/.gnupg/"
+        dest: "{{ ansible_env.HOME }}/.local/share/gnupg/"
+        mode: preserve
+        directory_mode: '700'
+      when: gnupg.stat.exists
+
+    - name: Remove original GPG directory
+      ansible.builtin.file:
+        path: "{{ ansible_env.HOME }}/.gnupg/"
+        state: absent
+      when: gnupg.stat.exists
+
+- name: Setup sudoers
+  become: true
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers
+    search_string: '%wheel ALL=(ALL:ALL) ALL'
+    line: '%wheel ALL=(ALL:ALL) ALL'

@@ -41,10 +41,10 @@ MAPPING_HOME = [
     ('dp', 'Documents/projects/'),
 
     ('D', 'Downloads/'),
-    ('M',  'Music/'),
+    ('M', 'Music/'),
     ('p.', 'Pictures/'),
     ('ps', 'Pictures/screenshots/'),
-    ('v',  'Videos/'),
+    ('v', 'Videos/'),
 ]
 
 
@@ -101,12 +101,12 @@ def main():
 
     parser.add_argument('-b', '--bash',
                         type=Path,
-                        default=USER_HOME / '.local/src/generated/aliases_bash',
+                        default=USER_HOME / '.local/src/aliases_bash',
                         help='Output file for bash aliases')
 
     parser.add_argument('-lf', '--lf',
                         type=Path,
-                        default=USER_HOME / '.local/src/generated/aliases_lf',
+                        default=USER_HOME / '.local/src/aliases_lf',
                         help='Output file for lf aliases')
 
     args = parser.parse_args()

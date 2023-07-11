@@ -243,4 +243,4 @@ push m'
 map g- push ''
 
 # Other
-source ~/.local/src/generated/aliases_lf
+source ~/.local/src/aliases_lf

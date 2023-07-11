@@ -1,0 +1,3 @@
+---
+grub_dir: /boot/EFI/GRUB
+grub_config: /etc/default/grub

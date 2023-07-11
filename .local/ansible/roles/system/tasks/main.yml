@@ -1,0 +1,45 @@
+---
+- name: Enable and start systemd services
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    state: started
+    enabled: true
+  loop:
+    - NetworkManager.service
+    - bluetooth.service
+    - cronie.service
+    - greetd.service
+    - systemd-homed.service
+    - docker.socket
+    - pkgfile-update.timer
+    - fstrim.timer
+
+- name: Set locales
+  community.general.locale_gen:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - cs_CZ.UTF-8
+    - en_US.UTF-8
+
+- name: Set timezone to Europe/Prague
+  community.general.timezone:
+    name: Europe/Prague
+
+- name: Turn NTP on
+  ansible.builtin.command: /usr/bin/timedatectl set-ntp on
+  # TODO:
+  changed_when: true
+
+- name: Link dash
+  ansible.builtin.file:
+    src: dash
+    dest: /bin/sh
+    owner: root
+    group: root
+    state: link
+
+- name: Setup GRUB
+  ansible.builtin.import_tasks: grub.yml
+
+# - name: Setup greetd home

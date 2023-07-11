@@ -1,0 +1,7 @@
+---
+- name: Bootstrap development environment
+  hosts: localhost
+  become: true
+  become_user: jirik
+  roles:
+    - packages

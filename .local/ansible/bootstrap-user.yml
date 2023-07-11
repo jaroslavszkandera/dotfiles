@@ -1,0 +1,5 @@
+---
+- name: Setup a user
+  hosts: localhost
+  roles:
+    - user

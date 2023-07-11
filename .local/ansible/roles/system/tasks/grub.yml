@@ -1,0 +1,36 @@
+---
+- name: Install grub
+  ansible.builtin.command:
+    cmd: grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+    creates: "{{ grub_dir }}"
+  notify: Regenerate grub config
+
+- name: Remember the last selection
+  block:
+    - name: Change GRUB_DEFAULT
+      ansible.builtin.lineinfile:
+        path: "{{ grub_config }}"
+        regexp: "^GRUB_DEFAULT="
+        line: GRUB_DEFAULT=saved
+      notify: Regenerate grub config
+
+    - name: Change GRUB_SAVEDEFAULT
+      ansible.builtin.lineinfile:
+        path: "{{ grub_config }}"
+        regexp: "^#?GRUB_SAVEDEFAULT="
+        line: GRUB_SAVEDEFAULT=true
+      notify: Regenerate grub config
+
+- name: Enable os_prober
+  ansible.builtin.lineinfile:
+    path: "{{ grub_config }}"
+    regexp: "^#?GRUB_DISABLE_OS_PROBER="
+    line: GRUB_DISABLE_OS_PROBER=false
+  notify: Regenerate grub config
+
+- name: Change the timeout
+  ansible.builtin.lineinfile:
+    path: "{{ grub_config }}"
+    regexp: "^GRUB_TIMEOUT="
+    line: GRUB_TIMEOUT=5
+  notify: Regenerate grub config

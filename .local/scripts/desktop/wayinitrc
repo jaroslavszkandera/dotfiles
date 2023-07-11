@@ -1,9 +1,0 @@
-#!/bin/sh
-
-
-# System bar
-waybar &
-nm-applet --indicator &
-
-# Daemons
-# background &

@@ -1,0 +1,6 @@
+---
+- name: Setup a notebook
+  hosts: localhost
+  become: true
+  roles:
+    - notebook

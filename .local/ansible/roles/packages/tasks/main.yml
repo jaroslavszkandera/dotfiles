@@ -1,0 +1,37 @@
+---
+- name: Update pacman cache
+  become: true
+  become_user: root
+  community.general.pacman:
+    update_cache: true
+
+- name: Register hostname
+  ansible.builtin.command: hostname
+  register: hostname
+  changed_when: false
+
+- name: Install packages
+  vars:
+    hostname_packages: "{{ lookup('file', hostname.stdout + '.txt', errors='ignore') }}"
+  block:
+    - name: Install `common` packages
+      kewlfft.aur.aur:
+        name: "{{ lookup('file', 'common.txt').splitlines() }}"
+        use: yay
+        state: present
+        extra_args: '--asexplicit'
+
+    - name: Install `common_cdn77` packages
+      kewlfft.aur.aur:
+        name: "{{ lookup('file', 'common_cdn77.txt').splitlines() }}"
+        use: yay
+        state: present
+        extra_args: '--asexplicit'
+
+    - name: Install hostname-specific packages
+      kewlfft.aur.aur:
+        name: "{{ hostname_packages.splitlines() }}"
+        use: yay
+        state: present
+        extra_args: '--asexplicit'
+      when: hostname_packages != ''

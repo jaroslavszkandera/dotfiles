@@ -1,0 +1,6 @@
+---
+- name: Copy system files
+  hosts: localhost
+  become: true
+  roles:
+    - system_files
