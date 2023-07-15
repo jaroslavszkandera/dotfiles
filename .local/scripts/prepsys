@@ -1,0 +1,277 @@
+#!/bin/bash
+
+
+MAKEFLAGS="-j$(nproc)"
+export MAKEFLAGS
+
+print_help() {
+	echo "Usage: $(basename "$0") [OPTIONS] FILES..."
+	echo "Configure system for optimal use"
+	echo "Supply FILES contating lists of packages that you want to install"
+	echo
+	echo "Options:"
+	echo "-h, --help      Show brief help"
+	echo "-u, --user      Specify user's name"
+	echo "-p, --password  Specify user's password"
+	echo "-H, --hostname  Specify hostname"
+	echo "-n, --notebook  Use as notebook (install power management tools)"
+	exit 127
+}
+
+max() {
+	out=$1
+	for i in "$@"; do
+		((i > out)) && out=$i
+	done
+	echo "$out"
+}
+
+prompt_and_remove_path() {
+	if [ -e "$1" ]; then
+		printf "%s exists, overwrite? [Y/n] " "$1"
+		read -r input
+		if [ -z "$input" ] || [ "${input,,}" = 'y' ]; then
+			sudo rm -rf "$1"
+		else
+			return 1
+		fi
+	fi
+}
+
+################################################################################
+
+init_dotfiles_repo() {
+	[ -d "$dir_dotfiles" ] && return 0
+	sudo -iu "$new_user" -- sh -s <<-"EOF"
+		PATH_REPO="${HOME}/.dotfiles.git"
+		git clone --bare https://gitlab.com/jirixek/dotfiles.git "$PATH_REPO" &&
+		git --git-dir="$PATH_REPO" --work-tree="$HOME" checkout -f &&
+		git --git-dir="$PATH_REPO" config --local status.showUntrackedFiles no &&
+		git --git-dir="$PATH_REPO" remote set-url origin git@gitlab.com:jirixek/dotfiles.git &&
+		rm -f ~/.bash_login
+	EOF
+}
+
+init_suckless_repo() {
+	[ -d "$dir_suckless" ] && return 0
+	sudo -u "$new_user" -- sh -s <<-EOF
+		make -C "$dir_suckless" clone
+	EOF
+}
+
+init_nvim_repo() {
+	[ -d "$dir_nvim" ] && return 0
+	sudo -u "$new_user" -- sh -s <<-EOF
+		git clone 'https://gitlab.com/jirixek/vim.git' "$dir_nvim" &&
+		git -C "$dir_nvim" remote set-url origin 'git@gitlab.com:jirixek/vim.git'
+	EOF
+}
+
+init_git_repos() {
+	init_dotfiles_repo
+	exit_dotfiles=$?
+
+	init_suckless_repo
+	exit_suckless=$?
+
+	init_nvim_repo
+	exit_nvim=$?
+
+	return "$(max $exit_dotfiles $exit_suckless $exit_nvim)"
+}
+
+install_yay() {
+	pacman -Qq | grep -q yay && return 0
+	sudo -u "$new_user" -- sh -s <<-"EOF"
+		YAY_DIR="$(mktemp -d)" &&
+		git clone https://aur.archlinux.org/yay.git "$YAY_DIR" &&
+		cd "$YAY_DIR" &&
+		makepkg -si --needed --noconfirm
+		exit_yay=$?
+		rm -rf "$YAY_DIR"
+		exit $exit_yay
+	EOF
+}
+
+set_default_rust_version() {
+	if ! pacman -Qq | grep -q yay; then
+		pacman -Syu rustup
+	fi
+	sudo -u "$new_user" -- rustup default stable
+}
+
+init_services() {
+	# systemd-homed: Account management for greetd
+	# pkgfile-update: Bash suggestions for unknown packages
+	# fstrim: Trim blocks which are not in use by the filesystem
+	systemctl enable \
+		NetworkManager.service \
+		bluetooth.service \
+		cronie.service \
+		greetd.service \
+		systemd-homed.service \
+		docker.socket \
+		pkgfile-update.timer \
+		fstrim.timer
+	exit_root=$?
+
+	# psd: Firefox profile in memory
+	sudo -u "$new_user" -- systemctl --user enable \
+		psd.service \
+		mpd.service \
+		wireplumber.service \
+		syncthing.service \
+		geoclue-agent.service
+	exit_user=$?
+
+	return "$(max $exit_root $exit_user)"
+}
+
+init_grub() {
+	grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+	grub-mkconfig -o /boot/grub/grub.cfg
+}
+
+init_locale() {
+	sed -i 's/^#en_US.UTF-8 UTF-8$/en_US.UTF-8 UTF-8/;
+	        s/^#cs_CZ.UTF-8 UTF-8$/cs_CZ.UTF-8 UTF-8/' /etc/locale.gen
+	locale-gen
+}
+
+init_hostname() {
+	echo "$new_hostname" >/etc/hostname
+}
+
+init_timezone() {
+	ln -sf /usr/share/zoneinfo/Europe/Prague /etc/localtime
+	hwclock --systohc
+}
+
+init_sudoers() {
+	# Grant sudo access to wheel group
+	sed -i 's/^# %wheel ALL=(ALL) ALL$/%wheel ALL=(ALL) ALL/' /etc/sudoers
+}
+
+init_greetd_home() {
+	mkdir /var/lib/greeter
+	chown greeter:greeter /var/lib/greeter/
+	usermod greeter -d /var/lib/greeter
+}
+
+link_dash() {
+	ln -sf /bin/dash /bin/sh
+}
+
+create_user() {
+	getent passwd jirik && return 0
+	useradd -m "$new_user" -g wheel
+}
+
+set_user_groups() {
+	usermod -aG wireshark,rfkill,uucp,audio,geoclue,openvpn,docker "$new_user"
+}
+
+move_gpg_folder() {
+	sudo -iu "$new_user" -- sh -s <<-"EOF"
+		[ ! -d "${HOME}/.gnupg" ] && exit 0
+		cp -pr "${HOME}/.gnupg/*" "${HOME}/.local/share/gnupg/" &&
+		rm -r "${HOME}/.gnupg"
+	EOF
+}
+
+install_suckless() {
+	sudo -u "$new_user" -- sh -s <<-EOF
+		make -C "$dir_suckless" checkout &&
+		make -C "$dir_suckless" install
+	EOF
+}
+
+config_as_notebook() {
+	pacman -Syu --needed --noconfirm tlp tlp-rdw &&
+	systemctl enable tlp.service NetworkManager-dispatcher.service &&
+	systemctl mask systemd-rfkill.service systemd-rfkill.socket
+}
+
+################################################################################
+
+cleanup() {
+	rm -f /etc/sudoers.d/prepsys
+	exit
+}
+trap cleanup HUP INT QUIT TERM PWR EXIT
+
+main() {
+	file_packages=()
+	while [ "$#" -gt 0 ]; do
+		case "$1" in
+			-h | --help) print_help ;;
+			-n | --notebook)
+				is_notebook=1
+				shift
+				;;
+			-u | --user)
+				new_user="$2"
+				shift 2
+				;;
+			-p | --password)
+				new_passwd="$2"
+				shift 2
+				;;
+			-H | --hostname)
+				new_hostname="$2"
+				shift 2
+				;;
+			--)
+				shift
+				;;
+			*)
+				if [ -f "$1" ]; then
+					file_packages+=("$1")
+				else
+					print_help
+				fi
+				shift
+				;;
+		esac
+	done
+
+	[ "${#file_packages[@]}" -eq 0 ] && print_help
+
+	pacman -Syu --needed --noconfirm sudo git make openssh base-devel
+
+	create_user "$new_user"
+	printf '%s\n' "root:$new_passwd" "$new_user:$new_passwd" | chpasswd
+
+	new_home="$(getent passwd "$new_user" | cut -d: -f6)"
+	dir_suckless="${new_home}/.local/suckless"
+	dir_nvim="${new_home}/.config/nvim"
+	dir_dotfiles="${new_home}/.dotfiles.git"
+
+	# Deleted in cleanup() function
+	echo '%wheel ALL=(ALL) NOPASSWD: ALL' >/etc/sudoers.d/prepsys
+
+	init_git_repos &&
+	install_yay &&
+	set_default_rust_version &&
+	sudo -iu "$new_user" -- "${new_home}/.local/scripts/sync-pkgs" --asexplicit --noconfirm "${file_packages[@]}" &&
+	sudo -iu "$new_user" -- "${new_home}/.local/scripts/sync-conf" -w &&
+	install_suckless &&
+	init_services &&
+	# init_grub &&
+	init_locale &&
+	init_hostname &&
+	# init_timezone &&
+	init_sudoers &&
+	init_greetd_home &&
+	link_dash &&
+	set_user_groups &&
+	move_gpg_folder &&
+	[ "$is_notebook" = 1 ] && config_as_notebook
+}
+
+
+ARGS="$(getopt -o 'hnu:p:H:' --long 'help,notebook,user:,password:,hostname:' \
+	-n 'prepsys' -- "$@")" || print_help
+eval set -- "$ARGS"
+
+main "$@"

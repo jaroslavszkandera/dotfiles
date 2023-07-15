@@ -1,0 +1,67 @@
+#!/bin/bash
+
+
+fzf_and_open () {
+	if [ -z "$1" ]; then
+		SELECTED_FOLDER='./'
+	else
+		SELECTED_FOLDER="$1"
+	fi
+
+	cd "$SELECTED_FOLDER" || return
+	SELECTED="$(find "$SELECTED_FOLDER" -mindepth 1 -maxdepth 1 -printf '%f\n' | sort | fzf)" || return
+	FILE_TYPE="$(mimetype -ab "$SELECTED")"
+	if grep -q 'text/plain' <<<"$FILE_TYPE"; then
+		"$EDITOR" "$SELECTED"
+	elif grep -qe 'inode' <<<"$FILE_TYPE"; then
+		"$FILE" "$SELECTED"
+	else
+		"$OPENER" "$SELECTED"
+	fi
+}
+
+lfcd () {
+	# Make lf change folder on exit.
+	# This needs to be a bash function (as oppose to a script)
+	# as it needs to be executed in a current shell.
+	tempfile="$(mktemp)" || {
+		echo "Can't create tmpfile" >&2
+		return 1
+	}
+	lf -last-dir-path="$tempfile" "$@"
+	[ ! -f "$tempfile" ] && return 1
+
+	dir="$(cat "$tempfile")"
+	rm -f "$tempfile"
+	[ -d "$dir" ] && [ "$dir" != "$PWD" ] && cd "$dir" || return
+}
+
+nftlist(){
+	case $1 in
+		"nat")
+			nft list table ip6 nat
+			nft list table ip nat
+			;;
+		"mangle")
+			nft list table ip6 mangle
+			nft list table ip mangle
+			;;
+		"filter")
+			nft list chain inet filter output
+			nft list chain inet filter input
+			nft list chain inet filter forward
+			;;
+		"all")
+			nft list table ip6 nat
+			nft list table ip nat
+			nft list table ip6 mangle
+			nft list table ip mangle
+			nft list chain inet filter output
+			nft list chain inet filter input
+			nft list chain inet filter forward
+			;;
+		*)
+			nft list chain inet filter input
+			;;
+	esac
+}

@@ -1,0 +1,27 @@
+#!/bin/sh
+
+
+export XDG_SESSION_TYPE=wayland
+export XDG_SESSION_DESKTOP=sway
+export XDG_CURRENT_DESKTOP=sway
+export GDK_BACKEND=wayland  # GTK
+export QT_QPA_PLATFORM=wayland # Qt
+export XCURSOR_SIZE=24  # Fix for Qt apps
+export CLUTTER_BACKEND=wayland
+export SDL_VIDEODRIVER=wayland
+export MOZ_ENABLE_WAYLAND=1 # Mozilla apps
+export ECORE_EVAS_ENGINE=wayland-egl
+export ELM_ENGINE=wayland_egl
+export NO_AT_BRIDGE=1
+
+# Nvidia settings
+if [ "$(uname -n)" = 'BlackJesus' ]; then
+	export __GL_GSYNC_ALLOWED=0
+	export __GL_VRR_ALLOWED=0
+	export GBM_BACKEND=nvidia-drm
+	export __GLX_VENDOR_LIBRARY_NAME=nvidia
+	export WLR_NO_HARDWARE_CURSORS=1
+	export WLR_RENDERER=vulkan
+fi
+
+exec systemd-cat --identifier=sway sway --unsupported-gpu "$@"

@@ -1,0 +1,18 @@
+#!/bin/sh
+
+
+VOLUME_VALUE="$(wpctl get-volume @DEFAULT_SINK@ | awk '{print $2 * 100}')"
+
+if [ "$VOLUME_VALUE" -eq 0 ]; then
+	VOLUME_ICON=''
+elif [ "$VOLUME_VALUE" -le 25 ]; then
+	VOLUME_ICON=''
+elif [ "$VOLUME_VALUE" -le 55 ]; then
+	VOLUME_ICON=''
+elif [ "$VOLUME_VALUE" -le 100 ]; then
+	VOLUME_ICON=''
+else
+	VOLUME_ICON=''
+fi
+
+echo "$VOLUME_ICON $VOLUME_VALUE"

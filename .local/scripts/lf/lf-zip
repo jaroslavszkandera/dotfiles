@@ -1,0 +1,6 @@
+#!/bin/bash
+
+
+ARCHIVE_SUFFIX='zip'
+. lf-archive-setup "$@" || exit
+zip-in-folder "${ARCHIVE_NAME}.${ARCHIVE_SUFFIX}" "${FILES_TO_ARCHIVE[@]}"

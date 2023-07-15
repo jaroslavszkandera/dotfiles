@@ -1,0 +1,41 @@
+#!/bin/bash
+
+
+if [ "$(id -u)" -eq 0 ]; then
+	echo "Please don't run as root." >&2
+	exit 2
+fi
+
+NAME_SCRIPT="$(basename "$0")"
+DIR_SCRIPT="$(dirname "$0")"
+
+get_help() {
+	echo "Usage: $NAME_SCRIPT [OPTIONS]"
+	echo "Auxiliary script to move ./src files into right places"
+	echo
+	echo "Options:"
+	echo "-r        Read: copy SYSTEM files to .src"
+	echo "-w        Write: copy .src files to SYSTEM"
+	exit 127
+}
+
+(
+cd "$DIR_SCRIPT"/../src/sync-conf/ || {
+	echo "Can't enter ${HOME}/.local/src" >&2
+	exit 1
+}
+
+case "$1" in
+	-r)
+		find . -type f -exec sh -c 'cp -v $(realpath /"$1") "$1"' shell {} \;
+		;;
+	-w)
+
+		find . -type f -printf '%P\0' | xargs -0 -I{} dirname {} | sort | uniq | xargs -I{} sudo mkdir -p /"{}"
+		sudo find . -type f -exec sh -c 'cp -v "$1" $(realpath /"$1")' shell {} \;
+		;;
+	*)
+		get_help
+		;;
+esac
+)

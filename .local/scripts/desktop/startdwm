@@ -1,0 +1,6 @@
+#!/bin/sh
+
+
+while :; do
+	systemd-cat --identifier=dwm dwm
+done

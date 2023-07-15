@@ -1,0 +1,12 @@
+#!/bin/sh
+
+
+PATH_SCREENSHOT="${HOME}/Pictures/screenshots/$(date '+%y%m%d_%H%M%S').png"
+case "$1" in
+	# TODO: we need sway ipc protocol
+	# -w)  maim -u -i "$(xdotool getactivewindow)" "$PATH_SCREENSHOT" ;;
+	-s)  grim -g "$(slurp)"                      "$PATH_SCREENSHOT" ;;
+	 *)  grim                                    "$PATH_SCREENSHOT" ;;
+esac
+
+wl-copy <"$PATH_SCREENSHOT"

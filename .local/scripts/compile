@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ ! -f "$1" ]; then
+	echo "File doesnt exist" >&2
+	exit 1
+fi
+
+#run="gcc '$1'; ./a.out"
+printf '%s\n' "$@" | entr -rc compile2 "$1"  #eval "${run}"

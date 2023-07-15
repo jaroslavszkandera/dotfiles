@@ -1,0 +1,9 @@
+#!/bin/bash
+
+
+if [ ! -f "$1" ]; then
+	echo "Can't find file to keep watching" >&2
+	exit 1
+fi
+
+printf '%s\n' "$@" | entr -rc do-tex "$1"

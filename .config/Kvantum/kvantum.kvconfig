@@ -1,0 +1,5 @@
+[General]
+theme=Matchama-Dark-Azul
+
+[Applications]
+Matchama-Dark-Azul=qbittorrent

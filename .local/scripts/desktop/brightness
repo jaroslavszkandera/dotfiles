@@ -1,0 +1,8 @@
+#!/bin/sh
+
+
+case "$1" in
+	"up")   brightnessctl --exponent=2.5 set 10%+ ;;
+	"down") brightnessctl --min-value=1 --exponent=2.5 set 10%- ;;
+	*) ;;
+esac

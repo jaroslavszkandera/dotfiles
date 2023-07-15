@@ -1,0 +1,19 @@
+ 1328  2023-07-08 13:51  lf
+ 1329  2023-07-08 14:01  pacman -Qs ttf
+ 1330  2023-07-08 14:01  sudo pacman -Rns nerd-fonts-complete-starship
+ 1331  2023-07-08 14:02  pacman -Qs otf
+ 1332  2023-07-08 14:02  pacman -Qs font
+ 1333  2023-07-08 14:06  sudo pacman -Rns t1lib
+ 1334  2023-07-08 14:06  sudo pacman -Rns xorg-font-util
+ 1335  2023-07-08 14:06  sudo pacman -Rns xorg
+ 1336  2023-07-08 14:09  sudo pacman -Rns at-spi2-core
+ 1337  2023-07-08 14:10  sudo pacman -Rns atk
+ 1338  2023-07-08 14:10  sudo pacman -Rns xorg-fonts
+ 1339  2023-07-08 14:10  sudo pacman -Rns libfontenc
+ 1340  2023-07-08 14:10  sudo pacman -Rns libxfont2
+ 1341  2023-07-08 14:11  sudo pacman -Rns luit
+ 1342  2023-07-08 14:11  pacman -Qs xorg
+ 1343  2023-07-08 14:11  sudo pacman -Rns xorg-fonts-100dpi
+ 1344  2023-07-08 14:12  sudo pacman -Rns xorg-fonts-75dpi
+ 1345  2023-07-08 14:12  pacman -Qs xorg
+ 1346  2023-07-08 14:13  gc.

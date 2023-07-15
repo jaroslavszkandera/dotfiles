@@ -1,0 +1,37 @@
+xwayland enable
+default_orientation horizontal
+default_border pixel 1
+smart_borders on
+show_marks yes
+mouse_warping output
+focus_wrapping workspace
+focus_follows_mouse no
+
+# swaymsg -t get_tree
+# app_id: wayland, class/instance: x11
+for_window {
+	[app_id="dragon-drop"] move scratchpad, scratchpad show
+	[shell="xwayland"] title_format "[XWayland] %title"
+}
+
+bar {
+	swaybar_command waybar
+}
+
+exec swayidle -w \
+	timeout 1800 'gtklock -d' \
+	timeout 2100 'swaymsg "output * dpms off"' \
+		resume 'swaymsg "output * dpms on"' \
+	before-sleep 'gtklock -d && playerctl pause'
+
+exec wl-paste -t text --watch clipman store --no-persist
+exec nm-applet --indicator
+exec mako
+
+# TODO: theme
+# client.focused
+
+include input
+include output
+include binds
+include /etc/sway/config.d/*

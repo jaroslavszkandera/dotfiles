@@ -1,0 +1,25 @@
+#!/bin/sh
+
+
+NAME_SCRIPT="$(basename "$0")"
+
+get_help() {
+	echo "Usage: $NAME_SCRIPT [.tex file]"
+	echo "Compile .tex file"
+	exit 127
+}
+
+file_compile=''
+if [ -f "$1" ]; then
+	file_compile="$1"
+else
+	get_help
+fi
+
+lualatex "$file_compile"
+# luatex -fmt pdfcsplain "$file_compile"
+# musixflx "$file_compile"
+# luatex -fmt pdfcsplain "$file_compile"
+
+# echo
+# texcount "$file_compile"

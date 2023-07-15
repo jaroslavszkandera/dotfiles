@@ -1,0 +1,6 @@
+output * {
+	bg "~/Pictures/wallpapers/night-artwork-futuristic-city-cyberpunk-wallpaper.jpg" fit #000000
+}
+
+output eDP-1
+output DP-1 mode 1920x1080@144.001Hz

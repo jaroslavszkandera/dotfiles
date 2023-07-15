@@ -1,0 +1,7 @@
+#!/bin/bash
+
+
+ARCHIVE_SUFFIX='tar.bz2'
+. lf-archive-setup "$@" || exit
+tar --transform="s|.*|${ARCHIVE_NAME}/&|" --use-compress-program='pbzip2' \
+	-cvf "${ARCHIVE_NAME}.${ARCHIVE_SUFFIX}" "${FILES_TO_ARCHIVE[@]}"

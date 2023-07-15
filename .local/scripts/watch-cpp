@@ -1,0 +1,14 @@
+#!/bin/zsh
+
+
+file_compile=''
+for i in "$@"; do
+	[ -f "$i" ] && file_compile="$i" && break
+done
+
+if [ -n "$file_compile" ]; then
+	entr -c do-cpp -x "$@" <<<"$file_compile"
+else
+	echo "Can't find file to keep watching" >&2
+	exit 1
+fi

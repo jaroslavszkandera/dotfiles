@@ -1,0 +1,127 @@
+#!/bin/zsh
+
+
+# Created by Jiří Szkandera
+# Compile .c/.cpp program and execute unit tests accordingly
+
+NAME_SCRIPT="$(basename "$0")"
+DIR_SRC="$(dirname "$0")"/../src/
+
+get_help() {
+	echo "Usage: $NAME_SCRIPT [OPTIONS] [FILE]"
+	echo "Compile .c/.cpp program and execute unit tests accordingly"
+	echo
+	echo "Options:"
+	echo "-h      Show this help"
+	echo "-d      Specify directory with unit tests (if not supplied, $NAME_SCRIPT will just execute given program)"
+	echo "-c      Compile only (do not execute, just COMPILE a program)"
+	echo "-x      Execute only (do not compile, just EXECUTE a program)"
+	echo "-m      Disable memory debugger"
+	echo "-O      Compile with optimization (O2)"
+	exit 127
+}
+
+compile() {
+	readarray -t FLAGS <"$DIR_SRC"/cpp_compilation_flags.txt
+	readarray -t LIBS <"$DIR_SRC"/cpp_library_flags.txt
+
+	if [ -f "$PWD/Makefile" ]; then
+		make
+	else
+		[ "$do_memdebug" = 'true' ]     && FLAGS=("${FLAGS[@]}" "-g" "-fsanitize=address")
+		[ "$do_optimization" = 'true' ] && FLAGS=("${FLAGS[@]}" "-O2")
+		g++ "${FLAGS[@]}" "$file_compile" -o "$file_exec" "${LIBS[@]}"
+	fi
+}
+
+do_compile='true'
+do_execute='true'
+do_memdebug='true'
+do_optimization='false'
+
+file_compile=''
+file_exec=''
+dir_tests=''
+
+while [ "$#" -gt 0 ]; do
+	case "$1" in
+		-h)	get_help ;;
+		-d)
+			# dir_tests
+			shift
+			if [ -d "$1" ]; then
+				dir_tests="$1"
+			else
+				echo "$1 is not a directory." >&2
+				exit 1
+			fi
+			shift
+			;;
+		-c)
+			# compile only
+			do_compile='true'
+			do_execute='false'
+			shift
+			;;
+		-x)
+			# execute only
+			do_compile='false'
+			do_execute='true'
+			shift
+			;;
+		-m)
+			do_memdebug='false'
+			shift
+			;;
+		-O)
+			do_optimization='true'
+			shift
+			;;
+		*)
+			if [ -f "$1" ]; then
+				if [ "$do_compile" = 'false' ]; then
+					file_exec="$1"
+				else
+					file_compile="$1"
+					file_exec="${file_compile%.*}"
+				fi
+			else
+				echo "Invalid option: '$1'" >&2
+				echo "Try '$NAME_SCRIPT -h' for more information." >&2
+				exit 1
+			fi
+			shift
+			break
+			;;
+	esac
+done
+
+if [ "$do_compile" = 'true' ] && [ ! -f "$file_compile" ]; then
+	echo "'$file_compile' is not a file." >&2
+	exit 1
+fi
+
+if [ "$do_compile" = 'false' ] && [ ! -x "$file_exec" ]; then
+	echo "'$file_exec' not executable." >&2
+	exit 1
+fi
+
+if [ "$do_execute" = 'false' ]; then
+	compile
+elif [ "$do_compile" = 'false' ] || compile; then
+	if [ -d "$dir_tests" ]; then
+		# unit tests
+		for i in "$dir_tests"/*_in.txt; do
+			output_cmp="${i%_in.txt}_cmp.txt"
+			output_ref="${i%_in.txt}_ref.txt"
+
+			/usr/bin/time --quiet -f "$i\t\tuser: %U s\tmemory: %M kB" ./"$file_exec" "$@" < "$i" > "$output_cmp"
+			diff --color="always" "$output_cmp" "$output_ref"
+		done
+	else
+		# case without unit tests, just execute program
+		/usr/bin/time --quiet -f "user: %U s\tmemory: %M kB" ./"$file_exec" "$@"
+	fi
+else
+	exit 2
+fi

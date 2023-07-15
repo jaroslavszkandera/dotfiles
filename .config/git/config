@@ -1,0 +1,24 @@
+[user]
+	email = jaroslav.szk@gmail.com
+	name = Jaroslav Szkandera
+[core]
+	editor = nvim
+	excludesFile = ~/.config/git/ignore
+	pager = less -F -X -R
+[push]
+	default = simple
+[alias]
+	l = log --oneline --graph --decorate
+	ll = log --oneline --graph --decorate --all
+	st = status
+	ci = commit
+	co = checkout
+	br = branch
+[color]
+	ui = auto
+[pull]
+	rebase = false
+[submodule]
+	recurse = true
+[diff]
+	wsErrorHighlight = all

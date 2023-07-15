@@ -1,0 +1,90 @@
+#!/bin/bash
+
+
+PATH_PKGS_FILES="$(dirname "$0")/../src/generated/"
+PATH_PKGS_HOST_SPECIFIC="$PATH_PKGS_FILES/pkglist_${HOSTNAME}.txt"
+
+get_help() {
+	echo "Usage: $(basename "$0") [OPTIONS] [FILES]"
+	echo "Auxiliary script to help manage pkglist."
+	echo
+	echo "Options:"
+	echo "[FILES]         Sync installed packages based on given files"
+	echo "-g [OUTPUT]     Generate file containing packages installed on the current machine minus pkglist_common*.txt"
+	exit 127
+}
+
+max() {
+	out=$1
+	for i in "$@"; do
+		((i > out)) && out=$i
+	done
+	echo "$out"
+}
+
+install_pkgs() {
+	[ -z "$*" ] && return 0
+	yay -Syu --needed "${install_flags[@]}" "$@"
+}
+
+uninstall_pkgs() {
+	[ -z "$*" ] && return 0
+	sudo pacman -Rnus "${install_flags[@]}" "$@"
+}
+
+mark_pkgs_as_explicit() {
+	sudo pacman -D --asexplicit "$@"
+}
+
+[ ! -d "$(dirname "$FILE_PKGS_OUTPUT")" ] && get_help
+
+PKGS_CURRENT="$(pacman -Qqe | sort)"
+install_flags=()
+mark_as_explicit_flag=0
+
+while [ "$#" -gt 0 ]; do
+	case "$1" in
+		-h)	get_help ;;
+		-g)
+			for common in "$PATH_PKGS_FILES"/pkglist_common*.txt; do
+				PKGS_COMMON="$(sort "$common")"
+				comm --check-order -12 <(echo "$PKGS_CURRENT") <(echo "$PKGS_COMMON") >"$common"
+			done
+			comm --check-order -23 <(echo "$PKGS_CURRENT") <(sort "$PATH_PKGS_FILES"/pkglist_common*.txt) >"$PATH_PKGS_HOST_SPECIFIC"
+			exit
+			;;
+		--noconfirm)
+			install_flags+=("$1")
+			shift
+			;;
+		--asexplicit)
+			mark_as_explicit_flag=1
+			shift
+			;;
+		*)
+			if [ -f "$1" ]; then
+				FILE_PKGS_TARGET+=("$1")
+			else
+				echo "Invalid option: $1" >&2
+				get_help
+			fi
+			shift
+			;;
+	esac
+done
+
+[ "${#FILE_PKGS_TARGET[@]}" -eq 0 ] && echo "Please specify file containing packages" && exit 1
+PKGS_TARGET="$(cat "${FILE_PKGS_TARGET[@]}")"
+
+readarray -t pkgs_to_uninstall <<<"$(comm --check-order -23 <(echo "$PKGS_CURRENT") <(sort <<<"$PKGS_TARGET"))"
+readarray -t pkgs_to_install <<<"$(comm --check-order -23 <(sort <<<"$PKGS_TARGET") <(echo "$PKGS_CURRENT"))"
+readarray -t pkgs_to_mark_as_explicit <<<"$PKGS_TARGET"
+
+uninstall_pkgs "${pkgs_to_uninstall[@]}"
+exit_uninstall=$?
+install_pkgs "${pkgs_to_install[@]}"
+exit_install=$?
+[ "$mark_as_explicit_flag" = 1 ] && mark_pkgs_as_explicit "${pkgs_to_mark_as_explicit[@]}"
+exit_mark_as_explicit=$?
+
+exit "$(max $exit_install $exit_uninstall $exit_mark_as_explicit)"

@@ -1,0 +1,13 @@
+bbswitch
+bolt
+bumblebee
+fwupd
+gstreamer-vaapi
+intel-gpu-tools
+intel-media-driver
+intel-ucode
+nvidia
+nvidia-prime
+tlp
+tlp-rdw
+x32edit

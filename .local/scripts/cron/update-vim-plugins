@@ -1,0 +1,6 @@
+#!/bin/sh
+
+
+if nmcli device | grep -wE 'ethernet|wifi' | grep -wq 'connected'; then
+	nvim -c 'PlugUpdate' -c 'PlugUpgrade' -c 'qa!' >/dev/null 2>&1
+fi

@@ -1,0 +1,27 @@
+<monitors version="1">
+  <configuration>
+      <clone>yes</clone>
+      <output name="eDP-1">
+          <vendor>SHP</vendor>
+          <product>0x1476</product>
+          <serial>0x00000000</serial>
+          <width>3840</width>
+          <height>2160</height>
+          <rate>59.000000</rate>
+          <x>0</x>
+          <y>0</y>
+          <rotation>normal</rotation>
+          <reflect_x>no</reflect_x>
+          <reflect_y>no</reflect_y>
+          <primary>yes</primary>
+      </output>
+      <output name="DP-1">
+      </output>
+      <output name="HDMI-1">
+      </output>
+      <output name="DP-2">
+      </output>
+      <output name="HDMI-2">
+      </output>
+  </configuration>
+</monitors>

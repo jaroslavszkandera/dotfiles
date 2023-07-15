@@ -1,0 +1,11 @@
+#!/bin/bash
+
+
+for file in "$@"; do
+	sed -i 's/ \\ref/\~\\ref/g' -- "$file"
+	sed -i 's/ \\cite/\~\\cite/g' -- "$file"
+	sed -i 's/^\(\\cite{.*}\) /\1\~/g' -- "$file"
+	# TODO: pouze v text modu, v math mode dela bordel
+	sed -i -E 's/(\<[ksvzaiouKSVZAIOU]\>) /\1\~/g' -- "$file"
+	sed -i 's/ \\%/\~\\%/g' -- "$file"
+done
