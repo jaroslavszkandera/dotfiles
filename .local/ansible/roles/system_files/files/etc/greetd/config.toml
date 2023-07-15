@@ -7,8 +7,9 @@ vt = 1
 [default_session]
 # `agreety` is the bundled agetty/login-lookalike. You can replace `$SHELL`
 # with whatever you want started, such as `sway`.
-command = "cage -s -- /etc/greetd/gtkgreet-run >/dev/null 2>&1"
+command = "tuigreet --cmd startsway --time --remember"
 
-# The user to run the command as. The privileges this user must have depends on the greeter. A graphical greeter may for example require the user to be
+# The user to run the command as. The privileges this user must have depends
+# on the greeter. A graphical greeter may for example require the user to be
 # in the `video` group.
 user = "greeter"
