@@ -1,3 +1,4 @@
+asix-ax88179-dkms
 bbswitch
 bolt
 bumblebee
@@ -6,6 +7,7 @@ gstreamer-vaapi
 intel-gpu-tools
 intel-media-driver
 intel-ucode
+linux-headers
 nvidia
 nvidia-prime
 powertop
