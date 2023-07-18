@@ -1,0 +1,7 @@
+[Unit]
+Description=Update vim plugins
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=nvim -c 'PlugUpdate' -c 'PlugUpgrade' -c 'qa!' >/dev/null 2>&1

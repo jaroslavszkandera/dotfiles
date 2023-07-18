@@ -13,6 +13,7 @@
     - docker.socket
     - pkgfile-update.timer
     - fstrim.timer
+    - pacman-clear-cache.timer
 
 - name: Set locales
   community.general.locale_gen:

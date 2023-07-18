@@ -1,0 +1,6 @@
+[Unit]
+Description=Remove unrequired dependencies
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c 'pacman -Qqdt | sudo pacman -Rns --noconfirm -'

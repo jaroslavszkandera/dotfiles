@@ -1,0 +1,6 @@
+[Unit]
+Description=Clear pacman cache
+
+[Service]
+Type=oneshot
+ExecStart=pacman -Sc --noconfirm
