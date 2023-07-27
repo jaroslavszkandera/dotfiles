@@ -24,10 +24,10 @@ MAPPING_HOME = [
     ('cn', '.config/nvim/'),
 
     ('l.', '.local/'),
+    ('lsa', '.local/ansible/'),
     ('lsc', '.local/scripts/'),
     ('lsh', '.local/share/'),
     ('lsr', '.local/src/'),
-    ('lsu', '.local/suckless/'),
     ('la', '.local/share/Anki2/Jiri Szkandera/collection.media/'),
 
     ('d.', 'Documents/'),
