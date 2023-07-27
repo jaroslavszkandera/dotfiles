@@ -56,8 +56,8 @@ fi
 {% if yadm.class == "work" %}
 # Rust
 . "$HOME/.cargo/env"
-{% endif %}
 
+{% endif %}
 # Other
 export FZF_DEFAULT_OPTS='--layout=reverse --height 40%'
 {% if yadm.class == "work" %}
