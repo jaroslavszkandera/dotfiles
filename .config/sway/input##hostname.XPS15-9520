@@ -20,5 +20,4 @@ input {
 
 seat * {
 	hide_cursor 30000
-	hide_cursor when-typing enable
 }
