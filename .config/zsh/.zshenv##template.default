@@ -71,4 +71,5 @@ export LESS_TERMCAP_us='[1;32m'
 export LESS_TERMCAP_ue='[0m'
 {% else %}
 export LESS='-R --use-color --color=d+B$Dug'
+export MANROFFOPT="-P -c"
 {% endif %}
