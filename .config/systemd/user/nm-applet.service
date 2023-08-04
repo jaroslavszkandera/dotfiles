@@ -1,5 +1,5 @@
 [Unit]
-BindsTo=sway-session.target
+BindsTo=sway-xdg-autostart.target
 
 [Service]
 Type=simple
