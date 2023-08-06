@@ -1,0 +1,9 @@
+[Unit]
+BindsTo=sway-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/wl-paste -t text --watch /usr/bin/clipman store --no-persist
+
+[Install]
+WantedBy=sway-session.target

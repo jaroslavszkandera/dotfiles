@@ -29,7 +29,7 @@ cage
 calibre
 ccls
 chromium
-clipmenu
+clipman
 cronie
 cscope
 ctags

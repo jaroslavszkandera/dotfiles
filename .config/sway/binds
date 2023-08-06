@@ -277,6 +277,7 @@ bindsym --to-code {
 	$mod+Shift+q exec syscontrol
 	$mod+e exec unmounter
 	$mod+grave exec emojibar
+	$mod+c exec clipman pick -t rofi
 	# $mod+x exec gtklock -d
 	Print exec screenshot
 	Ctrl+Print exec screenshot -w
