@@ -1,41 +1,51 @@
 {
 	"layer": "bottom",
-	"height": 20,
+	"height": 24,
 	"modules-left": ["sway/window"],
-	"modules-center": ["sway/workspaces"],
-	"modules-right": ["memory", "temperature", "battery", /*"network",*/ "pulseaudio", "sway/language", "clock", "tray"],
+	"modules-center": ["sway/workspaces", "sway/mode"],
+	"modules-right": [/*"custom/scratchpad_indicator",*/"memory", "temperature", "cpu", "battery", "pulseaudio", "sway/language", "clock", "tray"],
 	"sway/window": {
 		"format": "{}",
 		"max-length": 50
 	},
-	/*
-	"sway/workspaces": {
-		"format": "{name}",
-		"persistent_workspaces": {
-			"1": [],
-			"2": [],
-			"3": [],
-			"4": [],
-			"5": [],
-			"6": []
-		}
+	"sway/mode": {
+		"format": " {}",
+		"max-length": 50
 	},
+	/*
+	"custom/scratchpad-indicator": {
+        "interval": 3,
+        "exec": "~/.config/waybar/modules/scratchpad_indicator",
+        "format": "{} ",
+        "on-click-right": "swaymsg 'scratchpad show'",
+        "on-click": "swaymsg 'move scratchpad'",
+    },
 	*/
 	"memory": {
-		"format": " {used:.1f}/{total:.0f}GiB",
+		"format": " {used:.1f}/{total:.0f}GiB",
 	},
 	"temperature": {
 		"format": "{icon} {temperatureC}°C",
 		"format-icons": ["", "", ""],
 		"hwmon-path": "/sys/class/thermal/thermal_zone10/temp",
 	},
+	"cpu": {
+        "format": " {usage}%", // Icon: microchip
+        "states": {"warning": 70, "critical": 90},
+	},
+	/*
+	"cpu": {
+		 "format": " {usage}% {icon0} {icon1} {icon2} {icon3} {icon4} {icon5} {icon6} {icon7}",
+		 "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
+	},
+	*/
 	"battery": {
 		"format": "{icon} {capacity}% {time}",
 		"format-full": "{icon} {capacity}%",
-		"format-charging": " {capacity}% {time}",
+		"format-charging": " {capacity}% {time}",
 		"format-icons": ["", "", "", "", ""],
 		"format-time": "{H:02}:{M:02}",
-		"states": {"warning": 30, "critical": 15},
+		"states": {"warning": 20, "critical": 10},
 	},
 	"pulseaudio": {
 		"format": "{icon} {volume}%",
@@ -51,17 +61,51 @@
 			"default": ["", ""]
 		},
 		"on-click": "pavucontrol",
+		/* TODO: scrolling switches devices */
 	},
 	"sway/language": {
 		"format": " {}",
 	},
+	/*
 	"clock": {
 		"interval": 20,
 		"format": " {:%d/%m/%Y %R}",
+		"format-alt": " {:%A/%d %B/%Y %R}",
+		"tooltip-format": "<tt>{calendar}</tt>",
+		"actions":  {
+			"on-click-right": "mode",
+			"on-click-forward": "tz_up",
+			"on-click-backward": "tz_down",
+			"on-scroll-up": "shift_up",
+			"on-scroll-down": "shift_down"
+		}
+	},
+	*/
+	"clock": {
+		"interval": 20,
+		"format": " {:%d/%m/%Y %R}",
+		"format-alt": " {:%A/%d %B/%Y %R}",
+		"tooltip-format": "<tt>{calendar}</tt>",
+		"calendar": {
+			"mode-mon-col"  : 3,
+			"on-scroll"     : 1,
+			"on-click-right": "mode",
+			"format": {"today": "<span background='#3498db'><b>{}</b></span>"}
+		},
+		"actions":  {
+			"on-click-right": "mode",
+			/* TODO: calendar in firefox on middle click
+			"on-click-middle": "swaymsg \\[title=\"^Calendar\\s\\|\\sFastmail$\" \\] focus || firefox --new-tab calendar.google.com/",
+			*/
+			"on-click-forward": "tz_up",
+			"on-click-backward": "tz_down",
+			"on-scroll-up": "shift_up",
+			"on-scroll-down": "shift_down"
+		},
 	},
 	"tray": {
 		"icon-size": 24,
-		"spacing": 7,
+		"spacing": 5,
 		"show-passive-items": true,
 	},
 }
