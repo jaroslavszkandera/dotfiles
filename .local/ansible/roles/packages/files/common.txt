@@ -13,7 +13,6 @@ atool
 autoconf
 automake
 autopep8
-autorandr
 base
 bat
 biber
@@ -151,7 +150,6 @@ pavucontrol
 pbzip2
 perl-file-mimeinfo
 perl-rename
-picom
 pigz
 pipewire-alsa
 pipewire-enable-bluez5
