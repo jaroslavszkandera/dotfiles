@@ -141,24 +141,23 @@ cmd fzf-find ${{
 	lf -remote "send $id fzf-select \"$res\""
 }}
 
-cmd fzf-locate ${{
-	res="$(locate -r "^$PWD/" | \
-		while read -r line; do
-			printf '%s%s\n' "$line" "$([ -d "$line" ] && printf '/')"
-		done | \
-		sed "s|${PWD}/||" | fzf --height='100%')" || exit 0
+cmd fzf-locate-std ${{
+	res="$(locate -r "^$PWD/" | fzf --height='100%' | \
+		# while read -r line; do
+		# 	printf '%s%s\n' "$line" "$([ -d "$line" ] && printf '/')"
+		# done | \
+		sed "s|${PWD}/||")" || exit 0
 	lf -remote "send $id cd \"$(dirname "${PWD}/$res")\""$'\n'"send $id fzf-select \"$(basename "$res")\""
 }}
 
-
-# cmd locate ${{
-# 	res="$(locate "^$PWD/" | \
-# 		while read -r line; do
-# 			printf '%s%s\n' "$line" "$([ -d "$line" ] && printf '/')"
-# 		done | \
-# 		sed "s|${PWD}/||" | fzf --height='100%')" || exit 0
-# 	lf -remote "send $id cd \"$(dirname "${PWD}/$res")\""$'\n'"send $id fzf-select \"$(basename "$res")\""
-# }}
+cmd fzf-locate-adv ${{
+	res="$(locate -r "^$PWD/" | \
+		# while read -r line; do
+		# 	printf '%s%s\n' "$line" "$([ -d "$line" ] && printf '/')"
+		# done | \
+		sed "s|${PWD}/||" | fzf --height='100%')" || exit 0
+	lf -remote "send $id cd \"$(dirname "${PWD}/$res")\""$'\n'"send $id fzf-select \"$(basename "$res")\""
+}}
 
 # ==========
 #  Movement
@@ -219,7 +218,8 @@ map I  rename-front
 map A  rename-back
 
 # Fuzzy finding
-map / fzf-locate
+map / fzf-locate-std
+map ? fzf-locate-adv
 map f fzf-find
 
 # Movement
