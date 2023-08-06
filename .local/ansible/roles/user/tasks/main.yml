@@ -56,12 +56,18 @@
         enabled: true
         scope: user
       loop:
-        - psd.service
-        - mpd.service
-        - wireplumber.service
-        - syncthing.service
-        - geoclue-agent.service
         - clipman.service
+        - dunst.service
+        - gammastep.service
+        - geoclue-agent.service
+        - kanshi.service
+        - mpd.service
+        - nm-applet.service
+        - psd.service
+        - syncthing.service
+        - udiskie.service
+        - waybar.service
+        - wireplumber.service
         - vim-update-plugins.timer
 
     - name: Check if `${HOME}/.gnupg/` exists
