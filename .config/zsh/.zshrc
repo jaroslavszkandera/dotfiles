@@ -86,3 +86,11 @@ bindkey \^U backward-kill-line
 eval "$(dircolors)"
 
 [ -z "$TMUX" ] && [ -z "$SSH_CLIENT" ] && (tmux-init; tmux attach -t general)
+
+# lfcd
+LFCD="/home/jarek/.config/lf/lfcd.sh"
+if [ -f "$LFCD" ]; then
+	source "$LFCD"
+fi
+
+bindkey -s '^o' 'lfcd\n'

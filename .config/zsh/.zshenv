@@ -55,3 +55,4 @@ export LF_BAT_OPTS='-f'
 # Other
 export FZF_DEFAULT_OPTS='--layout=reverse --height 40%'
 export LESS='-R --use-color --color=d+B$Dug'
+export MANROFFOPT='-P -c'
