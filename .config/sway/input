@@ -8,7 +8,9 @@ input {
 	}
 	type:touchpad {
 		natural_scroll enabled
-		scroll_factor 0.3
+		scroll_factor 0.4
+		pointer_accel 0.4
+		accel_profile flat
 		tap enabled
 		dwt enabled
 	}
