@@ -139,7 +139,7 @@ bindsym {
 	# You can "split" the current object of your focus with
 	# $mod+b or $mod+v, for horizontal and vertical splits
 	# respectively.
-	$mod+c split none
+	$mod+x split none
 	$mod+s layout toggle splith splitv
 	$mod+v layout toggle splitv splith
 	$mod+t layout tabbed
