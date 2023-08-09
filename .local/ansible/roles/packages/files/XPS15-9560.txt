@@ -8,6 +8,4 @@ intel-media-driver
 intel-ucode
 nvidia
 nvidia-prime
-tlp
-tlp-rdw
 x32edit

@@ -12,6 +12,4 @@ nvidia
 nvidia-prime
 powertop
 solaar
-tlp
-tlp-rdw
 x32edit
