@@ -1,0 +1,5 @@
+# enable autosuspend for usb
+SUBSYSTEM=="usb", TEST=="power/control", ATTR{power/control}="auto"
+
+# whitelist logitech MX master
+SUBSYSTEM=="usb", ATTR{idVendor}=="8087", ATTR{idProduct}=="0033", ATTR{power/autosuspend}="-1"

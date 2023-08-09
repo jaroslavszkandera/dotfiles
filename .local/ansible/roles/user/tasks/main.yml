@@ -18,13 +18,14 @@
     shell: /bin/zsh
     group: wheel
     groups:
-      - wireshark
-      - rfkill
-      - uucp
       - audio
+      - bumblebee
+      - docker
       - geoclue
       - openvpn
-      - docker
+      - rfkill
+      - uucp
+      - wireshark
     password: "{{ user_password }}"
     append: true
     generate_ssh_key: true

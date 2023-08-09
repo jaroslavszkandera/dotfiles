@@ -7,13 +7,14 @@
   loop:
     - NetworkManager.service
     - bluetooth.service
+    - bumblebeed.service
     - cronie.service
     - greetd.service
     - systemd-homed.service
     - docker.socket
-    - pkgfile-update.timer
     - fstrim.timer
     - pacman-clear-cache.timer
+    - pkgfile-update.timer
 
 - name: Set locales
   community.general.locale_gen:

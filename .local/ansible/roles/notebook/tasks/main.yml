@@ -1,28 +1,6 @@
 ---
-- name: Install tlp
-  community.general.pacman:
-    name: "{{ item }}"
-    state: present
-    update_cache: true
-  loop:
-    - tlp
-    - tlp-rdw
-
-- name: Enable systemd services
-  become: true
-  ansible.builtin.systemd:
-    name: "{{ item }}"
-    state: started
-    enabled: true
-  loop:
-    - tlp.service
-    - NetworkManager-dispatcher.service
-
-- name: Mask systemd services
-  become: true
-  ansible.builtin.systemd:
-    name: "{{ item }}"
-    masked: true
-  loop:
-    - systemd-rfkill.service
-    - systemd-rfkill.socket
+- name: Move power saving configs in /etc
+  ansible.builtin.copy:
+    src: etc/
+    dest: /etc/
+    mode: preserve

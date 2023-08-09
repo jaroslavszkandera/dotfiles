@@ -1,0 +1,5 @@
+# enable autosuspend for intel
+SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{power/control}="auto"
+
+# enable autosuspend for micron
+SUBSYSTEM=="pci", ATTR{vendor}=="0x1344", ATTR{device}=="0x5407", ATTR{power/control}="auto"
