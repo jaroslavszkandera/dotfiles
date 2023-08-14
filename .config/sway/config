@@ -7,6 +7,8 @@ mouse_warping output
 focus_wrapping workspace
 focus_follows_mouse no
 
+exec poweralertd
+
 # swaymsg -t get_tree
 # app_id: wayland, class/instance: x11
 for_window {
