@@ -34,7 +34,16 @@ bindsym {
 	$mod+r reload
 
 	# Exit sway (logs you out of your Wayland session)
-	$mod+Shift+x exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+	$mod+Shift+e exec swaynag \
+		-t warning \
+		-m 'What do you want to do?' \
+		-B 'Poweroff' 'systemctl poweroff' \
+		-B 'Reboot' 'systemctl reboot' \
+		-B 'Exit sway' 'swaymsg exit'
+	# Rofi power menu
+	$mod+Shift+x exec rofi -show power-menu -modi power-menu:~/.local/scripts/rofi-power-menu
+	# Rofi bluetooth menu
+	$mod+Shift+b exec --no-startup-id rofi-bluetooth
 }
 
 # Drag floating windows by holding down $mod and left mouse button.
@@ -102,6 +111,8 @@ bindsym --to-code {
 	# Note: workspaces can have any name you want, not just numbers.
 	# We just use 1-10 as the default.
 	$mod+tab workspace back_and_forth
+	ctrl+alt+$right workspace next
+	ctrl+alt+$left workspace prev
 }
 
 # Switch output
