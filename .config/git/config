@@ -1,11 +1,6 @@
 [user]
-{% if yadm.class == "work" %}
-	email = jiri.szkandera@cdn77.com
-	name = Jiri Szkandera
-{% else %}
-	email = jirik.sz@gmail.com
-	name = Jiří Szkandera
-{% endif %}
+	email = jaroslav.szk@gmail.com
+	name = Jaroslav Szkandera
 [core]
 	editor = nvim
 	excludesFile = ~/.config/git/ignore
