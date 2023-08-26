@@ -77,6 +77,10 @@ HISTSIZE=10000
 HISTFILE="${ZSH_CACHE_DIR}/history"
 HISTFILESIZE=10000
 
+# More sensible autocorrect
+unset correct_all
+setopt correct
+
 # Ctrl-u doesn't delete whole line
 bindkey \^U backward-kill-line
 

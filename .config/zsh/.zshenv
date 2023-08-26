@@ -49,7 +49,7 @@ if command -v ruby &>/dev/null; then
 fi
 
 # LF_BAT_OPTS
-export BAT_THEME='Materia-dark-compact'
+export BAT_THEME='Matchama-Dark-Azul'
 export LF_BAT_OPTS='-f'
 
 # Other
