@@ -149,3 +149,4 @@ configuration {
 }
 
 /* @theme "matcha-dark-azul" */
+@theme "monochrome"
