@@ -10,7 +10,7 @@ set {
 	$up k
 	$right l
 	# Your preferred terminal emulator
-	$term alacritty
+	$term foot
 	# Your preferred application launcher
 	# Note: pass the final command to swaymsg so that the resulting window can be opened
 	# on the original workspace that the command was run on.
@@ -285,11 +285,9 @@ bindsym --to-code {
 	XF86MonBrightnessDown exec brightness down
 	XF86MonBrightnessUp exec brightness up
 	$mod+b exec killall -SIGUSR1 waybar
-	$mod+Shift+q exec syscontrol
 	$mod+e exec unmounter
-	$mod+grave exec emojibar
 	$mod+c exec clipman pick -t rofi
-	$mod+x exec gtklock -d
+	$mod+Shift+q exec gtklock -d
 	Print exec screenshot
 	Ctrl+Print exec screenshot -w
 	Shift+Print exec screenshot -s
