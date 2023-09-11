@@ -42,7 +42,7 @@ HIST_STAMPS="yyyy-mm-dd"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(archlinux command-not-found git golang cp colorize)
+plugins=(archlinux command-not-found git golang cp colorize zsh-syntax-highlighting)
 
 ZSH_CACHE_DIR="${XDG_CACHE_HOME}/zsh"
 [ ! -d "$ZSH_CACHE_DIR" ] && mkdir -p "$ZSH_CACHE_DIR"
