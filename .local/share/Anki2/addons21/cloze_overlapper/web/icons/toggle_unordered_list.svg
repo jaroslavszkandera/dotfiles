@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="60"
+   height="60"
+   viewBox="0 0 59.999999 60.000002"
+   version="1.1"
+   id="svg8"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs2" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Aristotelis P. (Glutanimate)</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>Copyright (c) 2022 Aristotelis P. (Glutanimate)</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <dc:source>https://glutanimate.com</dc:source>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="text817"
+     style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:semi-condensed;font-size:45.3435px;line-height:1000%;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#022255;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     aria-label="[   ]"
+     transform="matrix(1.2503609,0,0,1.2503609,-7.5108286,-1336.0439)">
+    <path
+       id="path819"
+       style="fill:#022255;fill-opacity:1;stroke:none;stroke-width:0"
+       d="m 15.483714,1110.6117 v -4.3983 h -3.899538 v -27.3875 h 3.899538 v -4.3983 H 6.0069285 v 36.1841 z" />
+    <path
+       id="path821"
+       style="fill:#022255;fill-opacity:1;stroke:none;stroke-width:0"
+       d="m 44.516289,1074.4276 v 4.3983 h 3.899538 v 27.3875 h -3.899538 v 4.3983 h 9.476785 v -36.1841 z" />
+  </g>
+  <path
+     style="fill:#0e74ff;fill-opacity:1;fill-rule:evenodd;stroke:#0e74ff;stroke-width:3.83815;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 24.538706,19.1929 H 45"
+     id="path11910" />
+  <path
+     style="fill:#0e74ff;fill-opacity:1;fill-rule:evenodd;stroke:#0e74ff;stroke-width:3.83815;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 24.538706,39.1929 H 45"
+     id="path15350" />
+  <path
+     style="fill:#0e74ff;fill-opacity:1;fill-rule:evenodd;stroke:#0e74ff;stroke-width:3.83815;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 24.538706,29.1929 H 45"
+     id="path15352" />
+  <g
+     id="g1113"
+     transform="translate(-12)"
+     style="fill:#022255;fill-opacity:1">
+    <path
+       id="path854"
+       style="fill:#022255;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 29.939087,23.192899 C 32.375635,23.192899 34,21.569733 34,19.21229 c -0.0406,-2.434835 -1.705584,-4.019389 -3.979695,-4.019389 -2.274111,0 -4.020304,1.661861 -4.020304,4.01939 0,2.357443 1.705584,3.980609 3.939086,3.980608 z" />
+    <path
+       id="path866"
+       style="fill:#022255;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 29.939086,33.192899 C 32.375635,33.192899 34,31.569733 34,29.21229 33.9594,26.777455 32.294415,25.192901 30.020304,25.192901 27.746193,25.192901 26,26.854762 26,29.212291 c 0,2.357443 1.705584,3.980609 3.939086,3.980608 z" />
+    <path
+       id="path868"
+       style="fill:#022255;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 29.939086,43.192899 C 32.375635,43.192899 34,41.569733 34,39.21229 33.9594,36.777455 32.294415,35.192901 30.020304,35.192901 27.746193,35.192901 26,36.854762 26,39.212291 c 0,2.357443 1.705584,3.980609 3.939086,3.980608 z" />
+  </g>
+</svg>

@@ -2,13 +2,13 @@
 
 # Libaddon for Anki
 #
-# Copyright (C) 2018  Aristotelis P. <https//glutanimate.com/>
+# Copyright (C) 2018-2019  Aristotelis P. <https//glutanimate.com/>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version, with the additions
-# listed at the end of the accompanied license file.
+# listed at the end of the license file that accompanied this program.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -21,7 +21,7 @@
 # NOTE: This program is subject to certain additional terms pursuant to
 # Section 7 of the GNU Affero General Public License.  You should have
 # received a copy of these additional terms immediately following the
-# terms and conditions of the GNU Affero General Public License which
+# terms and conditions of the GNU Affero General Public License that
 # accompanied this program.
 #
 # If not, please request a copy through one of the means of contact
@@ -40,7 +40,7 @@ from __future__ import (absolute_import, division,
 
 from ....platform import PLATFORM
 
-from .qt import QDialog, QPushButton, QVBoxLayout, QLabel, Qt, QKeySequence
+from aqt.qt import QDialog, QPushButton, QVBoxLayout, QLabel, Qt, QKeySequence
 
 PLATFORM_MODKEY_NAMES = {
     "lin": {"meta": "Meta", "ctrl": "Ctrl",
@@ -69,7 +69,7 @@ class QKeyGrabButton(QPushButton):
     def grabKey(self):
         """Invoke key grabber"""
         grabber = QKeyGrab(self.parent())
-        ret = grabber.exec_()
+        ret = grabber.exec()
         if ret != 1:
             return
         key_string = grabber.key_string
@@ -137,6 +137,9 @@ class QKeyGrab(QDialog):
             self.shift = True
         elif key == Qt.Key_Meta:
             self.meta = True
+        else:
+            self.extra = QKeySequence(key).toString()
+            self.other = True
 
     def keyReleaseEvent(self, evt):
         """
@@ -154,11 +157,11 @@ class QKeyGrab(QDialog):
 
         # TODO: platform-specific messages
         msg = None
-        if not (self.shift or self.ctrl or self.alt or self.meta):
+        if not (self.shift or self.ctrl or self.alt or self.meta or self.other):
             msg = ("Please use at least one keyboard modifier\n"
                    "({meta}, {ctrl}, {alt}, {shift})".format(
                        **self.modkey_names))
-        if (self.shift and not (self.ctrl or self.alt or self.meta)):
+        if (self.shift and not (self.ctrl or self.alt or self.meta or self.other)):
             msg = ("Shift needs to be combined with at least one\n"
                    "other modifier ({meta}, {ctrl}, {alt})".format(
                        **self.modkey_names))

@@ -1,0 +1,9 @@
+{
+  "hotkey_generate_clozes": "Alt+Shift+C",
+  "hotkey_open_note_options": "Alt+Shift+O",
+  "hotkey_remove_cloze": "Alt+Shift+U",
+  "hotkey_toggle_ordered_list": "Ctrl+Alt+Shift+o",
+  "hotkey_toggle_unordered_list": "Ctrl+Alt+Shift+u",
+  "hotkey_cloze_multiple_lines": "Ctrl+Shift+K",
+  "hotkey_reveal_cloze_hint": "Shift+G"
+}

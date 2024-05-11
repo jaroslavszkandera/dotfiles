@@ -3,10 +3,10 @@
     "package": "cloze_overlapper",
     "ankiweb_id": "969733775",
     "author": "Glutanimate",
-    "version": "v0.4.0-alpha.0",
+    "version": "v1.0.0-dev.1-48-g43a44f7",
     "homepage": "https://github.com/glutanimate/cloze-overlapper",
     "conflicts": [
         "969733775"
     ],
-    "mod": 1549024660
+    "mod": 1703150131
 }

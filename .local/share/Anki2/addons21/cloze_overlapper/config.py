@@ -8,7 +8,7 @@
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version, with the additions
-# listed at the end of the accompanied license file.
+# listed at the end of the license file that accompanied this program
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -21,7 +21,7 @@
 # NOTE: This program is subject to certain additional terms pursuant to
 # Section 7 of the GNU Affero General Public License.  You should have
 # received a copy of these additional terms immediately following the
-# terms and conditions of the GNU Affero General Public License which
+# terms and conditions of the GNU Affero General Public License that
 # accompanied this program.
 #
 # If not, please request a copy through one of the means of contact
@@ -33,29 +33,53 @@
 Handles add-on configuration
 """
 
-from __future__ import (absolute_import, division,
-                        print_function, unicode_literals)
 
+from typing import TYPE_CHECKING, Dict, List, Optional, Tuple
+
+from anki.utils import strip_html  # 2.1.54+
 from aqt import mw
-from anki.utils import stripHTML
-
-from .libaddon.anki.configmanager import ConfigManager
 
 from .consts import *
+from .libaddon.anki.configmanager import ConfigManager
+
+if TYPE_CHECKING:
+    from typing import Literal, TypedDict
+else:
+    try:
+        from typing import Literal, TypedDict
+    except ImportError:
+        from typing_extensions import Literal, TypedDict
 
 
-def parseNoteSettings(html):
+# TODO: Refactor into explicit types
+RAW_SETTINGS_TYPE = List[Literal["all", "1", "0"]]
+RAW_OPTIONS_TYPE = List[Literal["y", "n"]]
+
+PARSED_SETTINGS_TYPE = List[Optional[int]]
+PARSED_OPTIONS_TYPE = List[bool]
+
+SETOPTS_TYPE = Tuple[PARSED_SETTINGS_TYPE, PARSED_OPTIONS_TYPE]
+
+
+def parse_note_settings(html: str,) -> SETOPTS_TYPE:
     """Return note settings. Fall back to defaults if necessary."""
-    options, settings, opts, sets = None, None, None, None
-    dflt_set, dflt_opt = config["synced"]["dflts"], config["synced"]["dflto"]
-    field = stripHTML(html)
+    settings: Optional[RAW_SETTINGS_TYPE] = None
+    options: Optional[RAW_OPTIONS_TYPE] = None
+    sets: Optional[PARSED_SETTINGS_TYPE] = None
+    opts: Optional[PARSED_OPTIONS_TYPE] = None
+
+    dflt_set: List[Optional[int]] = config["synced"]["dflts"]
+    dflt_opt: List[bool] = config["synced"]["dflto"]
+
+    field = strip_html(html)
 
     lines = field.replace(" ", "").split("|")
     if not lines:
         return (dflt_set, dflt_opt)
-    settings = lines[0].split(",")
+
+    settings = lines[0].split(",")  # type: ignore
     if len(lines) > 1:
-        options = lines[1].split(",")
+        options = lines[1].split(",")  # type: ignore
 
     if not options and not settings:
         return (dflt_set, dflt_opt)
@@ -95,27 +119,44 @@ def parseNoteSettings(html):
     return (sets, opts)
 
 
-def createNoteSettings(setopts):
+def create_note_settings(setopts: SETOPTS_TYPE) -> str:
     """Create plain text settings string"""
     set_str = ",".join(str(i) if i is not None else "all" for i in setopts[0])
     opt_str = ",".join("y" if i else "n" for i in setopts[1])
     return set_str + " | " + opt_str
 
 
+# TODO: Reconsider how to type the current config system
+
+class _SyncedConfigType(TypedDict):
+    dflts: PARSED_SETTINGS_TYPE
+    dflto: PARSED_OPTIONS_TYPE
+    flds: Dict[str, str]
+    sched: List[bool]
+    olmdls: List[str]
+    version: str
+
+
+class ConfigType(TypedDict):
+    local: None
+    synced: _SyncedConfigType
+
+
 # TODO: refactor lists into dicts
 # dflts: before, prompt, after
 # dflto: no-context-first, no-context-last, gradual ends, no full cloze
 # sched: no-siblings new, no-siblings review, auto-suspend full cloze
-config_defaults = {
+
+config_defaults: ConfigType = {
+    "local": None,  # read from config.json
     "synced": {
         "dflts": [1, 1, 0],
         "dflto": [False, False, False, False],
         "flds": OLC_FLDS,
         "sched": [True, True, False],
         "olmdls": [OLC_MODEL],
-        "version": ADDON_VERSION
+        "version": ADDON.VERSION,
     }
 }
 
-config = ConfigManager(mw, config_dict=config_defaults,
-                       conf_key="olcloze")
+config = ConfigManager(mw, config_dict=config_defaults, conf_key="olcloze")

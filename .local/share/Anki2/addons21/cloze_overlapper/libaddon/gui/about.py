@@ -2,13 +2,13 @@
 
 # Libaddon for Anki
 #
-# Copyright (C) 2018  Aristotelis P. <https//glutanimate.com/>
+# Copyright (C) 2018-2019  Aristotelis P. <https//glutanimate.com/>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version, with the additions
-# listed at the end of the accompanied license file.
+# listed at the end of the license file that accompanied this program.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -21,7 +21,7 @@
 # NOTE: This program is subject to certain additional terms pursuant to
 # Section 7 of the GNU Affero General Public License.  You should have
 # received a copy of these additional terms immediately following the
-# terms and conditions of the GNU Affero General Public License which
+# terms and conditions of the GNU Affero General Public License that
 # accompanied this program.
 #
 # If not, please request a copy through one of the means of contact
@@ -36,10 +36,7 @@ Generate 'about' info, including credits, copyright, etc.
 from __future__ import (absolute_import, division,
                         print_function, unicode_literals)
 
-from ..consts import (ADDON_NAME, LICENSE, LIBRARIES,
-                      AUTHORS, CONTRIBUTORS, MEMBERS_CREDITED, MEMBERS_TOP,
-                      QRC_PREFIX)
-
+from ..consts import ADDON
 from ..platform import ANKI20
 
 if not ANKI20:
@@ -48,7 +45,7 @@ else:
     import string
 
 libs_header = (
-    "<p>{} ships with the following open-source libraries:</p>".format(ADDON_NAME))
+    "<p>{} ships with the following third-party code:</p>".format(ADDON.NAME))
 
 html_template = """\
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
@@ -68,30 +65,42 @@ html_template = """\
 </head>
 <body>
     {title}
-    <p><span style="font-weight:600;">Credits</span></p>
+    <p><h3>Credits</h3></p>
     {authors_string}
-    <p>With patches from: <i>{contributors_string}</i></p>
     {libs_string}
     
-    <p><img src="qrc:/{qrc_prefix}/icons/heart_small.svg"/><span style=" font-weight:600;"> Thank you!</span></p>
+    <p><img src="{qrc_prefix}:icons/heart_small.svg"/><strong> Thank you!</strong></p>
     <p>My heartfelt thanks go out to everyone who has <b>supported</b> this add-on through their tips,
         contributions, or any other means. You guys rock!</p>
     <p>In particular I would like to thank all of the awesome people who support me
         on <b><a href="https://www.patreon.com/glutanimate">Patreon</a></b>, including:</p>
-    <p><i><span style="color:#aa2a4c;">{members_string}</span></i></p>
+    <div style="color:#aa2a4c;">{members_string}</div>
     <p><i>Want to be listed here?
         <b><a href="https://www.patreon.com/bePatron?u=7522179">Pledge your support on Patreon now</a></b>
         to receive all kinds of exclusive goodies!
     </i></p>
     
-    <p><span style="font-weight:600;">License</span></p>
+    <p><h3>License</h3></p>
     <p><i>{display_name}</i> is <b>free and open-source</b> software. The add-on code that runs within
         Anki is released under the {license} license, extended by a number of additional terms.
-        For more information please see the accompanied license file.</p>
+        For more information please see the license file that accompanied this program.</p>
     <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY.
         Please see the license file for more details.</p>
+    
+    {debugging}
 </body>
 </html>\
+"""
+
+debugging_template = """\
+<p><h3>Debugging</h3></p>
+<p>Please don't use any of the following features unless instructed to:</p>
+<ul>
+    <li><a href="action://debug-toggle">Toggle debugging</a></li>
+    <li><a href="action://debug-copy">Copy log to clipboard</a></li>
+    <li><a href="action://debug-open">Open log</a></li>
+    <li><a href="action://debug-clear">Clear log</a></li>
+</ul>\
 """
 
 authors_template = """\
@@ -103,34 +112,44 @@ libs_item_template = """\
 """
 
 title_template = """\
-<h3>About {display_name}</h3>\
+<h3>About {display_name} (v{version})</h3>\
 """
 
-def get_about_string(title=False):
+def getAboutString(title=False, showDebug=False):
     authors_string = "\n".join(authors_template.format(**dct)
-                               for dct in AUTHORS)
+                               for dct in ADDON.AUTHORS)
     libs_entries = "\n".join(libs_item_template.format(**dct)
-                             for dct in LIBRARIES)
+                             for dct in ADDON.LIBRARIES)
     if libs_entries:
         libs_string = "\n".join((libs_header, "<ul>", libs_entries, "</ul>"))
     else:
         libs_string = ""
-    contributors_string = ", ".join(sorted(CONTRIBUTORS, key=string.lower))
+    contributors_string = "<p>With patches from: <i>{}</i></p>".format(
+        ", ".join(sorted(ADDON.CONTRIBUTORS, key=string.lower))
+    )
 
-    members_top_string = "<b>{}</b>".format(", ".join(MEMBERS_TOP))
-    members_credited_string = ", ".join(MEMBERS_CREDITED)
-    members_string = ", ".join((members_top_string, members_credited_string))
+    members_top_string = "<b>{}</b>".format(", ".join(ADDON.MEMBERS_TOP))
+    members_credited_string = ", ".join(ADDON.MEMBERS_CREDITED)
+    members_string = "<p>{t},</p><p>{r}</p>".format(
+        t=members_top_string, r=members_credited_string)
 
     if title:
-        title_string = title_template.format(display_name=ADDON_NAME)
+        title_string = title_template.format(display_name=ADDON.NAME,
+                                             version=ADDON.VERSION)
     else:
         title_string = ""
+        
+    if showDebug:
+        debugging = debugging_template
+    else:
+        debugging = ""
 
-    return html_template.format(display_name=ADDON_NAME,
-                                license=LICENSE,
+    return html_template.format(display_name=ADDON.NAME,
+                                license=ADDON.LICENSE,
                                 title=title_string,
                                 authors_string=authors_string,
                                 libs_string=libs_string,
                                 contributors_string=contributors_string,
                                 members_string=members_string,
-                                qrc_prefix=QRC_PREFIX)
+                                qrc_prefix=ADDON.MODULE,
+                                debugging=debugging)

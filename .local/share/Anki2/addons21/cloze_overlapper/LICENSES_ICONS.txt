@@ -20,19 +20,31 @@ They are Copyright (c) 2018 Twitter, Inc and other contributors, with modificati
 
 Adapted under the [Creative Commons Attribution-ShareAlike 4.0 International license](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode) and redistributed under the same variation of GNU Affero General Public License as the source code of this program (see LICENSE file).
 
+#### Anki Icons
+
+The following icons, located under `src/cloze_overlapper/web/icons`, were extracted from Anki:
+
+- cloze_increment.svg
+- cloze_same.svg
+
+They are Copyright: Ankitects Pty Ltd and contributors. They are used under the GNU Affero General Public License, version 3.
+
 #### Other Icons
 
 **Copyright**
 
-The following icons were either based off of public domain works or designed from scratch:
+The following icons (some of which are located under `src/cloze_overlapper/web/icons`) were either based off of public domain works or designed from scratch:
 
 - options.svg
 - rate.svg
 - oc_generate.svg
 - oc_options.svg
 - oc_remove.svg
+- cloze_multiple_lines.svg
+- toggle_ordered_list.svg
+- toggle_unordered_list.svg
 
-They are Copyright (c) 2018-2019 Glutanimate.
+They are Copyright (c) 2018-2023 Glutanimate.
 
 **License**
 

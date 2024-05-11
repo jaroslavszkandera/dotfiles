@@ -2,13 +2,13 @@
 
 # Libaddon for Anki
 #
-# Copyright (C) 2018  Aristotelis P. <https//glutanimate.com/>
+# Copyright (C) 2018-2019  Aristotelis P. <https//glutanimate.com/>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version, with the additions
-# listed at the end of the accompanied license file.
+# listed at the end of the license file that accompanied this program.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -21,7 +21,7 @@
 # NOTE: This program is subject to certain additional terms pursuant to
 # Section 7 of the GNU Affero General Public License.  You should have
 # received a copy of these additional terms immediately following the
-# terms and conditions of the GNU Affero General Public License which
+# terms and conditions of the GNU Affero General Public License that
 # accompanied this program.
 #
 # If not, please request a copy through one of the means of contact
@@ -34,7 +34,7 @@ Contributions diaog
 
 Uses the following addon-level constants, if defined:
 
-ADDON_NAME, MAIL_AUTHOR, LINKS
+ADDON.NAME, ADDON.AUTHOR_MAIL, ADDON.LINKS
 """
 
 from __future__ import (absolute_import, division,
@@ -42,13 +42,13 @@ from __future__ import (absolute_import, division,
 
 from aqt.utils import openLink
 
-from ..consts import MAIL_AUTHOR, LINKS, ADDON_NAME
+from ..consts import ADDON
 
 from .basic.dialog_basic import BasicDialog
 from .labelformatter import formatLabels
 
 from .dialog_htmlview import HTMLViewer
-from .about import get_about_string
+from .about import getAboutString
 
 
 class ContribDialog(BasicDialog):
@@ -65,7 +65,7 @@ class ContribDialog(BasicDialog):
             form_module {PyQt form module} -- PyQt dialog form outlining the UI
 
         Provided Qt form should contain the following widgets:
-            QPushButton: btnMail, btnCoffee, btnPatreon, btnCredits
+            QPushButton: btnPatreon, btnCredits
 
         Keyword Arguments:
             parent {QWidget} -- Parent Qt widget (default: {None})
@@ -81,20 +81,15 @@ class ContribDialog(BasicDialog):
         """
         Connect button presses to actions
         """
-        mail_string = "mailto:{}".format(MAIL_AUTHOR)
-        self.form.btnMail.clicked.connect(
-            lambda: openLink(mail_string))
-        self.form.btnCoffee.clicked.connect(
-            lambda: openLink(LINKS["coffee"]))
         self.form.btnPatreon.clicked.connect(
-            lambda: openLink(LINKS["patreon"]))
+            lambda: openLink(ADDON.LINKS["patreon"]))
         self.form.btnCredits.clicked.connect(
             self._showCredits)
 
     def _showCredits(self):
-        viewer = HTMLViewer(get_about_string(title=True),
-                            title=ADDON_NAME, parent=self)
-        viewer.exec_()
+        viewer = HTMLViewer(getAboutString(title=True),
+                            title=ADDON.NAME, parent=self)
+        viewer.exec()
 
     def _linkHandler(self, url):
         """Support for binding custom actions to text links"""
@@ -102,4 +97,4 @@ class ContribDialog(BasicDialog):
             return openLink(url)
         protocol, cmd = url.split("://")
         if cmd == "installed-addons":
-            print("invoking installed addons dialog")
+            openLink("https://ankiweb.net/shared/byauthor/1771074083")

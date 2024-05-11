@@ -2,13 +2,13 @@
 
 # Libaddon for Anki
 #
-# Copyright (C) 2018  Aristotelis P. <https//glutanimate.com/>
+# Copyright (C) 2018-2019  Aristotelis P. <https//glutanimate.com/>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version, with the additions
-# listed at the end of the accompanied license file.
+# listed at the end of the license file that accompanied this program.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -21,7 +21,7 @@
 # NOTE: This program is subject to certain additional terms pursuant to
 # Section 7 of the GNU Affero General Public License.  You should have
 # received a copy of these additional terms immediately following the
-# terms and conditions of the GNU Affero General Public License which
+# terms and conditions of the GNU Affero General Public License that
 # accompanied this program.
 #
 # If not, please request a copy through one of the means of contact
@@ -35,6 +35,8 @@ Miscellaneuos utilities used around libaddon
 
 from __future__ import (absolute_import, division,
                         print_function, unicode_literals)
+
+import os
 
 from functools import reduce
 from copy import deepcopy
@@ -200,3 +202,26 @@ def deepMergeDicts(original, incoming, new=False):
             result[key] = incoming[key]
 
     return result
+
+
+# File system manipulation
+
+def ensureExists(path):
+    if not os.path.exists(path):
+        os.makedirs(path)
+    return path
+
+
+def openFile(path):
+    """Open file in default viewer"""
+    import subprocess
+    from .platform import PLATFORM
+    if PLATFORM == "win":
+        try:
+            os.startfile(path)
+        except (OSError, UnicodeDecodeError):
+            pass
+    elif PLATFORM == "mac":
+        subprocess.call(('open', path))
+    else:
+        subprocess.call(("xdg-open", path))
