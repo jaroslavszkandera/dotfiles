@@ -12,7 +12,7 @@ vim.opt.expandtab = true
 vim.opt.wrap = true
 
 -- smart wrap
-vim.opt.wrap = false
+vim.opt.linebreak = true 
 
 -- forbid backups
 vim.opt.swapfile = false
