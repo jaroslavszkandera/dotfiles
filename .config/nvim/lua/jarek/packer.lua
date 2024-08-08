@@ -16,23 +16,10 @@ return require('packer').startup(function(use)
     end
   })
 
-  -- use ({'catppuccin/nvim',
-  --       as = 'catppucin',
-  --     config = function()
-  --     vim.cmd('colorscheme catppuccin-latte')
-  --   end
-  -- })
-
   use{'neoclide/coc.nvim', branch = 'release'}
   use('theprimeagen/harpoon')
   use('mbbill/undotree')
-  use('tpope/vim-fugitive')
   use('christoomey/vim-tmux-navigator')
   use('tpope/vim-commentary')
-  use {
-    'github/copilot.vim',
-    config = function()
-      vim.g.copilot_enabled = false
-    end
-  }
+  use('nvim-treesitter/nvim-treesitter')
 end)
