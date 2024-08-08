@@ -1,4 +1,3 @@
-vim.g.mapleader = " "
 -- while in normal mode, press "<leader>pv" it will execute this command
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 

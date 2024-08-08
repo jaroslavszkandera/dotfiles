@@ -8,19 +8,13 @@ vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 
--- automatically wrap text to another line
+-- automatically wrap text to another line and smart wrap
 vim.opt.wrap = true
+vim.opt.linebreak = true
 
--- smart wrap
-vim.opt.linebreak = true 
-
--- forbid backups
-vim.opt.swapfile = false
-vim.opt.backup = false
-
--- undotree for days
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
-vim.opt.undofile = true
+-- undotree
+-- vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+-- vim.opt.undofile = true
 
 -- highlighting incremental search
 vim.opt.hlsearch = true
@@ -29,6 +23,7 @@ vim.opt.incsearch = true
 -- good colors
 vim.opt.termguicolors = true
 
+-- TODO: fix first <Ctrl+d> screen tear
 -- never have less than 8 line from bottom/top
 vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
