@@ -3,7 +3,10 @@
   "coc.preferences.formatOnType": true,
   "coc.preferences.formatOnSave": true,
   "coc.preferences.extensionUpdateCheck": "daily",
-  "python.formatting.provider": "autopep8",
+  "diagnostic.checkCurrentLine": true,
+  "diagnostic.virtualText": true,
+  "diagnostic.virtualTextCurrentLineOnly": false,
+  "python.formatting.provider": "ruff",
   "python.formatting.autopep8Args": [
     "--aggressive"
   ],
@@ -13,9 +16,8 @@
     "${XDG_CONFIG_HOME}/flake8"
   ],
   "python.analysis.useLibraryCodeForTypes": true,
-  "python.analysis.diagnosticSeverityOverrides": {
-    "reportGeneralTypeIssues": "none"
-  },
+  "pyright.inlayHints.parameterTypes": false,
+  "pyright.inlayHints.variableTypes": false,
   "pyright.testing.provider": "pytest",
   "clangd.compilationDatabaseCandidates": [
     "${workspaceFolder}"

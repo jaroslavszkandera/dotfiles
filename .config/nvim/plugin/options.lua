@@ -34,3 +34,6 @@ vim.opt.updatetime = 50
 
 -- enable system clipboard
 vim.o.clipboard = "unnamedplus"
+
+-- save undo history
+vim.opt.undofile = true
