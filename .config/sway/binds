@@ -10,7 +10,7 @@ set {
 	$up k
 	$right l
 	# Your preferred terminal emulator
-	$term foot
+	$term alacritty
 	# Your preferred application launcher
 	# Note: pass the final command to swaymsg so that the resulting window can be opened
 	# on the original workspace that the command was run on.
@@ -23,6 +23,9 @@ set {
 bindsym {
 	# Start a terminal
 	$mod+Shift+Space exec $term
+
+  # Start a browser
+  $mod+b exec firefox
 
 	# Kill focused window
 	$mod+q kill
@@ -40,10 +43,15 @@ bindsym {
 		-B 'Poweroff' 'systemctl poweroff' \
 		-B 'Reboot' 'systemctl reboot' \
 		-B 'Exit sway' 'swaymsg exit'
+
 	# Rofi power menu
 	$mod+Shift+x exec rofi -show power-menu -modi power-menu:~/.local/scripts/rofi-power-menu
+
 	# Rofi bluetooth menu
 	$mod+Shift+b exec --no-startup-id rofi-bluetooth
+
+  # Rofi ssh menu
+  $mod+Shift+n exec rofi -show ssh
 }
 
 # Drag floating windows by holding down $mod and left mouse button.
@@ -272,7 +280,7 @@ bindsym $mod+Ctrl+m mode $mode_pull_mark
 #
 # System
 #
-bindsym --to-code {
+bindsym --to-code --locked {
 	$mod+bracketleft exec audio prev
 	$mod+bracketright exec audio next
 	XF86AudioPrev exec audio prev
@@ -284,7 +292,7 @@ bindsym --to-code {
 	XF86AudioRaiseVolume exec audio raise
 	XF86MonBrightnessDown exec brightness down
 	XF86MonBrightnessUp exec brightness up
-	$mod+b exec killall -SIGUSR1 waybar
+	# $mod+b exec killall -SIGUSR1 waybar
 	$mod+e exec unmounter
 	$mod+c exec clipman pick -t rofi
 	$mod+Shift+q exec gtklock -d
