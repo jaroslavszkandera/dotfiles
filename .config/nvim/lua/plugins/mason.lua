@@ -29,6 +29,7 @@ return {
 				"stylua",
 				"clang-format",
 				"ruff",
+				"cpplint",
 			},
 		})
 	end,
