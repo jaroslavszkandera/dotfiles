@@ -1,0 +1,34 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """
+$directory\
+$git_branch\
+$git_status\
+$rust\
+$golang\
+$character"""
+
+add_newline = false
+
+[character]
+success_symbol="[\\$](bold blue)"
+error_symbol="[\\$](bold blue)"
+
+[directory]
+style = "bold blue"
+format = "[$path ]($style)"
+truncation_length = -1
+
+[git_branch]
+format = '[\[$branch ](fg:bold yellow)'
+
+[git_status]
+format = '[($all_status$ahead_behind\] )](fg:bold yellow)'
+
+[rust]
+style = "bg:#212736"
+format = '[[ ($version) ](fg:#769ff0 bg:#212736)]($style)'
+
+[golang]
+style = "bg:#212736"
+format = '[[ ($version) ](fg:#769ff0 bg:#212736)]($style)'

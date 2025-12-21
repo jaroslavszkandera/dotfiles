@@ -4,7 +4,7 @@
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="robbyrussell"
+ZSH_THEME=""
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -42,32 +42,19 @@ HIST_STAMPS="yyyy-mm-dd"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(archlinux command-not-found git golang cp colorize zsh-syntax-highlighting)
+plugins=(archlinux command-not-found git golang cp colorize colored-man-pages)
 
 ZSH_CACHE_DIR="${XDG_CACHE_HOME}/zsh"
 [ ! -d "$ZSH_CACHE_DIR" ] && mkdir -p "$ZSH_CACHE_DIR"
-#source /usr/share/oh-my-zsh/oh-my-zsh.sh
-source ~/.oh-my-zsh/oh-my-zsh.sh
+source /usr/share/oh-my-zsh/oh-my-zsh.sh
+#source ~/.oh-my-zsh/oh-my-zsh.sh
 
 
 # User configuration
-#source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 
 [ -f "${XDG_CONFIG_HOME}/zsh/.aliases" ]   && source "${XDG_CONFIG_HOME}/zsh/.aliases"
 [ -f "${XDG_CONFIG_HOME}/zsh/.functions" ] && source "${XDG_CONFIG_HOME}/zsh/.functions"
-
-# Prompt
-GIT_PS1_SHOWDIRTYSTATE=1
-GIT_PS1_SHOWSTASHSTATE=1
-GIT_PS1_SHOWUNTRACKEDFILES=1
-GIT_PS1_SHOWUPSTREAM="auto verbose"
-. /usr/share/git/completion/git-prompt.sh
-
-if [ "${EUID}" -eq 0 ]; then
-	PS1='%{$fg_bold[red]%}%~ %{$fg_bold[yellow]%}$(__git_ps1 "[%s]")%{$fg_bold[red]%}$ %{$reset_color%}'
-else
-	PS1='%{$fg_bold[blue]%}%~ %{$fg_bold[yellow]%}$(__git_ps1 "[%s]")%{$fg_bold[blue]%}$ %{$reset_color%}'
-fi
 
 # History
 setopt histignoredups
@@ -81,10 +68,13 @@ HISTFILESIZE=10000
 unset correct_all
 setopt correct
 
+# Environment
+eval "$(dircolors)"
+
+# Prompt
+eval "$(starship init zsh)"
+
 # Ctrl-u doesn't delete whole line
 bindkey \^U backward-kill-line
-
-# Other
-eval "$(dircolors)"
 
 [ -z "$TMUX" ] && [ -z "$SSH_CLIENT" ] && (tmux-init; tmux attach -t general)
