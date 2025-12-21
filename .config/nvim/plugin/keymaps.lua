@@ -30,7 +30,7 @@ vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 vim.keymap.set("n", "<leader><leader>", function()
-  vim.cmd("so") -- source the file
+	vim.cmd("so") -- source the file
 end)
 
 -- mute highlights
@@ -56,10 +56,10 @@ vim.keymap.set("c", "<A-j>", "<C-\\><C-n>:TmuxNavigateDown<CR>")
 vim.keymap.set("c", "<A-k>", "<C-\\><C-n>:TmuxNavigateUp<CR>")
 vim.keymap.set("c", "<A-l>", "<C-\\><C-n>:TmuxNavigateRight<CR>")
 
-if vim.fn.has('nvim') then
-  vim.keymap.set("t", "<A-h>", "<C-\\><C-n>:TmuxNavigateLeft<CR>")
-  vim.keymap.set("t", "<A-j>", "<C-\\><C-n>:TmuxNavigateDown<CR>")
-  vim.keymap.set("t", "<A-k>", "<C-\\><C-n>:TmuxNavigateUp<CR>")
-  vim.keymap.set("t", "<A-l>", "<C-\\><C-n>:TmuxNavigateRight<CR>")
-  vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
+if vim.fn.has("nvim") then
+	vim.keymap.set("t", "<A-h>", "<C-\\><C-n>:TmuxNavigateLeft<CR>")
+	vim.keymap.set("t", "<A-j>", "<C-\\><C-n>:TmuxNavigateDown<CR>")
+	vim.keymap.set("t", "<A-k>", "<C-\\><C-n>:TmuxNavigateUp<CR>")
+	vim.keymap.set("t", "<A-l>", "<C-\\><C-n>:TmuxNavigateRight<CR>")
+	vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
 end

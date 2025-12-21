@@ -16,6 +16,10 @@ vim.opt.linebreak = true
 -- vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 -- vim.opt.undofile = true
 
+-- search settings
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+
 -- highlighting incremental search
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
