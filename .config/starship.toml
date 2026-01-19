@@ -23,7 +23,7 @@ truncation_length = -1
 format = '[\[$branch ](fg:bold yellow)'
 
 [git_status]
-format = '[($all_status$ahead_behind\] )](fg:bold yellow)'
+format = '[($all_status$ahead_behind)\] ](fg:bold yellow)'
 
 [rust]
 style = "bg:#212736"
