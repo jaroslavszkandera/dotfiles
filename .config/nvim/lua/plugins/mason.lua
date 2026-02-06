@@ -35,6 +35,7 @@ return {
 				"stylua",
 				"clang-format",
 				"cpplint",
+				"taplo",
 			},
 		})
 	end,

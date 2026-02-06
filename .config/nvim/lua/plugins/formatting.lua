@@ -15,6 +15,7 @@ return {
 					css = { "prettier" },
 					javascript = { "prettier" },
 					json = { "prettier" },
+					toml = { "taplo" },
 				},
 
 				format_on_save = function(bufnr)
