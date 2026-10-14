@@ -1,0 +1,11 @@
+theme = Iceberg Dark
+#theme = Alabaster
+font-family = "Roboto Mono"
+font-style = "Regular"
+font-size = 11
+
+confirm-close-surface = false
+resize-overlay = never
+
+keybind = ctrl+shift+page_down=unbind
+keybind = ctrl+shift+page_up=unbind
