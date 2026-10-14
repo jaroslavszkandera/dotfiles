@@ -41,3 +41,7 @@ vim.o.clipboard = "unnamedplus"
 
 -- save undo history
 vim.opt.undofile = true
+
+-- autocomplete
+-- vim.o.autocomplete = true
+-- vim.o.completeopt = "menuone,popup,fuzzy,preview"

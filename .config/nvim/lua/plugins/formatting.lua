@@ -9,13 +9,21 @@ return {
 					lua = { "stylua" },
 					cpp = { "clang-format" },
 					-- cmake = { "cmakelang" },
-					python = { "ruff_format", "ruff_fix", "ruff_organize_imports" },
+					python = { "ruff_format", "ruff_organize_imports" }, -- removes the imports
+					-- python = { "ruff_format", "ruff_fix", "ruff_organize_imports" },
 					latex = { "tex-fmt" },
 					html = { "prettier" },
 					css = { "prettier" },
 					javascript = { "prettier" },
 					json = { "prettier" },
 					toml = { "taplo" },
+					nix = { "alejandra" },
+				},
+
+				formatters = {
+					["clang-format"] = {
+						command = "clang-format",
+					},
 				},
 
 				format_on_save = function(bufnr)

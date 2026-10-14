@@ -1,40 +1,40 @@
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
-		event = { "BufReadPre", "BufNewFile" },
+		branch = "main",
 		build = ":TSUpdate",
-		config = function()
-			require("nvim-treesitter.configs").setup({
-				highlight = {
-					enable = true,
-					additional_vim_regex_highlighting = false,
-				},
-				-- indent = { enable = true },
-				ensure_installed = {
-					"lua",
-					"c",
-					"cpp",
-					"python",
-					"rust",
-					"go",
-					"bash",
-					"gitignore",
-					"markdown",
-					"markdown_inline",
-					"json",
-					"vim",
-					"vimdoc",
-				},
-				incremental_selection = {
-					enable = true,
-					keymaps = {
-						init_selection = "<C-space>",
-						node_incremental = "<C-space>",
-						scope_incremental = false,
-						node_decremental = "<bs>",
-					},
-				},
-			})
-		end,
+		event = { "BufReadPost", "BufNewFile" },
+		main = "nvim-treesitter.config",
+		opts = {
+			ensure_installed = {
+				"rust",
+				"python",
+				"cpp",
+				"c",
+				"lua",
+				"vim",
+				"vimdoc",
+				"query",
+				"toml",
+				"json",
+				"yaml",
+				"markdown",
+				"bash",
+				"cmake",
+				"ninja",
+			},
+			auto_install = true,
+			highlight = { enable = true },
+			indent = { enable = true },
+		},
+	},
+	{
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		event = { "BufReadPost", "BufNewFile" },
+	},
+	{
+		"nvim-treesitter/nvim-treesitter-context",
+		event = { "BufReadPost", "BufNewFile" },
+		opts = { enable = true, max_lines = 3 },
 	},
 }

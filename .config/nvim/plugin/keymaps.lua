@@ -1,28 +1,21 @@
--- while in normal mode, press "<leader>pv" it will execute this command
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
--- move things in visual mode
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
--- movement settings
 vim.keymap.set("n", "J", "mzJ`z")
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
--- replace with paste or delete without losing the register
 vim.keymap.set("x", "<leader>p", [["_dP]])
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 
--- format the code
-vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
+vim.keymap.set("n", "<leader>f", function()
+	require("conform").format({ lsp_fallback = true, async = false, timeout_ms = 1000 })
+end, { desc = "Format code" })
 
--- TODO
--- navigate quickfix or location list
--- vim.keymap.set("n", "<C-k>", "<cmd>lnext<CR>zz")
--- vim.keymap.set("n", "<C-j>", "<cmd>lprev<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<leader>k", "<cmd>cprev<CR>zz")
 
@@ -30,14 +23,11 @@ vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 vim.keymap.set("n", "<leader><leader>", function()
-	vim.cmd("so") -- source the file
+	vim.cmd("so")
 end)
 
--- mute highlights
-vim.keymap.set("n", "<leader>l", ":noh<CR><c-lvigateUp")
--- vim.keymap.set("n", "<C-l>", ":noh<CR><c-lvigateUp") -- does not function
+vim.keymap.set("n", "<C-l>", ":noh<CR>")
 
--- tmux navigator
 vim.keymap.set("n", "<A-h>", ":TmuxNavigateLeft<CR>")
 vim.keymap.set("n", "<A-j>", ":TmuxNavigateDown<CR>")
 vim.keymap.set("n", "<A-k>", ":TmuxNavigateUp<CR>")
@@ -63,3 +53,51 @@ if vim.fn.has("nvim") then
 	vim.keymap.set("t", "<A-l>", "<C-\\><C-n>:TmuxNavigateRight<CR>")
 	vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
 end
+
+vim.keymap.set("n", "<leader>e", function()
+	Snacks.explorer()
+end, { desc = "File Explorer" })
+vim.keymap.set("n", "<leader>ff", function()
+	Snacks.picker.files()
+end, { desc = "Find Files" })
+vim.keymap.set("n", "<leader>fg", function()
+	Snacks.picker.grep()
+end, { desc = "Live Grep" })
+vim.keymap.set("n", "<leader>fb", function()
+	Snacks.picker.buffers()
+end, { desc = "Buffers" })
+vim.keymap.set("n", "<leader>fh", function()
+	Snacks.picker.help()
+end, { desc = "Help Tags" })
+vim.keymap.set("n", "<leader>fr", function()
+	Snacks.picker.recent()
+end, { desc = "Recent Files" })
+vim.keymap.set("n", "<leader>sd", function()
+	Snacks.picker.diagnostics()
+end, { desc = "Diagnostics" })
+vim.keymap.set("n", "<leader>ss", function()
+	Snacks.picker.lsp_symbols()
+end, { desc = "LSP Symbols" })
+vim.keymap.set("n", "<leader>g", function()
+	Snacks.lazygit()
+end, { desc = "Lazygit" })
+vim.keymap.set("n", "<leader>n", function()
+	Snacks.notifier.show_history()
+end, { desc = "Notifications" })
+
+vim.keymap.set("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<CR>", { desc = "Diagnostics (Trouble)" })
+vim.keymap.set("n", "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<CR>", { desc = "Buffer Diagnostics" })
+vim.keymap.set("n", "<leader>cs", "<cmd>Trouble symbols toggle<CR>", { desc = "Symbols" })
+vim.keymap.set("n", "<leader>cl", "<cmd>Trouble lsp toggle<CR>", { desc = "LSP Definitions/References" })
+vim.keymap.set("n", "<leader>xL", "<cmd>Trouble loclist toggle<CR>", { desc = "Location List" })
+vim.keymap.set("n", "<leader>xQ", "<cmd>Trouble qflist toggle<CR>", { desc = "Quickfix List" })
+
+vim.keymap.set("n", "<leader>?", function()
+	require("which-key").show({ global = false })
+end, { desc = "Buffer Keymaps" })
+
+vim.keymap.set("n", "<leader>ac", "<cmd>CodeCompanionChat<CR>", { desc = "CodeCompanion Chat" })
+vim.keymap.set("v", "<leader>ac", "<cmd>CodeCompanionChat<CR>", { desc = "CodeCompanion Chat" })
+vim.keymap.set("n", "<leader>ae", "<cmd>CodeCompanion<CR>", { desc = "CodeCompanion Inline Edit" })
+vim.keymap.set("v", "<leader>ae", "<cmd>CodeCompanion<CR>", { desc = "CodeCompanion Inline Edit" })
+vim.keymap.set("n", "<leader>af", "<cmd>CodeCompanionCmd<CR>", { desc = "CodeCompanion Cmd" })

@@ -5,11 +5,9 @@ return {
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
 			{ "antosha417/nvim-lsp-file-operations", config = true },
-			{ "folke/neodev.nvim", opts = {} },
 		},
 		config = function()
 			local lspconfig = require("lspconfig")
-			local mason_lspconfig = require("mason-lspconfig")
 			local cmp_nvim_lsp = require("cmp_nvim_lsp")
 			local keymap = vim.keymap
 			local capabilities = cmp_nvim_lsp.default_capabilities()
@@ -17,15 +15,10 @@ return {
 			vim.lsp.config("lua_ls", {
 				settings = {
 					Lua = {
-						runtime = {
-							version = "LuaJIT",
-						},
-						diagnostics = {
-							globals = {
-								"vim",
-								"require",
-							},
-						},
+						runtime = { version = "LuaJIT" },
+						diagnostics = { globals = { "vim", "require" } },
+						workspace = { checkThirdParty = false },
+						telemetry = { enable = false },
 					},
 				},
 			})
@@ -36,7 +29,9 @@ return {
 					basedpyright = {
 						analysis = {
 							typeCheckingMode = "basic",
-							ignore = { "*" },
+							diagnosticMode = "workspace",
+							inlayHints = { variableTypes = true, callArgumentNames = true },
+							autoImportCompletions = true,
 						},
 					},
 				},
@@ -53,43 +48,110 @@ return {
 				end,
 			})
 
-			mason_lspconfig.setup({
-				ensure_installed = {
-					"ruff",
-					"basedpyright",
-					"lua_ls",
-					"clangd",
-					"rust_analyzer",
-					"bashls",
-					"neocmake",
+			vim.lsp.config("rust_analyzer", {
+				capabilities = capabilities,
+				settings = {
+					["rust-analyzer"] = {
+						cargo = { allFeatures = true, loadOutDirsFromCheck = true },
+						procMacro = { enable = true },
+						checkOnSave = { enable = true },
+						inlayHints = {
+							bindingModeHints = { enable = true },
+							chainingHints = { enable = true },
+							closureReturnTypeHints = { enable = true },
+							lifetimeElisionHints = { enable = "always" },
+							renderColons = true,
+						},
+						diagnostics = {
+							enable = true,
+							disabled = { "unresolved-proc-macro" },
+							enableExperimental = true,
+						},
+						files = { excludeDirs = { ".git", "target", "node_modules" } },
+					},
 				},
-				automatic_enable = true, -- Replaces handlers/setup_handlers
 			})
+
+			vim.lsp.config("clangd", {
+				capabilities = capabilities,
+				cmd = {
+					"clangd",
+					"--background-index",
+					"--clang-tidy",
+					"--header-insertion=iwyu",
+					"--completion-style=detailed",
+					"--function-arg-placeholders",
+					"--fallback-style=llvm",
+				},
+				init_options = {
+					usePlaceholders = true,
+					completeUnimported = true,
+					clangdFileStatus = true,
+				},
+			})
+
+			vim.lsp.config("bashls", { capabilities = capabilities })
+			vim.lsp.config("neocmake", { capabilities = capabilities })
+			vim.lsp.config("taplo", { capabilities = capabilities })
+			vim.lsp.config("ltex_plus", {
+				capabilities = capabilities,
+				filetypes = { "tex", "bib", "markdown" },
+				settings = {
+					ltex = {
+						language = "en-US",
+						latex = { environments = { itemize = "ignore", enumerate = "ignore" } },
+						disabledRules = { ["en-US"] = { "WHITESPACE_RULE", "EN_QUOTES" } },
+						dictionary = {
+							["en-US"] = {
+								"keymaps",
+								"keymap",
+								"nvim",
+								"lazy",
+								"lsp",
+								"treesitter",
+								"conform",
+								"harpoon",
+								"telescope",
+							},
+						},
+						hiddenFalsePositives = {},
+					},
+				},
+				on_attach = function(client, bufnr)
+					vim.opt_local.spell = true
+				end,
+			})
+
+			vim.lsp.enable("rust_analyzer")
+			vim.lsp.enable("ltex_plus")
 
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 				callback = function(ev)
-					-- Buffer local mappings.
-					-- See `:help vim.lsp.*` for documentation on any of the below functions
 					local opts = { buffer = ev.buf, silent = true }
 
 					opts.desc = "Show LSP references"
-					keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts)
+					keymap.set("n", "gR", function()
+						Snacks.picker.lsp_references()
+					end, opts)
 
 					opts.desc = "Go to declaration"
 					keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
 
 					opts.desc = "Show LSP definitions"
-					keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
+					keymap.set("n", "gd", function()
+						Snacks.picker.lsp_definitions()
+					end, opts)
 
 					opts.desc = "Show LSP implementations"
-					keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
+					keymap.set("n", "gi", function()
+						Snacks.picker.lsp_implementations()
+					end, opts)
 
 					opts.desc = "Show LSP type definitions"
-					keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
-
-					-- opts.desc = "See available code actions"
-					-- keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
+					keymap.set("n", "gt", function()
+						Snacks.picker.lsp_type_definitions()
+					end, opts)
 
 					opts.desc = "Fix diagnostic"
 					keymap.set("n", "<leader>ca", function()
@@ -100,16 +162,22 @@ return {
 					keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
 
 					opts.desc = "Show buffer diagnostics"
-					keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
+					keymap.set("n", "<leader>D", function()
+						Snacks.picker.diagnostics({ bufnr = 0 })
+					end, opts)
 
 					opts.desc = "Show line diagnostics"
 					keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
 
 					opts.desc = "Go to previous diagnostic"
-					keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
+					keymap.set("n", "[d", function()
+						vim.diagnostic.jump({ count = -1 })
+					end, opts)
 
 					opts.desc = "Go to next diagnostic"
-					keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+					keymap.set("n", "]d", function()
+						vim.diagnostic.jump({ count = 1 })
+					end, opts)
 
 					opts.desc = "Show documentation for what is under cursor"
 					keymap.set("n", "K", vim.lsp.buf.hover, opts)
@@ -118,24 +186,30 @@ return {
 					keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts)
 				end,
 			})
-		end,
 
-		vim.diagnostic.config({
-			virtual_text = {
-				source = "always",
-				format = function(diagnostic)
-					return string.format("%s %s", diagnostic.severity, diagnostic.message)
-				end,
-			},
-			signs = true,
-			update_in_insert = false,
-			severity_sort = true,
-			float = {
-				-- border = "rounded",
-				source = "always",
-				header = "",
-				prefix = "",
-			},
-		}),
+			vim.diagnostic.config({
+				virtual_text = {
+					source = "always",
+					format = function(diagnostic)
+						return string.format("%s %s", diagnostic.severity, diagnostic.message)
+					end,
+				},
+				signs = true,
+				update_in_insert = false,
+				severity_sort = true,
+				float = {
+					source = "always",
+					header = "",
+					prefix = "",
+				},
+			})
+		end,
+	},
+	{
+		"folke/lazydev.nvim",
+		ft = "lua",
+		opts = {
+			library = { { path = "${3rd}/luv/library", words = { "vim%.uv" } } },
+		},
 	},
 }
